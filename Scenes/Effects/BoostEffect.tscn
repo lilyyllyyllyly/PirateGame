@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://cls58w461gqat"]
+
+[ext_resource type="Texture2D" uid="uid://bmcku6j4etfwh" path="res://Sprites/Effects/boosteffect.png" id="1_fbq7n"]
+[ext_resource type="Script" path="res://Scripts/Particle.gd" id="2_hscth"]
+
+[sub_resource type="Gradient" id="Gradient_uou2x"]
+offsets = PackedFloat32Array(0, 0.633333, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qswib"]
+gradient = SubResource("Gradient_uou2x")
+
+[sub_resource type="Curve" id="Curve_r4pck"]
+_data = [Vector2(0, 1), 0.0, -0.807655, 0, 0, Vector2(0.995261, 0.484211), -0.158646, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_g6tuj"]
+curve = SubResource("Curve_r4pck")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_txgb1"]
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 350.0
+initial_velocity_max = 350.0
+gravity = Vector3(0, 0, 0)
+damping_min = 1500.0
+damping_max = 1500.0
+scale_curve = SubResource("CurveTexture_g6tuj")
+color_ramp = SubResource("GradientTexture1D_qswib")
+
+[node name="BoostEffect" type="GPUParticles2D"]
+texture_filter = 1
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_txgb1")
+texture = ExtResource("1_fbq7n")
+lifetime = 0.25
+one_shot = true
+explosiveness = 1.0
+script = ExtResource("2_hscth")

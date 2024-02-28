@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://dnf3ma84l7881"]
+
+[ext_resource type="PackedScene" uid="uid://d3hqdk77sg32n" path="res://Scenes/Player.tscn" id="1_s0pd8"]
+[ext_resource type="PackedScene" uid="uid://lbk0irkrw228" path="res://Scenes/Water.tscn" id="2_5kyod"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pg28c"]
+size = Vector2(10, 10)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ep3fm"]
+width = 10
+height = 10
+
+[node name="Main" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_s0pd8")]
+position = Vector2(145, 102)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-0.999992, 447)
+scale = Vector2(60, 59.04)
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_pg28c")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+texture = SubResource("NoiseTexture2D_ep3fm")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(701, 595)
+scale = Vector2(84.36, 14.12)
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+shape = SubResource("RectangleShape2D_pg28c")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
+texture = SubResource("NoiseTexture2D_ep3fm")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(1065, 400)
+scale = Vector2(20, 51.08)
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+shape = SubResource("RectangleShape2D_pg28c")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3"]
+texture = SubResource("NoiseTexture2D_ep3fm")
+
+[node name="Water" parent="." instance=ExtResource("2_5kyod")]
+position = Vector2(638, 365)
+scale = Vector2(80, 40)
