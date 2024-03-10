@@ -25,6 +25,7 @@ height = 14.0
 
 [sub_resource type="Animation" id="Animation_cpta1"]
 resource_name = "RESET"
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -48,6 +49,34 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, -2)]
+}
+
+[sub_resource type="Animation" id="Animation_fv0hq"]
+resource_name = "player-float"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("10_01o7i"), ExtResource("11_ku8ue")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 0.3, 0.3),
+"update": 0,
+"values": [Vector2(0, -2), Vector2(0, 0), Vector2(0, -2)]
 }
 
 [sub_resource type="Animation" id="Animation_c5fua"]
@@ -99,34 +128,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [ExtResource("6_p7tqd"), ExtResource("7_8w7j3"), ExtResource("8_4npda"), ExtResource("9_s8rm1")]
-}
-
-[sub_resource type="Animation" id="Animation_fv0hq"]
-resource_name = "player-float"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.6),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [ExtResource("10_01o7i"), ExtResource("11_ku8ue")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:offset")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.6, 0.9),
-"transitions": PackedFloat32Array(1, 0.3, 0.3),
-"update": 0,
-"values": [Vector2(0, -2), Vector2(0, 0), Vector2(0, -2)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5elcj"]
@@ -199,9 +200,7 @@ script = ExtResource("5_hhuhv")
 mover_path = NodePath("..")
 animator_path = NodePath("../AnimationPlayer")
 ground_move_path = NodePath("../GroundMovement")
-ground_input_path = NodePath("../GroundMovement/GroundInput")
 water_move_path = NodePath("../WaterMovement")
-water_input_path = NodePath("../WaterMovement/WaterInput")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterChecker"]
 position = Vector2(-0.5, -2.5)

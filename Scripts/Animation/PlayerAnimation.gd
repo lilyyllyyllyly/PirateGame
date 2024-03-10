@@ -11,19 +11,24 @@ class_name PlayerAnimation extends AnimationPlayer
 
 var in_water
 
+func play_reset(anim):
+	if current_animation != anim:
+		play("RESET")
+		queue(anim)
+
 func _process(delta):
 	sprite.flip_h = input.direction.x < 0 || (input.direction.x == 0 && sprite.flip_h)
 
 	if in_water:
-		play("player-float")
+		play_reset("player-float")
 		return
 
 	if not body.is_on_floor():
-		play("player-jump")
+		play_reset("player-jump")
 		return
 
 	if body.velocity.length() > 0:
-		play("player-walk")
+		play_reset("player-walk")
 	else:
-		play("player-idle")
+		play_reset("player-idle")
 
