@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://d3hqdk77sg32n"]
+[gd_scene load_steps=27 format=3 uid="uid://d3hqdk77sg32n"]
 
 [ext_resource type="Script" path="res://Scripts/Movement/Mover.gd" id="1_763yf"]
 [ext_resource type="Texture2D" uid="uid://wvt8keytohdj" path="res://Sprites/Player/Idle/player-idle1.png" id="2_3suvf"]
@@ -15,7 +15,9 @@
 [ext_resource type="Texture2D" uid="uid://dkec4k7ys1uiq" path="res://Sprites/Player/Walk/player-walk2.png" id="7_8w7j3"]
 [ext_resource type="Texture2D" uid="uid://nasjxl3n1l2h" path="res://Sprites/Player/Walk/player-walk3.png" id="8_4npda"]
 [ext_resource type="Texture2D" uid="uid://bjvbwl2qnnuo6" path="res://Sprites/Player/Walk/player-walk4.png" id="9_s8rm1"]
+[ext_resource type="Texture2D" uid="uid://dh48tdvsabj86" path="res://Sprites/Player/Float/player-float1.png" id="10_01o7i"]
 [ext_resource type="Script" path="res://Scripts/Animation/PlayerAnimation.gd" id="10_ijosw"]
+[ext_resource type="Texture2D" uid="uid://benl45jie3nd0" path="res://Sprites/Player/Float/player-float2.png" id="11_ku8ue"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fxtra"]
 radius = 4.0
@@ -34,6 +36,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("2_3suvf")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -2)]
 }
 
 [sub_resource type="Animation" id="Animation_c5fua"]
@@ -87,9 +101,38 @@ tracks/0/keys = {
 "values": [ExtResource("6_p7tqd"), ExtResource("7_8w7j3"), ExtResource("8_4npda"), ExtResource("9_s8rm1")]
 }
 
+[sub_resource type="Animation" id="Animation_fv0hq"]
+resource_name = "player-float"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("10_01o7i"), ExtResource("11_ku8ue")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 0.3, 0.3),
+"update": 0,
+"values": [Vector2(0, -2), Vector2(0, 0), Vector2(0, -2)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5elcj"]
 _data = {
 "RESET": SubResource("Animation_cpta1"),
+"player-float": SubResource("Animation_fv0hq"),
 "player-idle": SubResource("Animation_c5fua"),
 "player-jump": SubResource("Animation_ppxw5"),
 "player-walk": SubResource("Animation_naceo")
@@ -154,8 +197,11 @@ collision_layer = 4
 collision_mask = 2
 script = ExtResource("5_hhuhv")
 mover_path = NodePath("..")
+animator_path = NodePath("../AnimationPlayer")
 ground_move_path = NodePath("../GroundMovement")
+ground_input_path = NodePath("../GroundMovement/GroundInput")
 water_move_path = NodePath("../WaterMovement")
+water_input_path = NodePath("../WaterMovement/WaterInput")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterChecker"]
 position = Vector2(-0.5, -2.5)

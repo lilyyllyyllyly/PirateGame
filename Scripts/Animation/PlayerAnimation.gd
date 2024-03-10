@@ -1,4 +1,4 @@
-extends AnimationPlayer
+class_name PlayerAnimation extends AnimationPlayer
 
 @export  var sprite_path: NodePath
 @onready var sprite = get_node(sprite_path) as Sprite2D
@@ -9,8 +9,14 @@ extends AnimationPlayer
 @export  var input_path: NodePath
 @onready var input = get_node(input_path) as GenericInput
 
+var in_water
+
 func _process(delta):
 	sprite.flip_h = input.direction.x < 0 || (input.direction.x == 0 && sprite.flip_h)
+
+	if in_water:
+		play("player-float")
+		return
 
 	if not body.is_on_floor():
 		play("player-jump")
