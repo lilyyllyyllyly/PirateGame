@@ -13,11 +13,11 @@ height = 10
 [node name="Main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_s0pd8")]
-position = Vector2(145, 102)
+position = Vector2(33, 66)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(-0.999992, 447)
-scale = Vector2(60, 59.04)
+position = Vector2(-28, 143)
+scale = Vector2(10, 27.375)
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
@@ -27,8 +27,8 @@ shape = SubResource("RectangleShape2D_pg28c")
 texture = SubResource("NoiseTexture2D_ep3fm")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2(701, 595)
-scale = Vector2(84.36, 14.12)
+position = Vector2(158, 251)
+scale = Vector2(35, 5)
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
@@ -38,8 +38,8 @@ shape = SubResource("RectangleShape2D_pg28c")
 texture = SubResource("NoiseTexture2D_ep3fm")
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
-position = Vector2(1065, 400)
-scale = Vector2(20, 51.08)
+position = Vector2(332, 173)
+scale = Vector2(5, 15)
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
@@ -48,6 +48,17 @@ shape = SubResource("RectangleShape2D_pg28c")
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3"]
 texture = SubResource("NoiseTexture2D_ep3fm")
 
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+position = Vector2(86, 102)
+scale = Vector2(16.805, 1.71)
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+shape = SubResource("RectangleShape2D_pg28c")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D4"]
+texture = SubResource("NoiseTexture2D_ep3fm")
+
 [node name="Water" parent="." instance=ExtResource("2_5kyod")]
-position = Vector2(638, 365)
-scale = Vector2(80, 40)
+position = Vector2(162, 177)
+scale = Vector2(30, 15)

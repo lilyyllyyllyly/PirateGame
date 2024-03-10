@@ -15,6 +15,12 @@ run/main_scene="res://Scenes/main.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=320
+window/size/viewport_height=240
+window/stretch/mode="viewport"
+
 [dotnet]
 
 project/assembly_name="PirateGame"
@@ -101,9 +107,10 @@ run={
 
 [physics]
 
-2d/default_gravity=1200.0
+2d/default_gravity=800.0
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

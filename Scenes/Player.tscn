@@ -1,21 +1,102 @@
-[gd_scene load_steps=11 format=3 uid="uid://d3hqdk77sg32n"]
+[gd_scene load_steps=24 format=3 uid="uid://d3hqdk77sg32n"]
 
 [ext_resource type="Script" path="res://Scripts/Movement/Mover.gd" id="1_763yf"]
+[ext_resource type="Texture2D" uid="uid://wvt8keytohdj" path="res://Sprites/Player/Idle/player-idle1.png" id="2_3suvf"]
 [ext_resource type="Script" path="res://Scripts/Movement/Calculators/GroundMovement.gd" id="2_4mn4f"]
 [ext_resource type="Script" path="res://Scripts/Input/GroundInput.gd" id="3_1yymx"]
+[ext_resource type="Texture2D" uid="uid://6eo8adbewj0x" path="res://Sprites/Player/Idle/player-idle2.png" id="3_4o6ir"]
 [ext_resource type="Script" path="res://Scripts/Movement/Calculators/WaterMovement.gd" id="4_ncm4c"]
+[ext_resource type="Texture2D" uid="uid://b2m6l3w7lt6k" path="res://Sprites/Player/Idle/player-idle3.png" id="4_vqftp"]
 [ext_resource type="PackedScene" uid="uid://cls58w461gqat" path="res://Scenes/Effects/BoostEffect.tscn" id="5_gmarb"]
 [ext_resource type="Script" path="res://Scripts/WaterChecker.gd" id="5_hhuhv"]
+[ext_resource type="Texture2D" uid="uid://nbe0a80vjqf6" path="res://Sprites/Player/Idle/player-idle4.png" id="5_vgjfj"]
 [ext_resource type="Script" path="res://Scripts/Input/WaterInput.gd" id="6_j0you"]
+[ext_resource type="Texture2D" uid="uid://oxr43coi3glm" path="res://Sprites/Player/Walk/player-walk1.png" id="6_p7tqd"]
+[ext_resource type="Texture2D" uid="uid://dkec4k7ys1uiq" path="res://Sprites/Player/Walk/player-walk2.png" id="7_8w7j3"]
+[ext_resource type="Texture2D" uid="uid://nasjxl3n1l2h" path="res://Sprites/Player/Walk/player-walk3.png" id="8_4npda"]
+[ext_resource type="Texture2D" uid="uid://bjvbwl2qnnuo6" path="res://Sprites/Player/Walk/player-walk4.png" id="9_s8rm1"]
+[ext_resource type="Script" path="res://Scripts/Animation/PlayerAnimation.gd" id="10_ijosw"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mfilg"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fxtra"]
+radius = 4.0
+height = 14.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4vr6m"]
-width = 20
-height = 20
+[sub_resource type="Animation" id="Animation_cpta1"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_3suvf")]
+}
+
+[sub_resource type="Animation" id="Animation_c5fua"]
+resource_name = "player-idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_3suvf"), ExtResource("3_4o6ir"), ExtResource("4_vqftp"), ExtResource("5_vgjfj")]
+}
+
+[sub_resource type="Animation" id="Animation_ppxw5"]
+resource_name = "player-jump"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_8w7j3")]
+}
+
+[sub_resource type="Animation" id="Animation_naceo"]
+resource_name = "player-walk"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("6_p7tqd"), ExtResource("7_8w7j3"), ExtResource("8_4npda"), ExtResource("9_s8rm1")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5elcj"]
+_data = {
+"RESET": SubResource("Animation_cpta1"),
+"player-idle": SubResource("Animation_c5fua"),
+"player-jump": SubResource("Animation_ppxw5"),
+"player-walk": SubResource("Animation_naceo")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8gxnn"]
-size = Vector2(20, 10)
+size = Vector2(9, 9)
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 8
@@ -23,18 +104,29 @@ script = ExtResource("1_763yf")
 move_path = NodePath("GroundMovement")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_mfilg")
+shape = SubResource("CapsuleShape2D_fxtra")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("NoiseTexture2D_4vr6m")
+texture = ExtResource("2_3suvf")
+offset = Vector2(0, -2)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5elcj")
+}
+script = ExtResource("10_ijosw")
+sprite_path = NodePath("../Sprite2D")
+body_path = NodePath("..")
+input_path = NodePath("../GroundMovement/GroundInput")
 
 [node name="GroundMovement" type="Node" parent="."]
 script = ExtResource("2_4mn4f")
 body_path = NodePath("..")
-ground_speed = 300.0
-ground_accel = 650.0
-jump_force = -300.0
-jump_hold = 200.0
+ground_speed = 150.0
+ground_accel = 325.0
+jump_force = -125.0
+jump_hold = 150
+term_vel = 200.0
 input_path = NodePath("GroundInput")
 
 [node name="GroundInput" type="Node" parent="GroundMovement"]
@@ -43,13 +135,15 @@ script = ExtResource("3_1yymx")
 [node name="WaterMovement" type="Node" parent="."]
 script = ExtResource("4_ncm4c")
 body_path = NodePath("..")
-water_speed_base = 300.0
-water_speed_max = 450.0
-water_accel = 650.0
-boost_gain = 75.0
-boost_loss = 125.0
-boost_move = 100.0
+water_speed_base = 150.0
+water_speed_max = 250.0
+water_accel = 325.0
+boost_gain = 50.0
+boost_loss = 75.0
+boost_move = 60.0
+boost_time = 200
 boost_effect = ExtResource("5_gmarb")
+water_leave_boost = 100.0
 input_path = NodePath("WaterInput")
 
 [node name="WaterInput" type="Node" parent="WaterMovement"]
@@ -64,8 +158,9 @@ ground_move_path = NodePath("../GroundMovement")
 water_move_path = NodePath("../WaterMovement")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterChecker"]
-position = Vector2(0, -5)
+position = Vector2(-0.5, -2.5)
 shape = SubResource("RectangleShape2D_8gxnn")
 
 [connection signal="area_entered" from="WaterChecker" to="WaterChecker" method="on_area_entered"]
+[connection signal="area_exited" from="WaterChecker" to="WaterMovement" method="on_water_leave"]
 [connection signal="area_exited" from="WaterChecker" to="WaterChecker" method="on_area_exited"]

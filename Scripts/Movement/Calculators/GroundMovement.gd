@@ -9,7 +9,8 @@ class_name GroundMovement extends MovementCalculator
 
 @export_group("Jump")
 @export var jump_force:	float
-@export var jump_hold:	float
+@export var jump_hold:	int
+@export var term_vel:	float
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -22,7 +23,7 @@ func calculate_movement(delta):
 
 	# vertical
 	# - gravity
-	if not body.is_on_floor():
+	if (not body.is_on_floor()) and (move.y < term_vel):
 		move.y += gravity * delta
 
 	# - jump
