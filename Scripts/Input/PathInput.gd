@@ -1,7 +1,10 @@
 class_name PathInput extends GenericInput
 
 @export var fish: Node2D
-@export var path: PathResource
+
+@export  var path_visualizer: PathVisualizer
+@onready var path = path_visualizer.path
+
 @export var dist_threshold: float
 var curr_point = 0
 

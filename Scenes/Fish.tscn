@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://lqch233gcdkv"]
+[gd_scene load_steps=16 format=3 uid="uid://lqch233gcdkv"]
 
 [ext_resource type="Texture2D" uid="uid://cmquk5jfcssog" path="res://Sprites/Enemies/Fish/fish1.png" id="1_o4tsg"]
 [ext_resource type="Script" path="res://Scripts/Movement/Mover.gd" id="1_ssdl7"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://Scripts/Input/PathInput.gd" id="9_g7ymi"]
 [ext_resource type="Script" path="res://Scripts/Animation/Enemies/GreenFishAnimation.gd" id="9_lrugc"]
 [ext_resource type="Script" path="res://Scripts/Movement/Calculators/WaterMovement.gd" id="9_ok81n"]
+[ext_resource type="Script" path="res://Scripts/PathVisualizer.gd" id="12_xryyl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hul5d"]
 radius = 5.0
@@ -54,7 +55,7 @@ libraries = {
 }
 script = ExtResource("9_lrugc")
 sprite = NodePath("../Sprite2D")
-input = NodePath("../WaterMovement/PathInput")
+input = NodePath("../PathInput")
 
 [node name="WaterMovement" type="Node" parent="."]
 script = ExtResource("9_ok81n")
@@ -62,9 +63,13 @@ body_path = NodePath("..")
 water_speed_base = 50.0
 water_speed_max = 50.0
 water_accel = 100.0
-input_path = NodePath("PathInput")
+input_path = NodePath("../PathInput")
 
-[node name="PathInput" type="Node" parent="WaterMovement" node_paths=PackedStringArray("fish")]
+[node name="PathInput" type="Node" parent="." node_paths=PackedStringArray("fish", "path_visualizer")]
 script = ExtResource("9_g7ymi")
-fish = NodePath("../..")
+fish = NodePath("..")
+path_visualizer = NodePath("PathVisualizer")
 dist_threshold = 5.0
+
+[node name="PathVisualizer" type="Node2D" parent="PathInput"]
+script = ExtResource("12_xryyl")
