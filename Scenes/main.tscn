@@ -12,10 +12,9 @@ size = Vector2(10, 10)
 width = 10
 height = 10
 
-[sub_resource type="Resource" id="Resource_xq2rx"]
-resource_local_to_scene = true
+[sub_resource type="Resource" id="Resource_tn2d6"]
 script = ExtResource("4_kopuq")
-points = PackedVector2Array(250, 200, 60, 200, 60, 135, 250, 135)
+points = PackedVector2Array(250, 200, 75, 200, 75, 135, 250, 135)
 
 [node name="Main" type="Node2D"]
 
@@ -73,7 +72,7 @@ scale = Vector2(30, 15)
 [node name="Fish" parent="." instance=ExtResource("3_x5xep")]
 position = Vector2(250, 200)
 
-[node name="PathVisualizer" parent="Fish/PathInput" index="0"]
-path = SubResource("Resource_xq2rx")
+[node name="PathVisualizer" parent="Fish/Movement/PlaneMovement/PathDirection" index="0"]
+path = SubResource("Resource_tn2d6")
 
 [editable path="Fish"]

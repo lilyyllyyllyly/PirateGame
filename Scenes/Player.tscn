@@ -1,22 +1,15 @@
-[gd_scene load_steps=36 format=3 uid="uid://d3hqdk77sg32n"]
+[gd_scene load_steps=44 format=3 uid="uid://d3hqdk77sg32n"]
 
-[ext_resource type="Script" path="res://Scripts/Movement/Mover.gd" id="1_763yf"]
 [ext_resource type="Texture2D" uid="uid://wvt8keytohdj" path="res://Sprites/Player/Idle/player-idle1.png" id="2_3suvf"]
-[ext_resource type="Script" path="res://Scripts/Movement/Calculators/GroundMovement.gd" id="2_4mn4f"]
-[ext_resource type="Script" path="res://Scripts/Input/GroundInput.gd" id="3_1yymx"]
 [ext_resource type="Texture2D" uid="uid://6eo8adbewj0x" path="res://Sprites/Player/Idle/player-idle2.png" id="3_4o6ir"]
-[ext_resource type="Script" path="res://Scripts/Movement/Calculators/WaterMovement.gd" id="4_ncm4c"]
 [ext_resource type="Texture2D" uid="uid://b2m6l3w7lt6k" path="res://Sprites/Player/Idle/player-idle3.png" id="4_vqftp"]
 [ext_resource type="PackedScene" uid="uid://cls58w461gqat" path="res://Scenes/Effects/BoostEffect.tscn" id="5_gmarb"]
-[ext_resource type="Script" path="res://Scripts/WaterChecker.gd" id="5_hhuhv"]
 [ext_resource type="Texture2D" uid="uid://nbe0a80vjqf6" path="res://Sprites/Player/Idle/player-idle4.png" id="5_vgjfj"]
-[ext_resource type="Script" path="res://Scripts/Input/WaterInput.gd" id="6_j0you"]
 [ext_resource type="Texture2D" uid="uid://oxr43coi3glm" path="res://Sprites/Player/Walk/player-walk1.png" id="6_p7tqd"]
 [ext_resource type="Texture2D" uid="uid://dkec4k7ys1uiq" path="res://Sprites/Player/Walk/player-walk2.png" id="7_8w7j3"]
 [ext_resource type="Texture2D" uid="uid://nasjxl3n1l2h" path="res://Sprites/Player/Walk/player-walk3.png" id="8_4npda"]
 [ext_resource type="Texture2D" uid="uid://bjvbwl2qnnuo6" path="res://Sprites/Player/Walk/player-walk4.png" id="9_s8rm1"]
 [ext_resource type="Texture2D" uid="uid://dh48tdvsabj86" path="res://Sprites/Player/Float/player-float1.png" id="10_01o7i"]
-[ext_resource type="Script" path="res://Scripts/Animation/PlayerAnimation.gd" id="10_ijosw"]
 [ext_resource type="Texture2D" uid="uid://benl45jie3nd0" path="res://Sprites/Player/Float/player-float2.png" id="11_ku8ue"]
 [ext_resource type="Texture2D" uid="uid://mab7xwspqtsr" path="res://Sprites/Player/Swim/player-swim1.png" id="12_cw6c7"]
 [ext_resource type="Texture2D" uid="uid://jlgw6x165swn" path="res://Sprites/Player/Swim/player-swim2.png" id="13_cii4u"]
@@ -25,6 +18,21 @@
 [ext_resource type="Texture2D" uid="uid://bjascss77v04" path="res://Sprites/Player/Boost/player-boost1.png" id="16_8pm2k"]
 [ext_resource type="Texture2D" uid="uid://bw2xopc3lakfh" path="res://Sprites/Player/Boost/player-boost2.png" id="17_7j1ed"]
 [ext_resource type="Texture2D" uid="uid://ft6hj6474r4y" path="res://Sprites/Player/Boost/player-boost3.png" id="18_fw0vu"]
+[ext_resource type="Script" path="res://Scripts/States/PlayerStates.gd" id="19_e8q1u"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/CharacterMover.gd" id="19_fnyit"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/WaterLeaveBoost.gd" id="19_gtfkb"]
+[ext_resource type="Script" path="res://Scripts/Effects/WaterBoostParticle.gd" id="19_s4hwc"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/Gravity.gd" id="20_8hehk"]
+[ext_resource type="Script" path="res://Scripts/Movement/Calculators/HorizontalMovement.gd" id="20_ddyps"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/CharacterVelocity.gd" id="20_nj0y8"]
+[ext_resource type="Script" path="res://Scripts/States/State.gd" id="21_fn0cg"]
+[ext_resource type="Script" path="res://Scripts/Input/Directions/PlayerHorizontalDirection.gd" id="21_hpk8n"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/Jump.gd" id="22_vihjo"]
+[ext_resource type="Script" path="res://Scripts/Input/Conditions/JumpHeldCondition.gd" id="23_r2dyy"]
+[ext_resource type="Script" path="res://Scripts/Movement/Calculators/PlaneMovement.gd" id="28_ttw5v"]
+[ext_resource type="Script" path="res://Scripts/Input/Directions/PlayerPlaneDirection.gd" id="29_8h0eh"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/Boost.gd" id="30_efbaw"]
+[ext_resource type="Script" path="res://Scripts/Input/Signals/JumpPressSignal.gd" id="31_fxhgp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fxtra"]
 radius = 4.0
@@ -186,8 +194,6 @@ size = Vector2(9, 9)
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 8
-script = ExtResource("1_763yf")
-move_path = NodePath("GroundMovement")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_fxtra")
@@ -200,57 +206,112 @@ offset = Vector2(0, -2)
 libraries = {
 "": SubResource("AnimationLibrary_5elcj")
 }
-script = ExtResource("10_ijosw")
-sprite_path = NodePath("../Sprite2D")
-body_path = NodePath("..")
-ground_input_path = NodePath("../GroundMovement/GroundInput")
-water_input_path = NodePath("../WaterMovement/WaterInput")
-rot_offset_deg = 90.0
-swim_stop_rot = 12.0
 
-[node name="GroundMovement" type="Node" parent="."]
-script = ExtResource("2_4mn4f")
-body_path = NodePath("..")
-ground_speed = 150.0
-ground_accel = 325.0
+[node name="CharacterMover" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("19_fnyit")
+body = NodePath("..")
+
+[node name="WaterLeaveBoost" type="Node" parent="." node_paths=PackedStringArray("body", "water_move")]
+script = ExtResource("19_gtfkb")
+body = NodePath("..")
+water_move = NodePath("../States/WaterState/WaterMovement/PlaneMovement")
+
+[node name="States" type="Node" parent="." node_paths=PackedStringArray("ground_state", "water_state")]
+script = ExtResource("19_e8q1u")
+ground_state = NodePath("GroundState")
+water_state = NodePath("WaterState")
+
+[node name="GroundState" type="Node" parent="States" node_paths=PackedStringArray("behaviours")]
+script = ExtResource("21_fn0cg")
+behaviours = [NodePath("GroundMovement"), NodePath("Jump"), NodePath("Gravity")]
+
+[node name="GroundMovement" type="Node" parent="States/GroundState" node_paths=PackedStringArray("body", "move")]
+script = ExtResource("20_nj0y8")
+body = NodePath("../../..")
+move = NodePath("HorizontalMovement")
+enabled = false
+
+[node name="HorizontalMovement" type="Node" parent="States/GroundState/GroundMovement" node_paths=PackedStringArray("direction", "body")]
+script = ExtResource("20_ddyps")
+direction = NodePath("Direction")
+body = NodePath("../../../..")
+speed = 150.0
+accel = 325.0
+
+[node name="Direction" type="Node" parent="States/GroundState/GroundMovement/HorizontalMovement"]
+script = ExtResource("21_hpk8n")
+
+[node name="Jump" type="Node" parent="States/GroundState" node_paths=PackedStringArray("jump_held", "body")]
+script = ExtResource("22_vihjo")
+jump_held = NodePath("JumpHeld")
+body = NodePath("../../..")
 jump_force = -125.0
 jump_hold = 150
+enabled = false
+
+[node name="JumpHeld" type="Node" parent="States/GroundState/Jump"]
+script = ExtResource("23_r2dyy")
+
+[node name="Gravity" type="Node" parent="States/GroundState" node_paths=PackedStringArray("body")]
+script = ExtResource("20_8hehk")
+body = NodePath("../../..")
 term_vel = 200.0
-input_path = NodePath("GroundInput")
+enabled = false
 
-[node name="GroundInput" type="Node" parent="GroundMovement"]
-script = ExtResource("3_1yymx")
+[node name="WaterState" type="Node" parent="States" node_paths=PackedStringArray("behaviours")]
+script = ExtResource("21_fn0cg")
+behaviours = [NodePath("WaterMovement"), NodePath("Boost")]
 
-[node name="WaterMovement" type="Node" parent="."]
-script = ExtResource("4_ncm4c")
-body_path = NodePath("..")
-water_speed_base = 150.0
-water_speed_max = 250.0
-water_accel = 325.0
-boost_gain = 50.0
-boost_loss = 75.0
-boost_move = 60.0
-boost_time = 200
-boost_effect = ExtResource("5_gmarb")
-water_leave_boost = 100.0
-input_path = NodePath("WaterInput")
+[node name="WaterMovement" type="Node" parent="States/WaterState" node_paths=PackedStringArray("body", "move")]
+script = ExtResource("20_nj0y8")
+body = NodePath("../../..")
+move = NodePath("PlaneMovement")
+enabled = false
 
-[node name="WaterInput" type="Node" parent="WaterMovement"]
-script = ExtResource("6_j0you")
+[node name="PlaneMovement" type="Node" parent="States/WaterState/WaterMovement" node_paths=PackedStringArray("direction", "body")]
+script = ExtResource("28_ttw5v")
+direction = NodePath("Direction")
+body = NodePath("../../../..")
+speed = 150.0
+accel = 325.0
+
+[node name="Direction" type="Node" parent="States/WaterState/WaterMovement/PlaneMovement"]
+script = ExtResource("29_8h0eh")
+
+[node name="Boost" type="Node" parent="States/WaterState" node_paths=PackedStringArray("direction", "body")]
+script = ExtResource("30_efbaw")
+direction = NodePath("../WaterMovement/PlaneMovement/Direction")
+body = NodePath("../../..")
+boost_amount = 75.0
+boost_delay = 200
+enabled = false
+
+[node name="JumpPressSignal" type="Node" parent="States/WaterState/Boost"]
+script = ExtResource("31_fxhgp")
 
 [node name="WaterChecker" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 2
-script = ExtResource("5_hhuhv")
-mover_path = NodePath("..")
-animator_path = NodePath("../AnimationPlayer")
-ground_move_path = NodePath("../GroundMovement")
-water_move_path = NodePath("../WaterMovement")
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterChecker"]
 position = Vector2(-0.5, -2.5)
 shape = SubResource("RectangleShape2D_8gxnn")
 
+[node name="Effects" type="Node" parent="."]
+
+[node name="WaterBoostParticle" type="Node" parent="Effects" node_paths=PackedStringArray("direction", "player")]
+script = ExtResource("19_s4hwc")
+direction = NodePath("../../States/WaterState/WaterMovement/PlaneMovement/Direction")
+player = NodePath("../..")
+boost_effect = ExtResource("5_gmarb")
+rot_offset = 4.712
+
+[connection signal="should_boost" from="WaterLeaveBoost" to="States/WaterState/Boost" method="boost"]
+[connection signal="boosted" from="States/WaterState/Boost" to="Effects/WaterBoostParticle" method="spawn_particle"]
+[connection signal="jump_pressed" from="States/WaterState/Boost/JumpPressSignal" to="States/WaterState/Boost" method="boost_delayed"]
+[connection signal="area_entered" from="WaterChecker" to="States" method="on_water_entered"]
 [connection signal="area_entered" from="WaterChecker" to="WaterChecker" method="on_area_entered"]
-[connection signal="area_exited" from="WaterChecker" to="WaterMovement" method="on_water_leave"]
+[connection signal="area_exited" from="WaterChecker" to="WaterLeaveBoost" method="on_water_exited"]
+[connection signal="area_exited" from="WaterChecker" to="States" method="on_water_exited"]
 [connection signal="area_exited" from="WaterChecker" to="WaterChecker" method="on_area_exited"]

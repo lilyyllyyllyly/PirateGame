@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cls58w461gqat"]
 
 [ext_resource type="Texture2D" uid="uid://bmcku6j4etfwh" path="res://Sprites/Effects/boosteffect.png" id="1_fbq7n"]
-[ext_resource type="Script" path="res://Scripts/Particle.gd" id="2_hscth"]
+[ext_resource type="Script" path="res://Scripts/Effects/Particle.gd" id="2_hscth"]
 
 [sub_resource type="Gradient" id="Gradient_uou2x"]
 offsets = PackedFloat32Array(0, 0.633333, 1)

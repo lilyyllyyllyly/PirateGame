@@ -1,16 +1,16 @@
 [gd_scene load_steps=16 format=3 uid="uid://lqch233gcdkv"]
 
 [ext_resource type="Texture2D" uid="uid://cmquk5jfcssog" path="res://Sprites/Enemies/Fish/fish1.png" id="1_o4tsg"]
-[ext_resource type="Script" path="res://Scripts/Movement/Mover.gd" id="1_ssdl7"]
 [ext_resource type="Texture2D" uid="uid://cnodkynj5kyw4" path="res://Sprites/Enemies/Fish/fish2.png" id="2_tqcbm"]
 [ext_resource type="Texture2D" uid="uid://ck1ojd624ornl" path="res://Sprites/Enemies/Fish/fish3.png" id="3_8881v"]
 [ext_resource type="Texture2D" uid="uid://cbucociwjfwec" path="res://Sprites/Enemies/Fish/fish4.png" id="4_wyrub"]
 [ext_resource type="Texture2D" uid="uid://6k614ammbm2y" path="res://Sprites/Enemies/Fish/fish5.png" id="6_t248q"]
 [ext_resource type="Texture2D" uid="uid://6ls8jc8mvt68" path="res://Sprites/Enemies/Fish/fish6.png" id="7_umtwy"]
 [ext_resource type="Texture2D" uid="uid://tu3ngy7a8127" path="res://Sprites/Enemies/Fish/fish7.png" id="8_f4i14"]
-[ext_resource type="Script" path="res://Scripts/Input/PathInput.gd" id="9_g7ymi"]
-[ext_resource type="Script" path="res://Scripts/Animation/Enemies/GreenFishAnimation.gd" id="9_lrugc"]
-[ext_resource type="Script" path="res://Scripts/Movement/Calculators/WaterMovement.gd" id="9_ok81n"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/CharacterMover.gd" id="9_pksoq"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/CharacterVelocity.gd" id="10_n4o2g"]
+[ext_resource type="Script" path="res://Scripts/Movement/Calculators/PlaneMovement.gd" id="11_8yiua"]
+[ext_resource type="Script" path="res://Scripts/Input/Directions/PathDirection.gd" id="11_yfmmd"]
 [ext_resource type="Script" path="res://Scripts/PathVisualizer.gd" id="12_xryyl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hul5d"]
@@ -40,8 +40,6 @@ _data = {
 
 [node name="Fish" type="CharacterBody2D"]
 motion_mode = 1
-script = ExtResource("1_ssdl7")
-move_path = NodePath("WaterMovement")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_hul5d")
@@ -49,27 +47,32 @@ shape = SubResource("CircleShape2D_hul5d")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_o4tsg")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("sprite", "input")]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_giypl")
 }
-script = ExtResource("9_lrugc")
-sprite = NodePath("../Sprite2D")
-input = NodePath("../PathInput")
 
-[node name="WaterMovement" type="Node" parent="."]
-script = ExtResource("9_ok81n")
-body_path = NodePath("..")
-water_speed_base = 50.0
-water_speed_max = 50.0
-water_accel = 100.0
-input_path = NodePath("../PathInput")
+[node name="CharacterMover" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("9_pksoq")
+body = NodePath("..")
 
-[node name="PathInput" type="Node" parent="." node_paths=PackedStringArray("fish", "path_visualizer")]
-script = ExtResource("9_g7ymi")
-fish = NodePath("..")
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("body", "move")]
+script = ExtResource("10_n4o2g")
+body = NodePath("..")
+move = NodePath("PlaneMovement")
+
+[node name="PlaneMovement" type="Node" parent="Movement" node_paths=PackedStringArray("direction", "body")]
+script = ExtResource("11_8yiua")
+direction = NodePath("PathDirection")
+body = NodePath("../..")
+speed = 50.0
+accel = 100.0
+
+[node name="PathDirection" type="Node" parent="Movement/PlaneMovement" node_paths=PackedStringArray("object", "path_visualizer")]
+script = ExtResource("11_yfmmd")
+object = NodePath("../../..")
 path_visualizer = NodePath("PathVisualizer")
 dist_threshold = 5.0
 
-[node name="PathVisualizer" type="Node2D" parent="PathInput"]
+[node name="PathVisualizer" type="Node2D" parent="Movement/PlaneMovement/PathDirection"]
 script = ExtResource("12_xryyl")
