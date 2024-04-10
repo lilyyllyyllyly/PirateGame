@@ -104,6 +104,8 @@ jump={
 2d_physics/layer_2="Water"
 2d_physics/layer_3="WaterChecker"
 2d_physics/layer_4="Obstacle"
+2d_physics/layer_5="EnemyBody"
+2d_physics/layer_6="EnemyDamage"
 
 [physics]
 

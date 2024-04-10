@@ -1,11 +1,11 @@
 class_name GreenFishAnimation extends AnimationPlayer
 
 @export var sprite: Sprite2D
-@export var input: GenericInput
+@export var direction: DirectionalInput
 
 func _ready():
 	play("fish")
 
 func _process(delta):
-	sprite.flip_h = input.direction.x > 0 || (input.direction.x == 0 && sprite.flip_h)
+	sprite.flip_h = direction.value.x > 0 || (direction.value.x == 0 && sprite.flip_h)
 

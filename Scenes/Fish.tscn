@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://lqch233gcdkv"]
+[gd_scene load_steps=17 format=3 uid="uid://lqch233gcdkv"]
 
 [ext_resource type="Texture2D" uid="uid://cmquk5jfcssog" path="res://Sprites/Enemies/Fish/fish1.png" id="1_o4tsg"]
 [ext_resource type="Texture2D" uid="uid://cnodkynj5kyw4" path="res://Sprites/Enemies/Fish/fish2.png" id="2_tqcbm"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://6k614ammbm2y" path="res://Sprites/Enemies/Fish/fish5.png" id="6_t248q"]
 [ext_resource type="Texture2D" uid="uid://6ls8jc8mvt68" path="res://Sprites/Enemies/Fish/fish6.png" id="7_umtwy"]
 [ext_resource type="Texture2D" uid="uid://tu3ngy7a8127" path="res://Sprites/Enemies/Fish/fish7.png" id="8_f4i14"]
+[ext_resource type="Script" path="res://Scripts/Animation/Enemies/GreenFishAnimation.gd" id="8_noprh"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/CharacterMover.gd" id="9_pksoq"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/CharacterVelocity.gd" id="10_n4o2g"]
 [ext_resource type="Script" path="res://Scripts/Movement/Calculators/PlaneMovement.gd" id="11_8yiua"]
@@ -39,6 +40,8 @@ _data = {
 }
 
 [node name="Fish" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 9
 motion_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -47,10 +50,13 @@ shape = SubResource("CircleShape2D_hul5d")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_o4tsg")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("sprite", "direction")]
 libraries = {
 "": SubResource("AnimationLibrary_giypl")
 }
+script = ExtResource("8_noprh")
+sprite = NodePath("../Sprite2D")
+direction = NodePath("../Movement/PlaneMovement/PathDirection")
 
 [node name="CharacterMover" type="Node" parent="." node_paths=PackedStringArray("body")]
 script = ExtResource("9_pksoq")

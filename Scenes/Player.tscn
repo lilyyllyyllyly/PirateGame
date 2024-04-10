@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://d3hqdk77sg32n"]
+[gd_scene load_steps=45 format=3 uid="uid://d3hqdk77sg32n"]
 
 [ext_resource type="Texture2D" uid="uid://wvt8keytohdj" path="res://Sprites/Player/Idle/player-idle1.png" id="2_3suvf"]
 [ext_resource type="Texture2D" uid="uid://6eo8adbewj0x" path="res://Sprites/Player/Idle/player-idle2.png" id="3_4o6ir"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://bjascss77v04" path="res://Sprites/Player/Boost/player-boost1.png" id="16_8pm2k"]
 [ext_resource type="Texture2D" uid="uid://bw2xopc3lakfh" path="res://Sprites/Player/Boost/player-boost2.png" id="17_7j1ed"]
 [ext_resource type="Texture2D" uid="uid://ft6hj6474r4y" path="res://Sprites/Player/Boost/player-boost3.png" id="18_fw0vu"]
+[ext_resource type="Script" path="res://Scripts/Animation/PlayerAnimation.gd" id="18_idgqc"]
 [ext_resource type="Script" path="res://Scripts/States/PlayerStates.gd" id="19_e8q1u"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/CharacterMover.gd" id="19_fnyit"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/WaterLeaveBoost.gd" id="19_gtfkb"]
@@ -202,10 +203,17 @@ shape = SubResource("CapsuleShape2D_fxtra")
 texture = ExtResource("2_3suvf")
 offset = Vector2(0, -2)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("sprite", "body", "plane_direction", "horizontal_direction")]
 libraries = {
 "": SubResource("AnimationLibrary_5elcj")
 }
+script = ExtResource("18_idgqc")
+sprite = NodePath("../Sprite2D")
+body = NodePath("..")
+plane_direction = NodePath("../States/WaterState/WaterMovement/PlaneMovement/Direction")
+horizontal_direction = NodePath("../States/GroundState/GroundMovement/HorizontalMovement/Direction")
+swim_stop_rot = 12.0
+rot_offset_deg = 90.0
 
 [node name="CharacterMover" type="Node" parent="." node_paths=PackedStringArray("body")]
 script = ExtResource("19_fnyit")
@@ -309,9 +317,12 @@ rot_offset = 4.712
 
 [connection signal="should_boost" from="WaterLeaveBoost" to="States/WaterState/Boost" method="boost"]
 [connection signal="boosted" from="States/WaterState/Boost" to="Effects/WaterBoostParticle" method="spawn_particle"]
+[connection signal="jump_pressed" from="States/WaterState/Boost/JumpPressSignal" to="AnimationPlayer" method="on_jump_pressed"]
 [connection signal="jump_pressed" from="States/WaterState/Boost/JumpPressSignal" to="States/WaterState/Boost" method="boost_delayed"]
+[connection signal="area_entered" from="WaterChecker" to="AnimationPlayer" method="on_enter_water"]
 [connection signal="area_entered" from="WaterChecker" to="States" method="on_water_entered"]
 [connection signal="area_entered" from="WaterChecker" to="WaterChecker" method="on_area_entered"]
+[connection signal="area_exited" from="WaterChecker" to="AnimationPlayer" method="on_exit_water"]
 [connection signal="area_exited" from="WaterChecker" to="WaterLeaveBoost" method="on_water_exited"]
 [connection signal="area_exited" from="WaterChecker" to="States" method="on_water_exited"]
 [connection signal="area_exited" from="WaterChecker" to="WaterChecker" method="on_area_exited"]
