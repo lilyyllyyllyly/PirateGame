@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://dnf3ma84l7881"]
+[gd_scene load_steps=9 format=3 uid="uid://dnf3ma84l7881"]
 
+[ext_resource type="Script" path="res://Scripts/SceneManager.gd" id="1_mp3ny"]
 [ext_resource type="PackedScene" uid="uid://d3hqdk77sg32n" path="res://Scenes/Player.tscn" id="1_s0pd8"]
 [ext_resource type="PackedScene" uid="uid://lbk0irkrw228" path="res://Scenes/Water.tscn" id="2_5kyod"]
 [ext_resource type="PackedScene" uid="uid://lqch233gcdkv" path="res://Scenes/Fish.tscn" id="3_x5xep"]
@@ -17,6 +18,9 @@ script = ExtResource("4_kopuq")
 points = PackedVector2Array(250, 200, 75, 200, 75, 135, 250, 135)
 
 [node name="Main" type="Node2D"]
+
+[node name="SceneManager" type="Node" parent="."]
+script = ExtResource("1_mp3ny")
 
 [node name="Player" parent="." instance=ExtResource("1_s0pd8")]
 position = Vector2(33, 66)
@@ -75,4 +79,7 @@ position = Vector2(250, 200)
 [node name="PathVisualizer" parent="Fish/Movement/PlaneMovement/PathDirection" index="0"]
 path = SubResource("Resource_tn2d6")
 
+[connection signal="depleted" from="Player/CounterSignal" to="SceneManager" method="reload_scene"]
+
+[editable path="Player"]
 [editable path="Fish"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://lqch233gcdkv"]
+[gd_scene load_steps=18 format=3 uid="uid://lqch233gcdkv"]
 
 [ext_resource type="Texture2D" uid="uid://cmquk5jfcssog" path="res://Sprites/Enemies/Fish/fish1.png" id="1_o4tsg"]
 [ext_resource type="Texture2D" uid="uid://cnodkynj5kyw4" path="res://Sprites/Enemies/Fish/fish2.png" id="2_tqcbm"]
@@ -39,12 +39,16 @@ _data = {
 "fish": SubResource("Animation_e3vfr")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_s8mhu"]
+radius = 5.0
+
 [node name="Fish" type="CharacterBody2D"]
 collision_layer = 16
-collision_mask = 9
+collision_mask = 8
 motion_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+top_level = true
 shape = SubResource("CircleShape2D_hul5d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -82,3 +86,11 @@ dist_threshold = 5.0
 
 [node name="PathVisualizer" type="Node2D" parent="Movement/PlaneMovement/PathDirection"]
 script = ExtResource("12_xryyl")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_s8mhu")
