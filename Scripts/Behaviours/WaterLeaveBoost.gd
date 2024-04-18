@@ -5,7 +5,7 @@ class_name WaterLeaveBoost extends Behaviour
 
 signal should_boost
 
-func on_water_exited(area):
+func on_water_exited(_area):
 	if body.velocity.length() > water_move.speed:
 		should_boost.emit()
 

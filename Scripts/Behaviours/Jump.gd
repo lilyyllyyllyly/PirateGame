@@ -10,7 +10,7 @@ class_name Jump extends Behaviour
 var jump_start = 0
 var jumping = false
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var now = Time.get_ticks_msec()
 
 	if body.is_on_floor() or (jumping and not jump_held.value): jumping = false

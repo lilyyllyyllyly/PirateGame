@@ -9,6 +9,12 @@ signal on_disable
 		if (enabled): _on_enable()
 		else: _on_disable()
 
+func enable():
+	enabled = true
+
+func disable():
+	enabled = false
+
 func _on_enable():
 	on_enable.emit()
 	process_mode = Node.PROCESS_MODE_INHERIT
@@ -19,4 +25,5 @@ func _on_disable():
 
 func _ready():
 	if enabled: _on_enable()
+	else: _on_disable()
 

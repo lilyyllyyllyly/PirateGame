@@ -6,6 +6,6 @@ class_name GreenFishAnimation extends AnimationPlayer
 func _ready():
 	play("fish")
 
-func _process(delta):
+func _process(_delta):
 	sprite.flip_h = direction.value.x > 0 || (direction.value.x == 0 && sprite.flip_h)
 

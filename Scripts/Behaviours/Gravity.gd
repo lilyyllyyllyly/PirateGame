@@ -1,7 +1,7 @@
 class_name Gravity extends Behaviour
 
 @export var body: CharacterBody2D
-@export var term_vel: float
+@export var term_vel: float = 200
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 

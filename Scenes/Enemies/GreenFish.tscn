@@ -1,12 +1,12 @@
 [gd_scene load_steps=18 format=3 uid="uid://lqch233gcdkv"]
 
-[ext_resource type="Texture2D" uid="uid://cmquk5jfcssog" path="res://Sprites/Enemies/Fish/fish1.png" id="1_o4tsg"]
-[ext_resource type="Texture2D" uid="uid://cnodkynj5kyw4" path="res://Sprites/Enemies/Fish/fish2.png" id="2_tqcbm"]
-[ext_resource type="Texture2D" uid="uid://ck1ojd624ornl" path="res://Sprites/Enemies/Fish/fish3.png" id="3_8881v"]
-[ext_resource type="Texture2D" uid="uid://cbucociwjfwec" path="res://Sprites/Enemies/Fish/fish4.png" id="4_wyrub"]
-[ext_resource type="Texture2D" uid="uid://6k614ammbm2y" path="res://Sprites/Enemies/Fish/fish5.png" id="6_t248q"]
-[ext_resource type="Texture2D" uid="uid://6ls8jc8mvt68" path="res://Sprites/Enemies/Fish/fish6.png" id="7_umtwy"]
-[ext_resource type="Texture2D" uid="uid://tu3ngy7a8127" path="res://Sprites/Enemies/Fish/fish7.png" id="8_f4i14"]
+[ext_resource type="Texture2D" uid="uid://cmquk5jfcssog" path="res://Sprites/Enemies/GreenFish/green-fish1.png" id="1_o4tsg"]
+[ext_resource type="Texture2D" uid="uid://cnodkynj5kyw4" path="res://Sprites/Enemies/GreenFish/green-fish2.png" id="2_tqcbm"]
+[ext_resource type="Texture2D" uid="uid://ck1ojd624ornl" path="res://Sprites/Enemies/GreenFish/green-fish3.png" id="3_8881v"]
+[ext_resource type="Texture2D" uid="uid://cbucociwjfwec" path="res://Sprites/Enemies/GreenFish/green-fish4.png" id="4_wyrub"]
+[ext_resource type="Texture2D" uid="uid://6k614ammbm2y" path="res://Sprites/Enemies/GreenFish/green-fish5.png" id="6_t248q"]
+[ext_resource type="Texture2D" uid="uid://6ls8jc8mvt68" path="res://Sprites/Enemies/GreenFish/green-fish6.png" id="7_umtwy"]
+[ext_resource type="Texture2D" uid="uid://tu3ngy7a8127" path="res://Sprites/Enemies/GreenFish/green-fish7.png" id="8_f4i14"]
 [ext_resource type="Script" path="res://Scripts/Animation/Enemies/GreenFishAnimation.gd" id="8_noprh"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/CharacterMover.gd" id="9_pksoq"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/CharacterVelocity.gd" id="10_n4o2g"]
@@ -82,15 +82,14 @@ accel = 100.0
 script = ExtResource("11_yfmmd")
 object = NodePath("../../..")
 path_visualizer = NodePath("PathVisualizer")
-dist_threshold = 5.0
 
 [node name="PathVisualizer" type="Node2D" parent="Movement/PlaneMovement/PathDirection"]
 script = ExtResource("12_xryyl")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Damage" type="Area2D" parent="."]
 collision_layer = 32
 collision_mask = 0
 monitoring = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage"]
 shape = SubResource("CircleShape2D_s8mhu")

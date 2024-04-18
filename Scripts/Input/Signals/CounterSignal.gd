@@ -1,8 +1,8 @@
 class_name CounterSignal extends Node
 
 @export var initial_value: int
-@export var min: int
-@export var max: int
+@export var minv: int
+@export var maxv: int
 
 signal depleted
 signal filled
@@ -13,8 +13,8 @@ signal filled
 
 		counter = value
 
-		if   counter >= max: filled.emit()
-		elif counter <= min: depleted.emit()
+		if   counter >= maxv: filled.emit()
+		elif counter <= minv: depleted.emit()
 
 func increment(value: int = 1):
 	counter += value

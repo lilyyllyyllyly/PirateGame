@@ -5,7 +5,7 @@ class_name PathDirection extends DirectionalInput
 @export  var path_visualizer: PathVisualizer
 @onready var path = path_visualizer.path
 
-@export var dist_threshold: float
+@export var dist_threshold: float = 5
 var curr_point = 0
 
 func get_value():

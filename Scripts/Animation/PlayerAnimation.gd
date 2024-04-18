@@ -16,9 +16,9 @@ var in_water: bool
 var direction: Vector2
 var rot_goal: float
 
-func fwrap(x, min, max):
-	if min > max: return fwrap(x, max, min)
-	return (max if x < 0 else min) + fmod(x, max - min)
+func fwrap(x, minv, maxv):
+	if minv > maxv: return fwrap(x, maxv, minv)
+	return (maxv if x < 0 else minv) + fmod(x, maxv - minv)
 
 func play_reset(anim):
 	if current_animation != anim:

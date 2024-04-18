@@ -1,0 +1,159 @@
+[gd_scene load_steps=18 format=3 uid="uid://d0fbkt8drrch"]
+
+[ext_resource type="Script" path="res://Scripts/Behaviours/CharacterMover.gd" id="1_8e3lk"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/States/StateMachine.gd" id="2_d3di4"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/Gravity.gd" id="2_lsrhe"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/CharacterVelocity.gd" id="2_rnl4v"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/States/StateSwitcher.gd" id="3_6e5xb"]
+[ext_resource type="Script" path="res://Scripts/Movement/Calculators/PlaneMovement.gd" id="3_kv6s3"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/States/State.gd" id="3_q06cc"]
+[ext_resource type="Script" path="res://Scripts/Input/Directions/FollowDirection.gd" id="4_6u4c6"]
+[ext_resource type="Script" path="res://Scripts/Input/Directions/PathDirection.gd" id="7_uwbcg"]
+[ext_resource type="Script" path="res://Scripts/PathVisualizer.gd" id="8_1l31k"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/Behaviour.gd" id="10_a0ie1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vy0pv"]
+radius = 8.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cjlkt"]
+width = 16
+height = 16
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r3vo0"]
+radius = 50.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xwa2k"]
+radius = 80.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g7t3b"]
+size = Vector2(16, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wfuym"]
+radius = 8.0
+
+[node name="Puffer" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+top_level = true
+shape = SubResource("CircleShape2D_vy0pv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("NoiseTexture2D_cjlkt")
+
+[node name="CharacterMover" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("1_8e3lk")
+body = NodePath("..")
+
+[node name="Gravity" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("2_lsrhe")
+body = NodePath("..")
+enabled = false
+
+[node name="GravityEnabler" type="Node" parent="Gravity"]
+script = ExtResource("10_a0ie1")
+enabled = false
+
+[node name="States" type="Node2D" parent="." node_paths=PackedStringArray("state")]
+script = ExtResource("2_d3di4")
+state = NodePath("IdleState")
+
+[node name="StateEvents" type="Node" parent="States"]
+
+[node name="PlayerClose" type="Node" parent="States/StateEvents" node_paths=PackedStringArray("state_machine", "new_state")]
+script = ExtResource("3_6e5xb")
+state_machine = NodePath("../..")
+new_state = NodePath("../../ChaseState")
+
+[node name="PlayerFar" type="Node" parent="States/StateEvents" node_paths=PackedStringArray("state_machine", "new_state")]
+script = ExtResource("3_6e5xb")
+state_machine = NodePath("../..")
+new_state = NodePath("../../IdleState")
+
+[node name="IdleState" type="Node2D" parent="States" node_paths=PackedStringArray("behaviours")]
+script = ExtResource("3_q06cc")
+behaviours = [NodePath("IdleMovement"), NodePath("PlayerCloseChecker")]
+enabled = false
+
+[node name="IdleMovement" type="Node" parent="States/IdleState" node_paths=PackedStringArray("body", "move")]
+script = ExtResource("2_rnl4v")
+body = NodePath("../../..")
+move = NodePath("PlaneMovement")
+
+[node name="PlaneMovement" type="Node" parent="States/IdleState/IdleMovement" node_paths=PackedStringArray("direction", "body")]
+script = ExtResource("3_kv6s3")
+direction = NodePath("PathDirection")
+body = NodePath("../../../..")
+speed = 40.0
+accel = 100.0
+
+[node name="PathDirection" type="Node" parent="States/IdleState/IdleMovement/PlaneMovement" node_paths=PackedStringArray("object", "path_visualizer")]
+script = ExtResource("7_uwbcg")
+object = NodePath("../../../../..")
+path_visualizer = NodePath("PathVisualizer")
+
+[node name="PathVisualizer" type="Node2D" parent="States/IdleState/IdleMovement/PlaneMovement/PathDirection"]
+script = ExtResource("8_1l31k")
+
+[node name="PlayerCloseChecker" type="Area2D" parent="States/IdleState"]
+collision_layer = 0
+monitorable = false
+script = ExtResource("10_a0ie1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="States/IdleState/PlayerCloseChecker"]
+shape = SubResource("CircleShape2D_r3vo0")
+
+[node name="ChaseState" type="Node2D" parent="States" node_paths=PackedStringArray("behaviours")]
+script = ExtResource("3_q06cc")
+behaviours = [NodePath("ChaseMovement"), NodePath("PlayerFarChecker")]
+enabled = false
+
+[node name="ChaseMovement" type="Node" parent="States/ChaseState" node_paths=PackedStringArray("body", "move")]
+script = ExtResource("2_rnl4v")
+body = NodePath("../../..")
+move = NodePath("PlaneMovement")
+
+[node name="PlaneMovement" type="Node" parent="States/ChaseState/ChaseMovement" node_paths=PackedStringArray("direction", "body")]
+script = ExtResource("3_kv6s3")
+direction = NodePath("FollowDirection")
+body = NodePath("../../../..")
+speed = 125.0
+accel = 200.0
+
+[node name="FollowDirection" type="Node" parent="States/ChaseState/ChaseMovement/PlaneMovement" node_paths=PackedStringArray("object")]
+script = ExtResource("4_6u4c6")
+object = NodePath("../../../../..")
+
+[node name="PlayerFarChecker" type="Area2D" parent="States/ChaseState"]
+collision_layer = 0
+monitorable = false
+script = ExtResource("10_a0ie1")
+enabled = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="States/ChaseState/PlayerFarChecker"]
+shape = SubResource("CircleShape2D_xwa2k")
+
+[node name="WaterChecker" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterChecker"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_g7t3b")
+
+[node name="Damage" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage"]
+shape = SubResource("CircleShape2D_wfuym")
+
+[connection signal="on_disable" from="Gravity/GravityEnabler" to="Gravity" method="disable"]
+[connection signal="on_enable" from="Gravity/GravityEnabler" to="Gravity" method="enable"]
+[connection signal="body_entered" from="States/IdleState/PlayerCloseChecker" to="States/StateEvents/PlayerClose" method="switch" unbinds=1]
+[connection signal="body_exited" from="States/ChaseState/PlayerFarChecker" to="States/StateEvents/PlayerFar" method="switch" unbinds=1]
+[connection signal="area_entered" from="WaterChecker" to="Gravity/GravityEnabler" method="disable" unbinds=1]
+[connection signal="area_exited" from="WaterChecker" to="Gravity/GravityEnabler" method="enable" unbinds=1]

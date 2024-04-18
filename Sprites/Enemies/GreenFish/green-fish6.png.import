@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://6ls8jc8mvt68"
-path="res://.godot/imported/fish6.png-8be872f767099903a56b34eba2ffbf44.ctex"
+path="res://.godot/imported/green-fish6.png-779ab9ca7a8c6fb7af5d48bd2a463be3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Enemies/Fish/fish6.png"
-dest_files=["res://.godot/imported/fish6.png-8be872f767099903a56b34eba2ffbf44.ctex"]
+source_file="res://Sprites/Enemies/GreenFish/green-fish6.png"
+dest_files=["res://.godot/imported/green-fish6.png-779ab9ca7a8c6fb7af5d48bd2a463be3.ctex"]
 
 [params]
 

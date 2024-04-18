@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbucociwjfwec"
-path="res://.godot/imported/fish4.png-84f379d6d806cd0b5844789903337b35.ctex"
+uid="uid://cmquk5jfcssog"
+path="res://.godot/imported/green-fish1.png-f170c70c4c2b682f8190089aa7adb122.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Enemies/Fish/fish4.png"
-dest_files=["res://.godot/imported/fish4.png-84f379d6d806cd0b5844789903337b35.ctex"]
+source_file="res://Sprites/Enemies/GreenFish/green-fish1.png"
+dest_files=["res://.godot/imported/green-fish1.png-f170c70c4c2b682f8190089aa7adb122.ctex"]
 
 [params]
 
