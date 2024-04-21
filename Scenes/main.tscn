@@ -1,101 +1,142 @@
-[gd_scene load_steps=11 format=3 uid="uid://dnf3ma84l7881"]
+[gd_scene load_steps=14 format=3 uid="uid://dnf3ma84l7881"]
 
 [ext_resource type="Script" path="res://Scripts/SceneManager.gd" id="1_mp3ny"]
 [ext_resource type="PackedScene" uid="uid://d3hqdk77sg32n" path="res://Scenes/Player.tscn" id="1_s0pd8"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/CameraFollow.gd" id="2_2kew5"]
 [ext_resource type="PackedScene" uid="uid://lbk0irkrw228" path="res://Scenes/Water.tscn" id="2_5kyod"]
-[ext_resource type="PackedScene" uid="uid://lqch233gcdkv" path="res://Scenes/Enemies/GreenFish.tscn" id="3_x5xep"]
-[ext_resource type="Script" path="res://Scripts/CustomResources/PathResource.gd" id="4_kopuq"]
-[ext_resource type="PackedScene" uid="uid://d0fbkt8drrch" path="res://Scenes/Enemies/Puffer.tscn" id="6_xwc4n"]
+[ext_resource type="PackedScene" uid="uid://mlciq1joiws5" path="res://Scenes/Waterfall.tscn" id="3_1e5qo"]
+[ext_resource type="Script" path="res://Scripts/Input/Directions/PlayerHorizontalDirection.gd" id="3_dmcc3"]
+[ext_resource type="PackedScene" uid="uid://lqch233gcdkv" path="res://Scenes/Enemies/GreenFish.tscn" id="5_dy0sg"]
+[ext_resource type="Texture2D" uid="uid://bi2vvi7mrp5fq" path="res://Sprites/Tiles/tileset.png" id="5_h8sro"]
+[ext_resource type="Script" path="res://Scripts/CustomResources/PathResource.gd" id="6_fidtk"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pg28c"]
-size = Vector2(10, 10)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ngu4m"]
+texture = ExtResource("5_h8sro")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
+1:0/0/physics_layer_0/polygon_0/one_way = true
+1:0/0/terrains_peering_bit/right_side = 0
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
+2:0/0/physics_layer_0/polygon_0/one_way = true
+2:0/0/terrains_peering_bit/right_side = 0
+2:0/0/terrains_peering_bit/left_side = 0
+3:0/0 = 0
+3:0/0/terrain_set = 0
+3:0/0/terrain = 0
+3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:0/0/physics_layer_0/angular_velocity = 0.0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
+3:0/0/physics_layer_0/polygon_0/one_way = true
+3:0/0/terrains_peering_bit/left_side = 0
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrain = 1
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:1/0/terrains_peering_bit/right_side = 1
+2:1/0 = 0
+2:1/0/terrain_set = 0
+2:1/0/terrain = 1
+2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:1/0/physics_layer_0/angular_velocity = 0.0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:1/0/terrains_peering_bit/right_side = 1
+2:1/0/terrains_peering_bit/left_side = 1
+3:1/0 = 0
+3:1/0/terrain_set = 0
+3:1/0/terrain = 1
+3:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:1/0/physics_layer_0/angular_velocity = 0.0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:1/0/terrains_peering_bit/left_side = 1
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ep3fm"]
-width = 10
-height = 10
+[sub_resource type="TileSet" id="TileSet_d584k"]
+physics_layer_0/collision_layer = 8
+physics_layer_0/collision_mask = 0
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Terrain 0"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+terrain_set_0/terrain_1/name = "Terrain 1"
+terrain_set_0/terrain_1/color = Color(0.5, 0.4375, 0.25, 1)
+sources/1 = SubResource("TileSetAtlasSource_ngu4m")
 
-[sub_resource type="Resource" id="Resource_tn2d6"]
-script = ExtResource("4_kopuq")
-points = PackedVector2Array(250, 200, 75, 200, 75, 135, 250, 135)
+[sub_resource type="Resource" id="Resource_euitd"]
+script = ExtResource("6_fidtk")
+points = PackedVector2Array(120, 180, 200, 180)
 
-[sub_resource type="Resource" id="Resource_numm6"]
-script = ExtResource("4_kopuq")
-points = PackedVector2Array(280, 135, 280, 200)
+[sub_resource type="Resource" id="Resource_smdb4"]
+script = ExtResource("6_fidtk")
+points = PackedVector2Array(200, 210, 120, 210)
 
 [node name="Main" type="Node2D"]
 
 [node name="SceneManager" type="Node" parent="."]
 script = ExtResource("1_mp3ny")
 
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("direction", "follower", "target", "drawer")]
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+script = ExtResource("2_2kew5")
+direction = NodePath("PlayerHorizontalDirection")
+min_deadzone_x = -50.0
+max_deadzone_x = 40.0
+move_speed = 50.0
+follower = NodePath(".")
+target = NodePath("../Player")
+deadzone = Rect2(-50, -40, 1, 80)
+drawer = NodePath(".")
+
+[node name="PlayerHorizontalDirection" type="Node" parent="Camera2D"]
+script = ExtResource("3_dmcc3")
+
 [node name="Player" parent="." instance=ExtResource("1_s0pd8")]
-position = Vector2(33, 66)
+position = Vector2(25, 123)
+collision_layer = 65
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(-28, 143)
-scale = Vector2(10, 27.375)
-collision_layer = 8
+[node name="Walls" type="Node" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("RectangleShape2D_pg28c")
+[node name="TileMap" type="TileMap" parent="Walls"]
+tile_set = SubResource("TileSet_d584k")
+format = 2
+layer_0/tile_data = PackedInt32Array(917504, 1, 0, 917505, 1, 0, 917506, 1, 0, 917507, 1, 0, 917508, 1, 0, 917509, 1, 0, 851973, 1, 0, 851972, 1, 0, 851971, 1, 0, 851970, 1, 0, 851969, 1, 0, 851968, 1, 0, 786432, 1, 0, 720896, 1, 0, 655360, 1, 0, 589824, 1, 0, 589825, 1, 0, 589826, 1, 0, 589827, 1, 0, 589828, 1, 0, 589829, 1, 0, 655365, 1, 0, 720901, 1, 0, 786437, 1, 0, 786436, 1, 0, 786435, 1, 0, 786434, 1, 0, 786433, 1, 0, 720897, 1, 0, 655361, 1, 0, 655362, 1, 0, 655363, 1, 0, 720899, 1, 0, 720898, 1, 0, 720900, 1, 0, 655364, 1, 0, 589838, 1, 0, 589839, 1, 0, 589840, 1, 0, 589841, 1, 0, 589842, 1, 0, 589843, 1, 0, 655379, 1, 0, 720915, 1, 0, 786451, 1, 0, 851987, 1, 0, 917523, 1, 0, 917522, 1, 0, 917521, 1, 0, 917520, 1, 0, 917519, 1, 0, 917518, 1, 0, 851982, 1, 0, 786446, 1, 0, 720910, 1, 0, 655374, 1, 0, 655375, 1, 0, 655376, 1, 0, 655377, 1, 0, 655378, 1, 0, 720914, 1, 0, 786450, 1, 0, 851986, 1, 0, 851985, 1, 0, 851984, 1, 0, 851983, 1, 0, 786447, 1, 0, 720911, 1, 0, 720912, 1, 0, 720913, 1, 0, 786449, 1, 0, 786448, 1, 0, 917510, 1, 0, 917511, 1, 0, 917512, 1, 0, 917513, 1, 0, 917514, 1, 0, 917515, 1, 0, 917516, 1, 0, 917517, 1, 0, 589830, 65537, 1, 589831, 131073, 1, 589832, 131073, 1, 589833, 131073, 1, 589834, 131073, 1, 589835, 131073, 1, 589836, 131073, 1, 589837, 196609, 1, 8, 65537, 0, 9, 131073, 0, 10, 131073, 0, 11, 196609, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-texture = SubResource("NoiseTexture2D_ep3fm")
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2(158, 251)
-scale = Vector2(35, 5)
-collision_layer = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-shape = SubResource("RectangleShape2D_pg28c")
-
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
-texture = SubResource("NoiseTexture2D_ep3fm")
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="."]
-position = Vector2(332, 173)
-scale = Vector2(5, 15)
-collision_layer = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
-shape = SubResource("RectangleShape2D_pg28c")
-
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3"]
-texture = SubResource("NoiseTexture2D_ep3fm")
-
-[node name="StaticBody2D4" type="StaticBody2D" parent="."]
-position = Vector2(86, 102)
-scale = Vector2(16.805, 1.71)
-collision_layer = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
-shape = SubResource("RectangleShape2D_pg28c")
-
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D4"]
-texture = SubResource("NoiseTexture2D_ep3fm")
+[node name="Waterfall" parent="." instance=ExtResource("3_1e5qo")]
+position = Vector2(160, 90)
+scale = Vector2(5, 11.52)
 
 [node name="Water" parent="." instance=ExtResource("2_5kyod")]
-position = Vector2(162, 177)
-scale = Vector2(30, 15)
+top_level = true
+position = Vector2(160, 190)
+scale = Vector2(15, -8)
 
-[node name="GreenFish" parent="." instance=ExtResource("3_x5xep")]
-position = Vector2(250, 200)
+[node name="GreenFish" parent="." instance=ExtResource("5_dy0sg")]
+position = Vector2(120, 180)
 
 [node name="PathVisualizer" parent="GreenFish/Movement/PlaneMovement/PathDirection" index="0"]
-path = SubResource("Resource_tn2d6")
+path = SubResource("Resource_euitd")
 
-[node name="Puffer" parent="." instance=ExtResource("6_xwc4n")]
-position = Vector2(280, 135)
+[node name="GreenFish2" parent="." instance=ExtResource("5_dy0sg")]
+position = Vector2(200, 210)
 
-[node name="PathVisualizer" parent="Puffer/States/IdleState/IdleMovement/PlaneMovement/PathDirection" index="0"]
-path = SubResource("Resource_numm6")
-color = Color(0.784314, 0, 1, 0.501961)
-
-[node name="FollowDirection" parent="Puffer/States/ChaseState/ChaseMovement/PlaneMovement" index="0" node_paths=PackedStringArray("target")]
-target = NodePath("../../../../../../Player")
+[node name="PathVisualizer" parent="GreenFish2/Movement/PlaneMovement/PathDirection" index="0"]
+path = SubResource("Resource_smdb4")
 
 [connection signal="depleted" from="Player/CounterSignal" to="SceneManager" method="reload_scene"]
 
 [editable path="Player"]
 [editable path="GreenFish"]
-[editable path="Puffer"]
+[editable path="GreenFish2"]

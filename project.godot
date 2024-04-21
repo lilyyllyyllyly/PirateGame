@@ -116,6 +116,7 @@ fire={
 2d_physics/layer_4="Obstacle"
 2d_physics/layer_5="EnemyBody"
 2d_physics/layer_6="EnemyDamage"
+2d_physics/layer_7="Body"
 
 [physics]
 

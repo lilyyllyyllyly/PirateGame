@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://d3hqdk77sg32n"]
+[gd_scene load_steps=50 format=3 uid="uid://d3hqdk77sg32n"]
 
 [ext_resource type="Texture2D" uid="uid://wvt8keytohdj" path="res://Sprites/Player/Idle/player-idle1.png" id="2_3suvf"]
 [ext_resource type="Texture2D" uid="uid://6eo8adbewj0x" path="res://Sprites/Player/Idle/player-idle2.png" id="3_4o6ir"]
@@ -35,6 +35,7 @@
 [ext_resource type="Script" path="res://Scripts/Input/Directions/PlayerPlaneDirection.gd" id="29_8h0eh"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/Boost.gd" id="30_efbaw"]
 [ext_resource type="Script" path="res://Scripts/Input/Signals/JumpPressSignal.gd" id="31_fxhgp"]
+[ext_resource type="Script" path="res://Scripts/WaterChecker.gd" id="34_vlw6o"]
 [ext_resource type="Script" path="res://Scripts/Thrower.gd" id="35_xf1i7"]
 [ext_resource type="Script" path="res://Scripts/Input/Signals/CounterSignal.gd" id="36_wx7gs"]
 
@@ -320,6 +321,7 @@ script = ExtResource("31_fxhgp")
 collision_layer = 4
 collision_mask = 2
 monitorable = false
+script = ExtResource("34_vlw6o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterChecker"]
 position = Vector2(-0.5, -2.5)
@@ -357,12 +359,11 @@ maxv = 3
 [connection signal="boosted" from="States/WaterState/Boost" to="Effects/WaterBoostParticle" method="spawn_particle"]
 [connection signal="jump_pressed" from="States/WaterState/Boost/JumpPressSignal" to="AnimationPlayer" method="on_jump_pressed"]
 [connection signal="jump_pressed" from="States/WaterState/Boost/JumpPressSignal" to="States/WaterState/Boost" method="boost_delayed"]
-[connection signal="area_entered" from="WaterChecker" to="AnimationPlayer" method="on_enter_water"]
-[connection signal="area_entered" from="WaterChecker" to="WaterChecker" method="on_area_entered"]
+[connection signal="area_entered" from="WaterChecker" to="AnimationPlayer" method="on_enter_water" unbinds=1]
 [connection signal="area_entered" from="WaterChecker" to="States/StateEvents/EnterWater" method="switch" unbinds=1]
-[connection signal="area_exited" from="WaterChecker" to="AnimationPlayer" method="on_exit_water"]
-[connection signal="area_exited" from="WaterChecker" to="WaterLeaveBoost" method="on_water_exited"]
-[connection signal="area_exited" from="WaterChecker" to="WaterChecker" method="on_area_exited"]
-[connection signal="area_exited" from="WaterChecker" to="States/StateEvents/LeaveWater" method="switch" unbinds=1]
+[connection signal="area_exited" from="WaterChecker" to="WaterChecker" method="on_area_exited" unbinds=1]
+[connection signal="left_water" from="WaterChecker" to="AnimationPlayer" method="on_exit_water"]
+[connection signal="left_water" from="WaterChecker" to="WaterLeaveBoost" method="on_water_exited"]
+[connection signal="left_water" from="WaterChecker" to="States/StateEvents/LeaveWater" method="switch"]
 [connection signal="area_entered" from="DamageChecker" to="Thrower" method="throw_away_from" binds= [false]]
 [connection signal="area_entered" from="DamageChecker" to="CounterSignal" method="decrement" unbinds=1]

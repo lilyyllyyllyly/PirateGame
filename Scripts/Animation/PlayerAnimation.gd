@@ -32,10 +32,10 @@ func on_jump_pressed():
 		queue("player-swim")
 		return
 
-func on_enter_water(_area):
+func on_enter_water():
 	in_water = true
 
-func on_exit_water(_area):
+func on_exit_water():
 	in_water = false
 
 func _process(delta):

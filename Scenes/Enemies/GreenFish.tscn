@@ -42,8 +42,8 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_s8mhu"]
 radius = 5.0
 
-[node name="Fish" type="CharacterBody2D"]
-collision_layer = 16
+[node name="GreenFish" type="CharacterBody2D"]
+collision_layer = 80
 collision_mask = 8
 motion_mode = 1
 
@@ -75,8 +75,8 @@ move = NodePath("PlaneMovement")
 script = ExtResource("11_8yiua")
 direction = NodePath("PathDirection")
 body = NodePath("../..")
-speed = 50.0
-accel = 100.0
+speed = 30.0
+accel = 50.0
 
 [node name="PathDirection" type="Node" parent="Movement/PlaneMovement" node_paths=PackedStringArray("object", "path_visualizer")]
 script = ExtResource("11_yfmmd")
