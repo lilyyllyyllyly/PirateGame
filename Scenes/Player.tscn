@@ -273,8 +273,8 @@ script = ExtResource("21_hpk8n")
 script = ExtResource("22_vihjo")
 jump_held = NodePath("JumpHeld")
 body = NodePath("../../..")
-jump_force = -125.0
-jump_hold = 150
+jump_force = -130.0
+jump_hold = 200
 enabled = false
 
 [node name="JumpHeld" type="Node" parent="States/GroundState/Jump"]
@@ -339,7 +339,6 @@ rot_offset = 4.712
 [node name="DamageChecker" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 32
-monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageChecker"]
 position = Vector2(0, 1)

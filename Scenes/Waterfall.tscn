@@ -4,31 +4,33 @@
 [ext_resource type="Script" path="res://Scripts/Behaviours/ConstantMover.gd" id="2_txbxm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nkhad"]
-size = Vector2(10, 10)
+size = Vector2(16, 16)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ljvbg"]
 shader = ExtResource("1_lqgr2")
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_djg4b"]
-width = 10
-height = 10
+width = 16
+height = 16
 
 [node name="Waterfall" type="Area2D"]
-scale = Vector2(5, 10)
+scale = Vector2(3, 6)
 collision_layer = 2
 collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_nkhad")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -1
 material = SubResource("ShaderMaterial_ljvbg")
 texture = SubResource("NoiseTexture2D_djg4b")
+offset = Vector2(8, 8)
 
 [node name="ConstantMover" type="Node" parent="."]
 script = ExtResource("2_txbxm")
-move = Vector2(0, 100)
+move = Vector2(0, 75)
 
 [connection signal="body_entered" from="." to="ConstantMover" method="set_object"]
 [connection signal="body_exited" from="." to="ConstantMover" method="unset_object"]

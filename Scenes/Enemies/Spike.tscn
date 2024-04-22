@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://uk0acae3vt17"]
+
+[ext_resource type="Texture2D" uid="uid://bi2vvi7mrp5fq" path="res://Sprites/Tiles/tileset.png" id="1_cd8ld"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rici0"]
+size = Vector2(8, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fwdun"]
+radius = 7.0
+
+[node name="Spike" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_rici0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_cd8ld")
+region_enabled = true
+region_rect = Rect2(0, 16, 16, 16)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_fwdun")
