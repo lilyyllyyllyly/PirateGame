@@ -21,6 +21,6 @@ monitoring = false
 shape = SubResource("RectangleShape2D_nkhad")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = -1
+z_index = -5
 material = SubResource("ShaderMaterial_ljvbg")
 texture = SubResource("NoiseTexture2D_djg4b")

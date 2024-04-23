@@ -14,6 +14,6 @@ shape = SubResource("RectangleShape2D_kim68")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_md82h")
 region_enabled = true
-region_rect = Rect2(32, 32, 16, 16)
+region_rect = Rect2(16, 32, 16, 16)
 
 [connection signal="body_entered" from="." to="." method="queue_free" unbinds=1]
