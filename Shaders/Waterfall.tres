@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dvo534bbtwrnw"]
+
+[ext_resource type="Shader" path="res://Shaders/Waterfall.gdshader" id="1_xflfq"]
+
+[resource]
+shader = ExtResource("1_xflfq")
+shader_parameter/WAVE_FREQ = 30.0
+shader_parameter/WAVE_AMPL = 0.05
+shader_parameter/WAVE_OFFSET = 0.03
+shader_parameter/WAVE_SPEED = 10.0

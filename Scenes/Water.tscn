@@ -1,12 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://lbk0irkrw228"]
+[gd_scene load_steps=4 format=3 uid="uid://lbk0irkrw228"]
 
-[ext_resource type="Shader" path="res://Shaders/Water.gdshader" id="2_fwao2"]
+[ext_resource type="Material" uid="uid://c1t3g6lau3uik" path="res://Shaders/Water.tres" id="1_l8snx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nkhad"]
 size = Vector2(10, 10)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ljvbg"]
-shader = ExtResource("2_fwao2")
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_djg4b"]
 width = 10
@@ -22,5 +19,5 @@ shape = SubResource("RectangleShape2D_nkhad")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -5
-material = SubResource("ShaderMaterial_ljvbg")
+material = ExtResource("1_l8snx")
 texture = SubResource("NoiseTexture2D_djg4b")

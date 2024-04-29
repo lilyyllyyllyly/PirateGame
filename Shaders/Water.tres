@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c1t3g6lau3uik"]
+
+[ext_resource type="Shader" path="res://Shaders/Water.gdshader" id="1_cm34v"]
+
+[resource]
+shader = ExtResource("1_cm34v")
+shader_parameter/WAVE_AMPL = 0.005
+shader_parameter/WAVE_FREQ = 30.0
+shader_parameter/WAVE_SPEED = 1.0
+shader_parameter/TINT = Vector4(0.4, 0.6, 0.9, 0.75)
