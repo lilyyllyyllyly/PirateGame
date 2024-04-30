@@ -6,5 +6,5 @@
 shader = ExtResource("1_xflfq")
 shader_parameter/WAVE_FREQ = 30.0
 shader_parameter/WAVE_AMPL = 0.05
-shader_parameter/WAVE_OFFSET = 0.03
+shader_parameter/WAVE_OFFSET = 0.05
 shader_parameter/WAVE_SPEED = 10.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://mlciq1joiws5"]
+[gd_scene load_steps=6 format=3 uid="uid://mlciq1joiws5"]
 
 [ext_resource type="Material" uid="uid://dvo534bbtwrnw" path="res://Shaders/Waterfall.tres" id="1_5dckb"]
 [ext_resource type="Texture2D" uid="uid://i1werajk38px" path="res://Sprites/square.png" id="2_n0xji"]
@@ -6,6 +6,10 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nkhad"]
 size = Vector2(16, 16)
+
+[sub_resource type="Curve" id="Curve_8bwox"]
+_data = [Vector2(0, 1), 0.0, -0.307368, 0, 0, Vector2(1, 0), -2.32872, 0.0, 0, 0]
+point_count = 2
 
 [node name="Waterfall" type="Area2D"]
 scale = Vector2(3, 6)
@@ -26,6 +30,43 @@ offset = Vector2(8, 8)
 [node name="ConstantMover" type="Node" parent="."]
 script = ExtResource("2_txbxm")
 move = Vector2(0, 75)
+
+[node name="TopFoam" type="CPUParticles2D" parent="."]
+z_index = -1
+position = Vector2(8, 0)
+amount = 75
+lifetime = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(8, 0)
+direction = Vector2(0, -1)
+spread = 90.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 2.5
+initial_velocity_max = 2.5
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 10.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_8bwox")
+color = Color(1, 1, 1, 0.588235)
+
+[node name="BottomFoam" type="CPUParticles2D" parent="."]
+z_index = -1
+position = Vector2(8, 16)
+amount = 100
+lifetime = 0.3
+emission_shape = 3
+emission_rect_extents = Vector2(8, 0)
+direction = Vector2(0, -1)
+spread = 90.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 5.0
+scale_amount_max = 8.0
+scale_amount_curve = SubResource("Curve_8bwox")
 
 [connection signal="body_entered" from="." to="ConstantMover" method="set_object"]
 [connection signal="body_exited" from="." to="ConstantMover" method="unset_object"]

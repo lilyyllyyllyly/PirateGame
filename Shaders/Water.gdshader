@@ -1,22 +1,34 @@
 shader_type canvas_item;
 
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture;
-uniform float WAVE_AMPL = 0.005;
+
+uniform vec4 WATER_TINT = vec4(0.4, 0.6, 0.9, 0.75);
+uniform vec4  FOAM_TINT = vec4(1.0, 1.0, 1.0, 0.75);
+uniform float FOAM_THICK = 0.05;
+
+// distortion
+uniform float DIST_AMPL = 0.005;
+uniform float DIST_FREQ = 30.0;
+uniform float DIST_SPEED = 1.0;
+
+// top waves
+uniform float WAVE_AMPL = 0.025;
 uniform float WAVE_FREQ = 30.0;
 uniform float WAVE_SPEED = 1.0;
-uniform vec4 TINT = vec4(0.0, 0.0, 0.0, 0.0);
-
-float lerp(float a, float b, float t) {
-	return (b - a) * t + a;
-}
 
 void fragment() {
-	float wave_x = SCREEN_UV.x + sin(SCREEN_UV.y * WAVE_FREQ + TIME * WAVE_SPEED) * WAVE_AMPL;
-	vec4 screen_clr = texture(SCREEN_TEXTURE, vec2(wave_x, SCREEN_UV.y));
+	float wave = (sin(UV.x * WAVE_FREQ + TIME * WAVE_SPEED) + 1.0) / 2.0 * WAVE_AMPL;
 
-	float final_r = lerp(screen_clr.r, TINT.r, TINT.a);
-	float final_g = lerp(screen_clr.g, TINT.g, TINT.a);
-	float final_b = lerp(screen_clr.b, TINT.b, TINT.a);
+	if (UV.y < wave) {
+		COLOR = vec4(0.0, 0.0, 0.0, 0.0);
+	} else {
+		vec4 tint_color = WATER_TINT;
+		if (UV.y < wave + FOAM_THICK) {
+			tint_color = FOAM_TINT;
+		}
 
-	COLOR = vec4(final_r, final_g, final_b, 1.0);
+		float dist_x = sin(UV.y * DIST_FREQ + TIME * DIST_SPEED) * DIST_AMPL;
+		vec4 screen_clr = texture(SCREEN_TEXTURE, vec2(SCREEN_UV.x + dist_x, SCREEN_UV.y));
+		COLOR = vec4(mix(screen_clr.rgb, tint_color.rgb, tint_color.a), 1.0);
+	}
 }

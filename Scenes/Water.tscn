@@ -1,13 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://lbk0irkrw228"]
 
 [ext_resource type="Material" uid="uid://c1t3g6lau3uik" path="res://Shaders/Water.tres" id="1_l8snx"]
+[ext_resource type="Texture2D" uid="uid://i1werajk38px" path="res://Sprites/square.png" id="2_4210o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nkhad"]
-size = Vector2(10, 10)
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_djg4b"]
-width = 10
-height = 10
+size = Vector2(16, 16)
 
 [node name="Water" type="Area2D"]
 collision_layer = 2
@@ -20,4 +17,4 @@ shape = SubResource("RectangleShape2D_nkhad")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -5
 material = ExtResource("1_l8snx")
-texture = SubResource("NoiseTexture2D_djg4b")
+texture = ExtResource("2_4210o")
