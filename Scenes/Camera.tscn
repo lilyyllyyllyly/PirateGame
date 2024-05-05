@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkyjaidt53m6p"]
+
+[ext_resource type="Script" path="res://Scripts/Behaviours/CameraFollow.gd" id="1_5v8mw"]
+[ext_resource type="Script" path="res://Scripts/Input/Directions/PlayerHorizontalDirection.gd" id="2_vvljs"]
+
+[node name="Camera" type="Camera2D" node_paths=PackedStringArray("direction", "follower", "drawer")]
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+script = ExtResource("1_5v8mw")
+direction = NodePath("PlayerHorizontalDirection")
+min_deadzone_x = -50.0
+max_deadzone_x = 40.0
+move_speed = 50.0
+follower = NodePath(".")
+deadzone = Rect2(-50, -40, 1, 80)
+drawer = NodePath(".")
+
+[node name="PlayerHorizontalDirection" type="Node" parent="."]
+script = ExtResource("2_vvljs")
