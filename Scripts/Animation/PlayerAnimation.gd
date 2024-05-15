@@ -6,6 +6,7 @@ class_name PlayerAnimation extends AnimationPlayer
 @export_group("Input")
 @export var plane_direction:      DirectionalInput
 @export var horizontal_direction: DirectionalInput
+@export var health_counter: CounterSignal
 
 @export_group("Rotation")
 @export var swim_stop_rot: float
@@ -21,16 +22,19 @@ func fwrap(x, minv, maxv):
 	return (maxv if x < 0 else minv) + fmod(x, maxv - minv)
 
 func play_reset(anim):
-	if current_animation != anim:
-		play("RESET")
-		queue(anim)
+	if health_counter.counter >= health_counter.maxv: anim = anim + "-bandana" # horribly hardcoded, whoops
+	if current_animation == anim or current_animation == "RESET": return
+
+	play("RESET")
+	queue(anim)
 
 func on_jump_pressed():
-	if in_water:
-		rot_goal = fwrap(atan2(direction.y, direction.x) + rot_offset, 0, TAU)
-		play("player-boost")
-		queue("player-swim")
-		return
+	if !in_water: return
+
+	rot_goal = fwrap(atan2(direction.y, direction.x) + rot_offset, 0, TAU)
+	# horribly hardcoded again
+	play("player-boost" if health_counter.counter < health_counter.maxv else "player-boost-bandana")
+	queue("player-swim" if health_counter.counter < health_counter.maxv else "player-swim-bandana")
 
 func on_enter_water():
 	in_water = true
@@ -66,7 +70,7 @@ func rotate_to_goal(delta):
 	sprite.rotation += clamp(rot_left, -swim_stop_rot*delta, swim_stop_rot*delta)
 
 func water_animations():
-	if current_animation == "player-boost":
+	if current_animation == "player-boost" or current_animation == "player-boost-bandana":
 		return
 
 	# - stopped -

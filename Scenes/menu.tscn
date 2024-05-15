@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3 uid="uid://bxhmiryt3ws3h"]
+
+[ext_resource type="Script" path="res://Scripts/SceneChanger.gd" id="1_6ly1g"]
+[ext_resource type="Theme" uid="uid://dh0pcg828que3" path="res://UITheme.tres" id="1_sr18q"]
+[ext_resource type="Script" path="res://Scripts/SaveEditor.gd" id="3_tfe4s"]
+[ext_resource type="Resource" uid="uid://ckj1wwupytsk" path="res://save.tres" id="4_livys"]
+
+[node name="Menu" type="Node2D"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 320.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_sr18q")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "(the still unamed)"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "PIRATE GAME!!"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Play"
+
+[node name="SceneChanger" type="Node" parent="Control/VBoxContainer/Button"]
+script = ExtResource("1_6ly1g")
+change_to = "res://Scenes/Areas/lobby.tscn"
+
+[node name="SaveEditor" type="Node" parent="Control/VBoxContainer/Button"]
+script = ExtResource("3_tfe4s")
+save = ExtResource("4_livys")
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_top = 208.0
+offset_right = 249.0
+offset_bottom = 243.0
+theme_override_font_sizes/font_size = 16
+text = "Font: Grape Soda from fontenddev.com"
+
+[connection signal="button_down" from="Control/VBoxContainer/Button" to="Control/VBoxContainer/Button/SceneChanger" method="change"]
+[connection signal="button_down" from="Control/VBoxContainer/Button" to="Control/VBoxContainer/Button/SaveEditor" method="load"]

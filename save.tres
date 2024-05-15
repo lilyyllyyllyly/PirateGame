@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="SaveResource" load_steps=2 format=3 uid="uid://ckj1wwupytsk"]
+
+[ext_resource type="Script" path="res://Scripts/CustomResources/SaveResource.gd" id="1_q6npm"]
+
+[resource]
+script = ExtResource("1_q6npm")
+path = "user://save.json"

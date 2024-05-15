@@ -1,9 +1,10 @@
-[gd_resource type="TileSet" load_steps=17 format=3 uid="uid://bhpidh16mm137"]
+[gd_resource type="TileSet" load_steps=18 format=3 uid="uid://bhpidh16mm137"]
 
-[ext_resource type="PackedScene" uid="uid://uk0acae3vt17" path="res://Scenes/Enemies/SpikeLeft.tscn" id="1_sc1vc"]
-[ext_resource type="PackedScene" uid="uid://c365hfrfoykem" path="res://Scenes/Collectible.tscn" id="2_567rd"]
-[ext_resource type="PackedScene" uid="uid://bhef5k03da5av" path="res://Scenes/Enemies/SpikeRight.tscn" id="3_guhtc"]
-[ext_resource type="PackedScene" uid="uid://bg5ex4eyd37x1" path="res://Scenes/Enemies/SpikeUp.tscn" id="4_sh4ia"]
+[ext_resource type="PackedScene" uid="uid://uk0acae3vt17" path="res://Prefabs/Entities/Enemies/SpikeLeft.tscn" id="1_sc1vc"]
+[ext_resource type="PackedScene" uid="uid://c365hfrfoykem" path="res://Prefabs/LevelMechanics/Collectible.tscn" id="2_567rd"]
+[ext_resource type="PackedScene" uid="uid://bhef5k03da5av" path="res://Prefabs/Entities/Enemies/SpikeRight.tscn" id="3_guhtc"]
+[ext_resource type="PackedScene" uid="uid://bg5ex4eyd37x1" path="res://Prefabs/Entities/Enemies/SpikeUp.tscn" id="4_sh4ia"]
+[ext_resource type="PackedScene" uid="uid://7f2nehphvt5d" path="res://Prefabs/TextSign.tscn" id="5_4kvmr"]
 [ext_resource type="Texture2D" uid="uid://bi2vvi7mrp5fq" path="res://Sprites/Tilesets/tileset.png" id="5_c1ljv"]
 [ext_resource type="Texture2D" uid="uid://b3e02dt2xdh3q" path="res://Sprites/Tilesets/dirt-tileset.png" id="6_1fj0b"]
 [ext_resource type="Texture2D" uid="uid://djyqh65dislps" path="res://Sprites/Tilesets/stone-tileset.png" id="7_hghe4"]
@@ -18,6 +19,7 @@ scenes/1/scene = ExtResource("1_sc1vc")
 scenes/2/scene = ExtResource("2_567rd")
 scenes/3/scene = ExtResource("3_guhtc")
 scenes/4/scene = ExtResource("4_sh4ia")
+scenes/5/scene = ExtResource("5_4kvmr")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ngu4m"]
 texture = ExtResource("5_c1ljv")

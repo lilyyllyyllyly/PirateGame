@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://7f2nehphvt5d"]
+
+[ext_resource type="Texture2D" uid="uid://fjv6xjigl3cb" path="res://Sprites/Tilesets/props-tileset.png" id="1_rtbdo"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/Behaviour.gd" id="2_nicyb"]
+[ext_resource type="Theme" uid="uid://dh0pcg828que3" path="res://UITheme.tres" id="2_pt0ge"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h4xtp"]
+size = Vector2(16, 16)
+
+[node name="TextSign" type="Area2D"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_h4xtp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+texture = ExtResource("1_rtbdo")
+region_enabled = true
+region_rect = Rect2(16, 32, 16, 16)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -60.0
+offset_right = 60.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_pt0ge")
+text = "This is text!"
+fit_content = true
+
+[node name="SetTextVisibility" type="Node" parent="RichTextLabel"]
+script = ExtResource("2_nicyb")
+enabled = false
+
+[connection signal="body_entered" from="." to="RichTextLabel/SetTextVisibility" method="enable" unbinds=1]
+[connection signal="body_exited" from="." to="RichTextLabel/SetTextVisibility" method="disable" unbinds=1]
+[connection signal="on_disable" from="RichTextLabel/SetTextVisibility" to="RichTextLabel" method="set_visible" binds= [false]]
+[connection signal="on_enable" from="RichTextLabel/SetTextVisibility" to="RichTextLabel" method="set_visible" binds= [true]]
