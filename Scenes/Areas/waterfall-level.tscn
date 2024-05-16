@@ -1,5 +1,6 @@
-[gd_scene load_steps=42 format=3 uid="uid://dnf3ma84l7881"]
+[gd_scene load_steps=43 format=3 uid="uid://dnf3ma84l7881"]
 
+[ext_resource type="Script" path="res://Scripts/CheckpointManager.gd" id="1_ymwfe"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/Spawner.gd" id="2_2ken3"]
 [ext_resource type="PackedScene" uid="uid://d0brbtntdutip" path="res://Prefabs/Effects/CloudSmall.tscn" id="3_i0c3a"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/RandomMover.gd" id="4_it5gu"]
@@ -811,6 +812,23 @@ points = PackedVector2Array(2688, 400, 2688, 336)
 
 [node name="Main" type="Node2D"]
 
+[node name="CheckpointManager" type="Node" parent="." node_paths=PackedStringArray("player", "checkpoints")]
+script = ExtResource("1_ymwfe")
+player = NodePath("../Player")
+checkpoints = [NodePath("Checkpoint1"), NodePath("Checkpoint2"), NodePath("Checkpoint3"), NodePath("Checkpoint4")]
+
+[node name="Checkpoint1" type="Node2D" parent="CheckpointManager"]
+position = Vector2(48, 128)
+
+[node name="Checkpoint2" type="Node2D" parent="CheckpointManager"]
+position = Vector2(688, 48)
+
+[node name="Checkpoint3" type="Node2D" parent="CheckpointManager"]
+position = Vector2(1616, 496)
+
+[node name="Checkpoint4" type="Node2D" parent="CheckpointManager"]
+position = Vector2(1984, 304)
+
 [node name="CloudSpawner" type="Node" parent="." node_paths=PackedStringArray("spawn_at", "child_of")]
 script = ExtResource("2_2ken3")
 scene = ExtResource("3_i0c3a")
@@ -1021,6 +1039,66 @@ enabled = false
 [connection signal="timeout" from="CloudSpawner/Timer" to="CloudSpawner" method="spawn"]
 [connection signal="timeout" from="CloudSpawner/Timer" to="CloudSpawner/CloudPosition/RandomMover" method="reposition"]
 [connection signal="on_enable" from="CloudSpawner/CloudPosition/RandomMover" to="CloudSpawner/CloudPosition/RandomMover" method="reposition"]
+[connection signal="depleted" from="Player/HealthCounter" to="CheckpointManager" method="respawn"]
+[connection signal="body_entered" from="TileMap/Collectible" to="TileMap/Collectible" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25356" to="TileMap/@Area2D@25356" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25357" to="TileMap/@Area2D@25357" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25358" to="TileMap/@Area2D@25358" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25362" to="TileMap/@Area2D@25362" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25363" to="TileMap/@Area2D@25363" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25364" to="TileMap/@Area2D@25364" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25365" to="TileMap/@Area2D@25365" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25366" to="TileMap/@Area2D@25366" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25367" to="TileMap/@Area2D@25367" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25368" to="TileMap/@Area2D@25368" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25369" to="TileMap/@Area2D@25369" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25370" to="TileMap/@Area2D@25370" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25371" to="TileMap/@Area2D@25371" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25372" to="TileMap/@Area2D@25372" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25373" to="TileMap/@Area2D@25373" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25374" to="TileMap/@Area2D@25374" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25375" to="TileMap/@Area2D@25375" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25376" to="TileMap/@Area2D@25376" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25377" to="TileMap/@Area2D@25377" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25378" to="TileMap/@Area2D@25378" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25379" to="TileMap/@Area2D@25379" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25392" to="TileMap/@Area2D@25392" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25393" to="TileMap/@Area2D@25393" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25394" to="TileMap/@Area2D@25394" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25395" to="TileMap/@Area2D@25395" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25396" to="TileMap/@Area2D@25396" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25397" to="TileMap/@Area2D@25397" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25398" to="TileMap/@Area2D@25398" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25399" to="TileMap/@Area2D@25399" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25400" to="TileMap/@Area2D@25400" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25401" to="TileMap/@Area2D@25401" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25402" to="TileMap/@Area2D@25402" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25403" to="TileMap/@Area2D@25403" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25404" to="TileMap/@Area2D@25404" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25405" to="TileMap/@Area2D@25405" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25406" to="TileMap/@Area2D@25406" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25407" to="TileMap/@Area2D@25407" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25408" to="TileMap/@Area2D@25408" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25409" to="TileMap/@Area2D@25409" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25410" to="TileMap/@Area2D@25410" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25411" to="TileMap/@Area2D@25411" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25412" to="TileMap/@Area2D@25412" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25413" to="TileMap/@Area2D@25413" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25414" to="TileMap/@Area2D@25414" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25451" to="TileMap/@Area2D@25451" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25452" to="TileMap/@Area2D@25452" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25453" to="TileMap/@Area2D@25453" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25454" to="TileMap/@Area2D@25454" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25455" to="TileMap/@Area2D@25455" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25456" to="TileMap/@Area2D@25456" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25457" to="TileMap/@Area2D@25457" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25458" to="TileMap/@Area2D@25458" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25459" to="TileMap/@Area2D@25459" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25460" to="TileMap/@Area2D@25460" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25461" to="TileMap/@Area2D@25461" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25462" to="TileMap/@Area2D@25462" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@25463" to="TileMap/@Area2D@25463" method="queue_free" unbinds=1]
+[connection signal="area_entered" from="TileMap/Bandana" to="TileMap/Bandana" method="queue_free" unbinds=1]
 [connection signal="body_entered" from="Challenge2/LevelExit" to="Challenge2/LevelExit/SaveEditor/EditSave" method="enable" unbinds=1]
 [connection signal="on_enable" from="Challenge2/LevelExit/SaveEditor/EditSave" to="Challenge2/LevelExit/SaveEditor/EditSave" method="disable"]
 [connection signal="on_enable" from="Challenge2/LevelExit/SaveEditor/EditSave" to="Challenge2/LevelExit/SaveEditor" method="edit_property" binds= ["level1_complete", true]]

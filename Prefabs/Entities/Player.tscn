@@ -55,7 +55,7 @@
 [ext_resource type="Script" path="res://Scripts/WaterChecker.gd" id="34_vlw6o"]
 [ext_resource type="Script" path="res://Scripts/Thrower.gd" id="35_xf1i7"]
 [ext_resource type="Script" path="res://Scripts/Input/Signals/CounterSignal.gd" id="36_wx7gs"]
-[ext_resource type="Script" path="res://Scripts/SceneResetter.gd" id="56_nab8s"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/OneshotSignal.gd" id="57_g3mn5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fxtra"]
 radius = 4.0
@@ -93,6 +93,22 @@ tracks/0/keys = {
 "values": [ExtResource("2_tug5r"), ExtResource("3_mra5v"), ExtResource("4_kbibu")]
 }
 
+[sub_resource type="Animation" id="Animation_nv5xx"]
+resource_name = "player-boost-bandana"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("18_bcjxu"), ExtResource("19_ag0lk"), ExtResource("20_jxlkg")]
+}
+
 [sub_resource type="Animation" id="Animation_fv0hq"]
 resource_name = "player-float"
 loop_mode = 1
@@ -107,6 +123,34 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [ExtResource("5_1n5im"), ExtResource("6_7oeit")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 0.3, 0.3),
+"update": 0,
+"values": [Vector2(0, -2), Vector2(0, 0), Vector2(0, -2)]
+}
+
+[sub_resource type="Animation" id="Animation_n1gtw"]
+resource_name = "player-float-bandana"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("21_xupkk"), ExtResource("22_5uicr")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -138,101 +182,6 @@ tracks/0/keys = {
 "values": [ExtResource("1_3kcyn"), ExtResource("7_u288p"), ExtResource("8_tvdnf"), ExtResource("9_22q5n")]
 }
 
-[sub_resource type="Animation" id="Animation_ppxw5"]
-resource_name = "player-jump"
-length = 0.1
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("10_gxbvv")]
-}
-
-[sub_resource type="Animation" id="Animation_51grv"]
-resource_name = "player-swim"
-length = 0.8
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.4, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [ExtResource("11_rfuls"), ExtResource("12_fv3wy"), ExtResource("13_cjm7y"), ExtResource("14_cgdqo")]
-}
-
-[sub_resource type="Animation" id="Animation_naceo"]
-resource_name = "player-walk"
-length = 0.4
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [ExtResource("15_li7dl"), ExtResource("10_gxbvv"), ExtResource("16_js0nt"), ExtResource("17_ypqkc")]
-}
-
-[sub_resource type="Animation" id="Animation_nv5xx"]
-resource_name = "player-boost-bandana"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [ExtResource("18_bcjxu"), ExtResource("19_ag0lk"), ExtResource("20_jxlkg")]
-}
-
-[sub_resource type="Animation" id="Animation_n1gtw"]
-resource_name = "player-float-bandana"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.6),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [ExtResource("21_xupkk"), ExtResource("22_5uicr")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:offset")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.6, 0.9),
-"transitions": PackedFloat32Array(1, 0.3, 0.3),
-"update": 0,
-"values": [Vector2(0, -2), Vector2(0, 0), Vector2(0, -2)]
-}
-
 [sub_resource type="Animation" id="Animation_d07r6"]
 resource_name = "player-idle-bandana"
 length = 0.6
@@ -248,6 +197,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [ExtResource("23_o62cw"), ExtResource("24_r3tn8"), ExtResource("25_eey6m"), ExtResource("26_kmuje")]
+}
+
+[sub_resource type="Animation" id="Animation_ppxw5"]
+resource_name = "player-jump"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("10_gxbvv")]
 }
 
 [sub_resource type="Animation" id="Animation_yjvl8"]
@@ -267,6 +233,23 @@ tracks/0/keys = {
 "values": [ExtResource("27_5p0qw")]
 }
 
+[sub_resource type="Animation" id="Animation_51grv"]
+resource_name = "player-swim"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("11_rfuls"), ExtResource("12_fv3wy"), ExtResource("13_cjm7y"), ExtResource("14_cgdqo")]
+}
+
 [sub_resource type="Animation" id="Animation_b7y7f"]
 resource_name = "player-swim-bandana"
 length = 0.8
@@ -282,6 +265,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [ExtResource("28_1dcbd"), ExtResource("29_jfho7"), ExtResource("30_msytd"), ExtResource("31_u5us4")]
+}
+
+[sub_resource type="Animation" id="Animation_naceo"]
+resource_name = "player-walk"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("15_li7dl"), ExtResource("10_gxbvv"), ExtResource("16_js0nt"), ExtResource("17_ypqkc")]
 }
 
 [sub_resource type="Animation" id="Animation_mf2nt"]
@@ -475,15 +475,18 @@ shape = SubResource("CapsuleShape2D_pjuib")
 [node name="Thrower" type="Node" parent="." node_paths=PackedStringArray("body")]
 script = ExtResource("35_xf1i7")
 body = NodePath("..")
-intensity = 125.0
+intensity = 200.0
 
 [node name="HealthCounter" type="Node" parent="."]
 script = ExtResource("36_wx7gs")
 initial_value = 2
 maxv = 2
 
-[node name="SceneResetter" type="Node" parent="HealthCounter"]
-script = ExtResource("56_nab8s")
+[node name="Damage" type="Node" parent="HealthCounter"]
+script = ExtResource("57_g3mn5")
+
+[node name="InvulTimer" type="Timer" parent="HealthCounter"]
+one_shot = true
 
 [node name="BandanaChecker" type="Area2D" parent="."]
 collision_layer = 256
@@ -502,7 +505,10 @@ shape = SubResource("RectangleShape2D_ghwek")
 [connection signal="left_water" from="WaterChecker" to="AnimationPlayer" method="on_exit_water"]
 [connection signal="left_water" from="WaterChecker" to="WaterLeaveBoost" method="on_water_exited"]
 [connection signal="left_water" from="WaterChecker" to="States/StateEvents/LeaveWater" method="switch"]
-[connection signal="area_entered" from="DamageChecker" to="Thrower" method="throw_away_from" binds= [false]]
-[connection signal="area_entered" from="DamageChecker" to="HealthCounter" method="decrement" unbinds=1]
-[connection signal="depleted" from="HealthCounter" to="HealthCounter/SceneResetter" method="reload_scene"]
+[connection signal="area_entered" from="DamageChecker" to="Thrower" method="throw_away_from"]
+[connection signal="area_entered" from="DamageChecker" to="HealthCounter/Damage" method="do" unbinds=1]
+[connection signal="depleted" from="HealthCounter" to="HealthCounter" method="reset"]
+[connection signal="done" from="HealthCounter/Damage" to="HealthCounter" method="decrement"]
+[connection signal="done" from="HealthCounter/Damage" to="HealthCounter/InvulTimer" method="start" binds= [0.5]]
+[connection signal="timeout" from="HealthCounter/InvulTimer" to="HealthCounter/Damage" method="enable"]
 [connection signal="area_entered" from="BandanaChecker" to="HealthCounter" method="reset" unbinds=1]
