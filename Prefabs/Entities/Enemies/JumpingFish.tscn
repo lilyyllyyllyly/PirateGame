@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://878l507fj4y3"]
+
+[ext_resource type="Texture2D" uid="uid://i1werajk38px" path="res://Sprites/square.png" id="1_tvfcl"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/ParabolicMover.gd" id="2_y0mt0"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/SwitchMover.gd" id="3_ughba"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mdf33"]
+radius = 8.0
+
+[node name="JumpingFish" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_tvfcl")
+
+[node name="ParabolicMover" type="Node" parent="." node_paths=PackedStringArray("obj")]
+script = ExtResource("2_y0mt0")
+obj = NodePath("..")
+height = 80.0
+dist = 80.0
+
+[node name="SwitchMover" type="Node" parent="." node_paths=PackedStringArray("obj")]
+script = ExtResource("3_ughba")
+move_axis = 1
+obj = NodePath("..")
+move = Vector2(80, 0)
+speed = 96.0
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Damage" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage"]
+shape = SubResource("CircleShape2D_mdf33")
+
+[connection signal="on_disable" from="SwitchMover" to="Timer" method="start" binds= [2.0]]
+[connection signal="timeout" from="Timer" to="SwitchMover" method="enable"]
