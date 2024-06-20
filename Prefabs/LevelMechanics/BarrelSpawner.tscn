@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://ra66ttnyi5qg"]
+
+[ext_resource type="Script" path="res://Scripts/Behaviours/Spawner.gd" id="1_wb3k2"]
+[ext_resource type="PackedScene" uid="uid://38dlqceq5ggt" path="res://Prefabs/LevelMechanics/Barrel.tscn" id="2_qus05"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/RandomMover.gd" id="3_o6dcd"]
+
+[node name="BarrelSpawner" type="Node2D" node_paths=PackedStringArray("spawn_at", "child_of")]
+script = ExtResource("1_wb3k2")
+scene = ExtResource("2_qus05")
+spawn_at = NodePath("SpawnPosition")
+child_of = NodePath(".")
+
+[node name="SpawnPosition" type="Node2D" parent="."]
+
+[node name="RandomMover" type="Node" parent="SpawnPosition" node_paths=PackedStringArray("object")]
+script = ExtResource("3_o6dcd")
+object = NodePath("..")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="SpawnTimer" to="." method="spawn"]
+[connection signal="timeout" from="SpawnTimer" to="SpawnPosition/RandomMover" method="reposition"]

@@ -12,9 +12,11 @@ collision_mask = 0
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_nkhad")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -5
 material = ExtResource("1_l8snx")
 texture = ExtResource("2_4210o")
+centered = false

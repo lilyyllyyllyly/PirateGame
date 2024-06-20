@@ -42,6 +42,9 @@ text = "tutorial"
 [node name="Level1" parent="." instance=ExtResource("6_vkoma")]
 position = Vector2(208, 0)
 
+[node name="SceneChanger" parent="Level1" index="2"]
+change_to = "res://Scenes/Areas/level-waterfalls.tscn"
+
 [node name="Label" type="Label" parent="Level1"]
 anchors_preset = 7
 anchor_left = 0.5

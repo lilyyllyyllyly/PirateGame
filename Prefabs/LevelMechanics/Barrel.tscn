@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://38dlqceq5ggt"]
+
+[ext_resource type="Texture2D" uid="uid://i1werajk38px" path="res://Sprites/square.png" id="1_lbh8o"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/CharacterMover.gd" id="2_t3j47"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/Gravity.gd" id="3_7j75i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8i52l"]
+size = Vector2(16, 16)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0rmx8"]
+radius = 16.0
+height = 48.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_40abf"]
+size = Vector2(50, 34)
+
+[node name="Barrel" type="CharacterBody2D"]
+collision_layer = 64
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8i52l")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 2)
+texture = ExtResource("1_lbh8o")
+
+[node name="CharacterMover" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("2_t3j47")
+body = NodePath("..")
+
+[node name="Gravity" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("3_7j75i")
+body = NodePath("..")
+term_vel = 100.0
+
+[node name="Damage" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_0rmx8")
+
+[node name="ObstacleChecker" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObstacleChecker"]
+shape = SubResource("RectangleShape2D_40abf")
+
+[connection signal="body_entered" from="ObstacleChecker" to="." method="queue_free" unbinds=1]

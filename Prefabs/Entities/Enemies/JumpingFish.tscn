@@ -11,6 +11,7 @@ radius = 8.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_tvfcl")
+centered = false
 
 [node name="ParabolicMover" type="Node" parent="." node_paths=PackedStringArray("obj")]
 script = ExtResource("2_y0mt0")
@@ -29,6 +30,7 @@ speed = 96.0
 one_shot = true
 
 [node name="Damage" type="Area2D" parent="."]
+position = Vector2(8, 8)
 collision_layer = 32
 collision_mask = 0
 

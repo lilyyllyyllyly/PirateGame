@@ -329,7 +329,10 @@ height = 12.0
 size = Vector2(8, 14)
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 65
 collision_mask = 8
+platform_on_leave = 2
+platform_floor_layers = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_fxtra")
@@ -401,8 +404,8 @@ script = ExtResource("21_hpk8n")
 script = ExtResource("22_vihjo")
 jump_held = NodePath("JumpHeld")
 body = NodePath("../../..")
-jump_force = -130.0
-jump_hold = 200
+jump_force = -135.0
+jump_hold = 230
 enabled = false
 
 [node name="JumpHeld" type="Node" parent="States/GroundState/Jump"]
