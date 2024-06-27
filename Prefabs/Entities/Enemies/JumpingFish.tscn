@@ -1,17 +1,108 @@
-[gd_scene load_steps=5 format=3 uid="uid://878l507fj4y3"]
+[gd_scene load_steps=17 format=3 uid="uid://878l507fj4y3"]
 
-[ext_resource type="Texture2D" uid="uid://i1werajk38px" path="res://Sprites/square.png" id="1_tvfcl"]
+[ext_resource type="Texture2D" uid="uid://271j2q8hxfhv" path="res://Sprites/Enemies/FlyingFish/flying-fish-jump.png" id="1_cq7mt"]
+[ext_resource type="Texture2D" uid="uid://ddigom6cewf8d" path="res://Sprites/Enemies/FlyingFish/flying-fish3.png" id="1_sr3ct"]
+[ext_resource type="Texture2D" uid="uid://bspjdhlywfhna" path="res://Sprites/Enemies/FlyingFish/wing3.png" id="2_efs56"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/ParabolicMover.gd" id="2_y0mt0"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/SwitchMover.gd" id="3_ughba"]
+[ext_resource type="Texture2D" uid="uid://dldj8gniyn05d" path="res://Sprites/Enemies/FlyingFish/flying-fish1.png" id="3_v61pj"]
+[ext_resource type="Texture2D" uid="uid://dh41bmysml2d" path="res://Sprites/Enemies/FlyingFish/flying-fish2.png" id="4_2tu4y"]
+[ext_resource type="Texture2D" uid="uid://c85lf3b3imqhv" path="res://Sprites/Enemies/FlyingFish/flying-fish4.png" id="5_egh3q"]
+[ext_resource type="Texture2D" uid="uid://d23p66oj8rhk7" path="res://Sprites/Enemies/FlyingFish/wing1.png" id="6_x458u"]
+[ext_resource type="Texture2D" uid="uid://cbwqhh1p01ajb" path="res://Sprites/Enemies/FlyingFish/wing2.png" id="7_13cpv"]
+[ext_resource type="Script" path="res://Scripts/Animation/Enemies/FlyingFishAnimation.gd" id="10_sxre5"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_mdf33"]
-radius = 8.0
+[sub_resource type="Animation" id="Animation_hv6f0"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_v61pj"), ExtResource("4_2tu4y"), ExtResource("1_sr3ct"), ExtResource("5_egh3q")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BodySprite/WingSprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("6_x458u"), ExtResource("7_13cpv"), ExtResource("2_efs56"), null]
+}
 
-[node name="JumpingFish" type="Node2D"]
+[sub_resource type="Animation" id="Animation_sqf72"]
+resource_name = "jump"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_cq7mt")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BodySprite/WingSprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_13cpv")]
+}
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_tvfcl")
-centered = false
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vidam"]
+_data = {
+"idle": SubResource("Animation_hv6f0"),
+"jump": SubResource("Animation_sqf72")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nij47"]
+size = Vector2(11, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oe7c0"]
+size = Vector2(16, 16)
+
+[node name="JumpingFish" type="AnimatableBody2D"]
+sync_to_physics = false
+
+[node name="BodySprite" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(8, 8)
+texture = ExtResource("3_v61pj")
+
+[node name="WingSprite" type="Sprite2D" parent="BodySprite"]
+z_index = -1
+texture = ExtResource("6_x458u")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("body", "body_sprite", "wing_sprite")]
+libraries = {
+"": SubResource("AnimationLibrary_vidam")
+}
+script = ExtResource("10_sxre5")
+max_vel = 200.0
+max_angle = 30.0
+body = NodePath("..")
+body_sprite = NodePath("../BodySprite")
+wing_sprite = NodePath("../BodySprite/WingSprite")
 
 [node name="ParabolicMover" type="Node" parent="." node_paths=PackedStringArray("obj")]
 script = ExtResource("2_y0mt0")
@@ -27,6 +118,7 @@ move = Vector2(80, 0)
 speed = 96.0
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true
 
 [node name="Damage" type="Area2D" parent="."]
@@ -35,7 +127,17 @@ collision_layer = 32
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Damage"]
-shape = SubResource("CircleShape2D_mdf33")
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_nij47")
 
-[connection signal="on_disable" from="SwitchMover" to="Timer" method="start" binds= [2.0]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_oe7c0")
+disabled = true
+
+[connection signal="ready" from="AnimationPlayer" to="AnimationPlayer" method="play" binds= [&"idle"]]
+[connection signal="on_disable" from="SwitchMover" to="AnimationPlayer" method="flip_sprites"]
+[connection signal="on_disable" from="SwitchMover" to="Timer" method="start"]
+[connection signal="on_disable" from="SwitchMover" to="AnimationPlayer" method="play" binds= [&"idle"]]
+[connection signal="on_enable" from="SwitchMover" to="AnimationPlayer" method="play" binds= [&"jump"]]
 [connection signal="timeout" from="Timer" to="SwitchMover" method="enable"]

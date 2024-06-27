@@ -1,11 +1,26 @@
-[gd_scene load_steps=7 format=3 uid="uid://38dlqceq5ggt"]
+[gd_scene load_steps=14 format=3 uid="uid://38dlqceq5ggt"]
 
-[ext_resource type="Texture2D" uid="uid://i1werajk38px" path="res://Sprites/square.png" id="1_lbh8o"]
+[ext_resource type="Texture2D" uid="uid://bgdxesrujnqf8" path="res://Sprites/Enemies/Barrel/barrel1.png" id="1_35nso"]
+[ext_resource type="Texture2D" uid="uid://cyvexhg2ia8bx" path="res://Sprites/Enemies/Barrel/barrel2.png" id="2_re26j"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/CharacterMover.gd" id="2_t3j47"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/Gravity.gd" id="3_7j75i"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/Behaviour.gd" id="5_avqj1"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8i52l"]
-size = Vector2(16, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xp7fe"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0sx88"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_35nso")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_re26j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0rmx8"]
 radius = 16.0
@@ -14,39 +29,113 @@ height = 48.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_40abf"]
 size = Vector2(50, 34)
 
+[sub_resource type="Curve" id="Curve_me4rr"]
+_data = [Vector2(0, 1), 0.0, -0.307368, 0, 0, Vector2(1, 0), -2.32872, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_2t24r"]
+_data = [Vector2(0, 0.428571), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.17353, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_1ucq8"]
+_data = [Vector2(0, 0.989011), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.99145, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_dwrb0"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.531707, 1)
+colors = PackedColorArray(0.55, 0.55, 0.55, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
 [node name="Barrel" type="CharacterBody2D"]
 collision_layer = 64
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_8i52l")
+shape = SubResource("RectangleShape2D_xp7fe")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(3, 2)
-texture = ExtResource("1_lbh8o")
+[node name="ToBeDeleted" type="Node2D" parent="."]
 
-[node name="CharacterMover" type="Node" parent="." node_paths=PackedStringArray("body")]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="ToBeDeleted"]
+sprite_frames = SubResource("SpriteFrames_0sx88")
+frame_progress = 0.0735708
+
+[node name="CharacterMover" type="Node" parent="ToBeDeleted" node_paths=PackedStringArray("body")]
 script = ExtResource("2_t3j47")
-body = NodePath("..")
+body = NodePath("../..")
 
-[node name="Gravity" type="Node" parent="." node_paths=PackedStringArray("body")]
+[node name="Gravity" type="Node" parent="ToBeDeleted" node_paths=PackedStringArray("body")]
 script = ExtResource("3_7j75i")
-body = NodePath("..")
+body = NodePath("../..")
 term_vel = 100.0
 
-[node name="Damage" type="Area2D" parent="."]
+[node name="Damage" type="Area2D" parent="ToBeDeleted"]
 collision_layer = 32
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ToBeDeleted/Damage"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_0rmx8")
 
-[node name="ObstacleChecker" type="Area2D" parent="."]
+[node name="ObstacleChecker" type="Area2D" parent="ToBeDeleted"]
 collision_layer = 0
 collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ObstacleChecker"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ToBeDeleted/ObstacleChecker"]
 shape = SubResource("RectangleShape2D_40abf")
 
-[connection signal="body_entered" from="ObstacleChecker" to="." method="queue_free" unbinds=1]
+[node name="FoamParticles" type="CPUParticles2D" parent="."]
+z_index = -1
+position = Vector2(0, 10)
+scale = Vector2(3, 3)
+amount = 150
+lifetime = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(8, 0)
+direction = Vector2(0, -1)
+spread = 25.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 35.0
+initial_velocity_max = 35.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 5.0
+scale_amount_max = 8.0
+scale_amount_curve = SubResource("Curve_me4rr")
+
+[node name="Death" type="Node2D" parent="."]
+script = ExtResource("5_avqj1")
+enabled = false
+
+[node name="DeathTimer" type="Timer" parent="Death"]
+one_shot = true
+
+[node name="DeathParticles" type="CPUParticles2D" parent="Death"]
+position = Vector2(0, 8)
+emitting = false
+amount = 40
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(16, 8)
+direction = Vector2(0, -1)
+gravity = Vector2(0, 800)
+initial_velocity_min = 150.0
+initial_velocity_max = 250.0
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+scale_amount_min = 16.0
+scale_amount_max = 16.0
+split_scale = true
+scale_curve_x = SubResource("Curve_2t24r")
+scale_curve_y = SubResource("Curve_1ucq8")
+color = Color(0.45098, 0.172549, 0.25098, 1)
+color_initial_ramp = SubResource("Gradient_dwrb0")
+
+[connection signal="ready" from="ToBeDeleted/Sprite2D" to="ToBeDeleted/Sprite2D" method="play" binds= [&"default"]]
+[connection signal="body_entered" from="ToBeDeleted/ObstacleChecker" to="Death" method="enable" unbinds=1]
+[connection signal="on_enable" from="Death" to="ToBeDeleted" method="queue_free"]
+[connection signal="on_enable" from="Death" to="FoamParticles" method="set_emitting" binds= [false]]
+[connection signal="on_enable" from="Death" to="Death/DeathTimer" method="start" binds= [1.0]]
+[connection signal="on_enable" from="Death" to="Death/DeathParticles" method="set_emitting" binds= [true]]
+[connection signal="timeout" from="Death/DeathTimer" to="." method="queue_free"]
