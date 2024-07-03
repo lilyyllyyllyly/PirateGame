@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kim68"]
 size = Vector2(10, 12)
 
-[node name="Collectible" type="Area2D"]
+[node name="Collectible" type="Area2D" groups=["Gems"]]
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
