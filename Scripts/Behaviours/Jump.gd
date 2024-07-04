@@ -10,6 +10,8 @@ class_name Jump extends Behaviour
 var jump_start = 0
 var jumping = false
 
+signal jumped
+
 func _physics_process(_delta):
 	var now = Time.get_ticks_msec()
 
@@ -21,6 +23,7 @@ func _physics_process(_delta):
 		if not jumping:
 			jumping = true
 			jump_start = now
+			jumped.emit()
 		elif now - jump_start > jump_hold:
 			jumping = false
 

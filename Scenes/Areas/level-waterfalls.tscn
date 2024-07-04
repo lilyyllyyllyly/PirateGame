@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://co0pm2uqhvbi"]
+[gd_scene load_steps=45 format=3 uid="uid://co0pm2uqhvbi"]
 
 [ext_resource type="Script" path="res://Scripts/CheckpointManager.gd" id="1_77cpm"]
 [ext_resource type="Texture2D" uid="uid://dffrossp4tjvt" path="res://Sprites/Backdrops/blue-sky.png" id="1_amaga"]
@@ -14,7 +14,6 @@
 [ext_resource type="Script" path="res://Scripts/CustomResources/PathResource.gd" id="7_k26f4"]
 [ext_resource type="PackedScene" uid="uid://878l507fj4y3" path="res://Prefabs/Entities/Enemies/JumpingFish.tscn" id="8_4adqs"]
 [ext_resource type="PackedScene" uid="uid://ra66ttnyi5qg" path="res://Prefabs/LevelMechanics/BarrelSpawner.tscn" id="12_wc8j4"]
-[ext_resource type="Texture2D" uid="uid://c85lf3b3imqhv" path="res://Sprites/Enemies/FlyingFish/flying-fish4.png" id="14_lyr50"]
 [ext_resource type="PackedScene" uid="uid://b606abb1annuq" path="res://Prefabs/LevelMechanics/Platform.tscn" id="14_ty8gb"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/Behaviour.gd" id="17_n6wav"]
 [ext_resource type="Texture2D" uid="uid://bhj1r4pxuh80p" path="res://Sprites/EndBoat/boat-stopped.png" id="19_dklx2"]
@@ -236,7 +235,7 @@ motion_scale = Vector2(0.5, 0)
 target = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("2_bbjav")]
-position = Vector2(4848, 272)
+position = Vector2(48, 144)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("3_61pm6")
@@ -284,20 +283,8 @@ scale = Vector2(40, 18)
 [node name="JumpingFish" parent="FishIntro" instance=ExtResource("8_4adqs")]
 position = Vector2(624, 208)
 
-[node name="BodySprite" parent="FishIntro/JumpingFish" index="0"]
-texture = ExtResource("14_lyr50")
-
-[node name="WingSprite" parent="FishIntro/JumpingFish/BodySprite" index="0"]
-texture = null
-
 [node name="JumpingFish2" parent="FishIntro" instance=ExtResource("8_4adqs")]
 position = Vector2(944, 208)
-
-[node name="BodySprite" parent="FishIntro/JumpingFish2" index="0"]
-texture = ExtResource("14_lyr50")
-
-[node name="WingSprite" parent="FishIntro/JumpingFish2/BodySprite" index="0"]
-texture = null
 
 [node name="Break1" type="Node" parent="."]
 
@@ -342,12 +329,6 @@ scale = Vector2(43, 16)
 [node name="JumpingFish" parent="Challenge1" instance=ExtResource("8_4adqs")]
 position = Vector2(2496, 816)
 
-[node name="BodySprite" parent="Challenge1/JumpingFish" index="0"]
-texture = ExtResource("14_lyr50")
-
-[node name="WingSprite" parent="Challenge1/JumpingFish/BodySprite" index="0"]
-texture = null
-
 [node name="ParabolicMover" parent="Challenge1/JumpingFish" index="2"]
 height = 144.0
 dist = 144.0
@@ -357,12 +338,6 @@ move = Vector2(144, 0)
 
 [node name="JumpingFish2" parent="Challenge1" instance=ExtResource("8_4adqs")]
 position = Vector2(2752, 816)
-
-[node name="BodySprite" parent="Challenge1/JumpingFish2" index="0"]
-texture = ExtResource("14_lyr50")
-
-[node name="WingSprite" parent="Challenge1/JumpingFish2/BodySprite" index="0"]
-texture = null
 
 [node name="ParabolicMover" parent="Challenge1/JumpingFish2" index="2"]
 height = 144.0
@@ -379,12 +354,6 @@ scale = Vector2(36, 8)
 
 [node name="JumpingFish" parent="Break2" instance=ExtResource("8_4adqs")]
 position = Vector2(3216, 752)
-
-[node name="BodySprite" parent="Break2/JumpingFish" index="0"]
-texture = ExtResource("14_lyr50")
-
-[node name="WingSprite" parent="Break2/JumpingFish/BodySprite" index="0"]
-texture = null
 
 [node name="ParabolicMover" parent="Break2/JumpingFish" index="2"]
 dist = 240.0
@@ -406,12 +375,6 @@ region_enabled = false
 
 [node name="JumpingFish2" parent="Break2" instance=ExtResource("8_4adqs")]
 position = Vector2(3472, 752)
-
-[node name="BodySprite" parent="Break2/JumpingFish2" index="0"]
-texture = ExtResource("14_lyr50")
-
-[node name="WingSprite" parent="Break2/JumpingFish2/BodySprite" index="0"]
-texture = null
 
 [node name="ParabolicMover" parent="Break2/JumpingFish2" index="2"]
 dist = 240.0
@@ -436,12 +399,6 @@ scale = Vector2(5, 2.5)
 
 [node name="JumpingFish3" parent="Break2" instance=ExtResource("8_4adqs")]
 position = Vector2(3712, 576)
-
-[node name="BodySprite" parent="Break2/JumpingFish3" index="0"]
-texture = ExtResource("14_lyr50")
-
-[node name="WingSprite" parent="Break2/JumpingFish3/BodySprite" index="0"]
-texture = null
 
 [node name="ParabolicMover" parent="Break2/JumpingFish3" index="2"]
 dist = 160.0
@@ -521,12 +478,6 @@ wait_time = 1.5
 [node name="JumpingFish" parent="Challenge2" instance=ExtResource("8_4adqs")]
 position = Vector2(4048, 624)
 
-[node name="BodySprite" parent="Challenge2/JumpingFish" index="0"]
-texture = ExtResource("14_lyr50")
-
-[node name="WingSprite" parent="Challenge2/JumpingFish/BodySprite" index="0"]
-texture = null
-
 [node name="ParabolicMover" parent="Challenge2/JumpingFish" index="2"]
 dist = 432.0
 
@@ -538,11 +489,9 @@ speed = 192.0
 position = Vector2(4480, 416)
 
 [node name="BodySprite" parent="Challenge2/JumpingFish2" index="0"]
-texture = ExtResource("14_lyr50")
 flip_h = true
 
 [node name="WingSprite" parent="Challenge2/JumpingFish2/BodySprite" index="0"]
-texture = null
 flip_h = true
 
 [node name="ParabolicMover" parent="Challenge2/JumpingFish2" index="2"]
@@ -566,7 +515,7 @@ gem_text = NodePath("../../CanvasLayer/Control/Gems")
 position = Vector2(5040, 282)
 
 [node name="Body" type="CharacterBody2D" parent="End/EndBoat" node_paths=PackedStringArray("obj")]
-position = Vector2(0, 3.55223)
+position = Vector2(0, 3.01721)
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("21_40ctf")
@@ -681,106 +630,6 @@ position = Vector2(144, 208)
 shape = SubResource("RectangleShape2D_7qsal")
 
 [connection signal="depleted" from="Player/HealthCounter" to="CheckpointManager" method="respawn"]
-[connection signal="body_entered" from="TileMap/Collectible" to="TileMap/Collectible" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53046" to="TileMap/@Area2D@53046" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53047" to="TileMap/@Area2D@53047" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53048" to="TileMap/@Area2D@53048" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53049" to="TileMap/@Area2D@53049" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53050" to="TileMap/@Area2D@53050" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53051" to="TileMap/@Area2D@53051" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53052" to="TileMap/@Area2D@53052" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53053" to="TileMap/@Area2D@53053" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53054" to="TileMap/@Area2D@53054" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53055" to="TileMap/@Area2D@53055" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53056" to="TileMap/@Area2D@53056" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53057" to="TileMap/@Area2D@53057" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53058" to="TileMap/@Area2D@53058" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53059" to="TileMap/@Area2D@53059" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53060" to="TileMap/@Area2D@53060" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53061" to="TileMap/@Area2D@53061" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53062" to="TileMap/@Area2D@53062" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53063" to="TileMap/@Area2D@53063" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53064" to="TileMap/@Area2D@53064" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53065" to="TileMap/@Area2D@53065" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53066" to="TileMap/@Area2D@53066" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53067" to="TileMap/@Area2D@53067" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53068" to="TileMap/@Area2D@53068" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53069" to="TileMap/@Area2D@53069" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53070" to="TileMap/@Area2D@53070" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53071" to="TileMap/@Area2D@53071" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53072" to="TileMap/@Area2D@53072" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53073" to="TileMap/@Area2D@53073" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53074" to="TileMap/@Area2D@53074" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53075" to="TileMap/@Area2D@53075" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53076" to="TileMap/@Area2D@53076" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53077" to="TileMap/@Area2D@53077" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53078" to="TileMap/@Area2D@53078" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53079" to="TileMap/@Area2D@53079" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53080" to="TileMap/@Area2D@53080" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53081" to="TileMap/@Area2D@53081" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53102" to="TileMap/@Area2D@53102" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53104" to="TileMap/@Area2D@53104" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53106" to="TileMap/@Area2D@53106" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53113" to="TileMap/@Area2D@53113" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53115" to="TileMap/@Area2D@53115" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53117" to="TileMap/@Area2D@53117" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53124" to="TileMap/@Area2D@53124" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53126" to="TileMap/@Area2D@53126" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53128" to="TileMap/@Area2D@53128" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53151" to="TileMap/@Area2D@53151" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53152" to="TileMap/@Area2D@53152" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53153" to="TileMap/@Area2D@53153" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53154" to="TileMap/@Area2D@53154" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53155" to="TileMap/@Area2D@53155" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53156" to="TileMap/@Area2D@53156" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53157" to="TileMap/@Area2D@53157" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53158" to="TileMap/@Area2D@53158" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53159" to="TileMap/@Area2D@53159" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53160" to="TileMap/@Area2D@53160" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53161" to="TileMap/@Area2D@53161" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53162" to="TileMap/@Area2D@53162" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53163" to="TileMap/@Area2D@53163" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53164" to="TileMap/@Area2D@53164" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53165" to="TileMap/@Area2D@53165" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53166" to="TileMap/@Area2D@53166" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53167" to="TileMap/@Area2D@53167" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53168" to="TileMap/@Area2D@53168" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53169" to="TileMap/@Area2D@53169" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53170" to="TileMap/@Area2D@53170" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53171" to="TileMap/@Area2D@53171" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53172" to="TileMap/@Area2D@53172" method="queue_free" unbinds=1]
-[connection signal="area_entered" from="TileMap/Bandana" to="TileMap/Bandana" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53173" to="TileMap/@Area2D@53173" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53174" to="TileMap/@Area2D@53174" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53175" to="TileMap/@Area2D@53175" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53176" to="TileMap/@Area2D@53176" method="queue_free" unbinds=1]
-[connection signal="area_entered" from="TileMap/@Area2D@53177" to="TileMap/@Area2D@53177" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53178" to="TileMap/@Area2D@53178" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53179" to="TileMap/@Area2D@53179" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53180" to="TileMap/@Area2D@53180" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53181" to="TileMap/@Area2D@53181" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53182" to="TileMap/@Area2D@53182" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53183" to="TileMap/@Area2D@53183" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53187" to="TileMap/@Area2D@53187" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53188" to="TileMap/@Area2D@53188" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53189" to="TileMap/@Area2D@53189" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53190" to="TileMap/@Area2D@53190" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53191" to="TileMap/@Area2D@53191" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53192" to="TileMap/@Area2D@53192" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53193" to="TileMap/@Area2D@53193" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53194" to="TileMap/@Area2D@53194" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53195" to="TileMap/@Area2D@53195" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53196" to="TileMap/@Area2D@53196" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53197" to="TileMap/@Area2D@53197" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53198" to="TileMap/@Area2D@53198" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53199" to="TileMap/@Area2D@53199" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53200" to="TileMap/@Area2D@53200" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53201" to="TileMap/@Area2D@53201" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53202" to="TileMap/@Area2D@53202" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53203" to="TileMap/@Area2D@53203" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53204" to="TileMap/@Area2D@53204" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53205" to="TileMap/@Area2D@53205" method="queue_free" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@53206" to="TileMap/@Area2D@53206" method="queue_free" unbinds=1]
 [connection signal="body_entered" from="Challenge2/CameraRiseArea" to="Challenge2/CameraRiseArea/SignalRepeater" method="enable" unbinds=1]
 [connection signal="body_exited" from="Challenge2/CameraRiseArea" to="Challenge2/CameraRiseArea/SignalRepeater" method="disable" unbinds=1]
 [connection signal="on_disable" from="Challenge2/CameraRiseArea/SignalRepeater" to="Camera" method="set_offset" binds= [Vector2(0, 0)]]

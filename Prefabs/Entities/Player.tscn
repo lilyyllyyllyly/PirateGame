@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://d3hqdk77sg32n"]
+[gd_scene load_steps=78 format=3 uid="uid://d3hqdk77sg32n"]
 
 [ext_resource type="Texture2D" uid="uid://wvt8keytohdj" path="res://Sprites/Player/NoBandana/Idle/player-idle1.png" id="1_3kcyn"]
 [ext_resource type="Texture2D" uid="uid://bjascss77v04" path="res://Sprites/Player/NoBandana/Boost/player-boost1.png" id="2_tug5r"]
@@ -55,6 +55,9 @@
 [ext_resource type="Script" path="res://Scripts/WaterChecker.gd" id="34_vlw6o"]
 [ext_resource type="Script" path="res://Scripts/Thrower.gd" id="35_xf1i7"]
 [ext_resource type="Script" path="res://Scripts/Input/Signals/CounterSignal.gd" id="36_wx7gs"]
+[ext_resource type="AudioStream" uid="uid://q88fxdmjbmrs" path="res://Audio/jump.wav" id="46_odkvo"]
+[ext_resource type="Script" path="res://Scripts/PlaySound.gd" id="47_80v44"]
+[ext_resource type="AudioStream" uid="uid://usyypqotor5t" path="res://Audio/boost.wav" id="53_ykesk"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/OneshotSignal.gd" id="57_g3mn5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fxtra"]
@@ -411,6 +414,13 @@ enabled = false
 [node name="JumpHeld" type="Node" parent="States/GroundState/Jump"]
 script = ExtResource("23_r2dyy")
 
+[node name="JumpSound" type="AudioStreamPlayer" parent="States/GroundState/Jump"]
+process_mode = 3
+stream = ExtResource("46_odkvo")
+volume_db = -8.0
+script = ExtResource("47_80v44")
+pitch_range = 0.4
+
 [node name="Gravity" type="Node" parent="States/GroundState" node_paths=PackedStringArray("body")]
 script = ExtResource("20_8hehk")
 body = NodePath("../../..")
@@ -447,6 +457,13 @@ enabled = false
 
 [node name="JumpPressSignal" type="Node" parent="States/WaterState/Boost"]
 script = ExtResource("31_fxhgp")
+
+[node name="BoostSound" type="AudioStreamPlayer" parent="States/WaterState/Boost"]
+process_mode = 3
+stream = ExtResource("53_ykesk")
+volume_db = -8.0
+script = ExtResource("47_80v44")
+pitch_range = 0.4
 
 [node name="WaterChecker" type="Area2D" parent="."]
 collision_layer = 4
@@ -499,7 +516,9 @@ collision_mask = 128
 shape = SubResource("RectangleShape2D_ghwek")
 
 [connection signal="should_boost" from="WaterLeaveBoost" to="States/WaterState/Boost" method="boost"]
+[connection signal="jumped" from="States/GroundState/Jump" to="States/GroundState/Jump/JumpSound" method="play_rand_pitch"]
 [connection signal="boosted" from="States/WaterState/Boost" to="Effects/WaterBoostParticle" method="spawn_particle"]
+[connection signal="boosted" from="States/WaterState/Boost" to="States/WaterState/Boost/BoostSound" method="play_rand_pitch"]
 [connection signal="jump_pressed" from="States/WaterState/Boost/JumpPressSignal" to="AnimationPlayer" method="on_jump_pressed"]
 [connection signal="jump_pressed" from="States/WaterState/Boost/JumpPressSignal" to="States/WaterState/Boost" method="boost_delayed"]
 [connection signal="area_entered" from="WaterChecker" to="AnimationPlayer" method="on_enter_water" unbinds=1]
