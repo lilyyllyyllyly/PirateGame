@@ -2,8 +2,8 @@ class_name EndLevel extends Node2D
 
 @export var camera: CameraFollow
 @export var player: Node2D
-@export var bot_spr: AnimatedSprite2D
-@export var top_spr: Sprite2D
+
+@export var boat_anim: AnimationPlayer
 
 @export_group("End UI")
 @export var gem_text: Label
@@ -24,8 +24,7 @@ func on_player_entered():
 	player.queue_free()
 
 	# starting boat animation
-	bot_spr.play("rowing")
-	top_spr.hide()
+	boat_anim.play("rowing")
 
 	# counting gems
 	var remaining_gems = len(get_tree().get_nodes_in_group("Gems"))
