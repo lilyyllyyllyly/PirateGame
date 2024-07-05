@@ -101,6 +101,20 @@ theme = ExtResource("5_atlur")
 text = "menu
 "
 
+[node name="Debug" parent="." instance=ExtResource("4_ptxoe")]
+position = Vector2(-128, 0)
+
+[node name="SceneChanger" parent="Debug" index="2"]
+change_to = "res://Scenes/Areas/test-level.tscn"
+
+[node name="Label" type="Label" parent="Debug"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = 7.0
+theme = ExtResource("5_atlur")
+text = "debug"
+
 [connection signal="on_enable" from="Level1/SaveCheckSignal/Checker" to="Level1/SaveCheckSignal" method="check" binds= ["tutorial_complete", true]]
 [connection signal="on_enable" from="End/SaveCheckSignal/Checker" to="End/SaveCheckSignal" method="check" binds= ["level1_complete", true]]
 
@@ -108,3 +122,4 @@ text = "menu
 [editable path="Level1"]
 [editable path="End"]
 [editable path="Menu"]
+[editable path="Debug"]

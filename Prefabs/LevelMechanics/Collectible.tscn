@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c365hfrfoykem"]
 
-[ext_resource type="Texture2D" uid="uid://bi2vvi7mrp5fq" path="res://Sprites/Tilesets/tileset.png" id="1_md82h"]
+[ext_resource type="Texture2D" uid="uid://c45tbdoulky6m" path="res://Sprites/gem.png" id="1_nquqe"]
 [ext_resource type="AudioStream" uid="uid://bu16ag1hs0pw" path="res://Audio/gem.wav" id="2_0p5bu"]
 [ext_resource type="Script" path="res://Scripts/PlaySound.gd" id="3_4hm6q"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/Behaviour.gd" id="4_0sj5n"]
@@ -15,14 +15,13 @@ collision_layer = 0
 shape = SubResource("RectangleShape2D_kim68")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_md82h")
-region_enabled = true
+texture = ExtResource("1_nquqe")
 region_rect = Rect2(16, 32, 16, 16)
 
 [node name="CollectSound" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("2_0p5bu")
-volume_db = -18.0
+volume_db = -12.0
 script = ExtResource("3_4hm6q")
 pitch_range = 0.3
 

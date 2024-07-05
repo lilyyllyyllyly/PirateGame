@@ -1,9 +1,10 @@
-[gd_scene load_steps=45 format=3 uid="uid://co0pm2uqhvbi"]
+[gd_scene load_steps=28 format=3 uid="uid://co0pm2uqhvbi"]
 
 [ext_resource type="Script" path="res://Scripts/CheckpointManager.gd" id="1_77cpm"]
 [ext_resource type="Texture2D" uid="uid://dffrossp4tjvt" path="res://Sprites/Backdrops/blue-sky.png" id="1_amaga"]
 [ext_resource type="Theme" uid="uid://dh0pcg828que3" path="res://UITheme.tres" id="1_lnose"]
 [ext_resource type="PackedScene" uid="uid://dkyjaidt53m6p" path="res://Prefabs/Camera.tscn" id="1_yphlv"]
+[ext_resource type="Texture2D" uid="uid://c45tbdoulky6m" path="res://Sprites/gem.png" id="2_0bfqd"]
 [ext_resource type="PackedScene" uid="uid://d3hqdk77sg32n" path="res://Prefabs/Entities/Player.tscn" id="2_bbjav"]
 [ext_resource type="Texture2D" uid="uid://dxbc7pqa0swuk" path="res://Sprites/Backdrops/bg-clouds.png" id="2_r4o0u"]
 [ext_resource type="TileSet" uid="uid://bhpidh16mm137" path="res://tileset.tres" id="3_61pm6"]
@@ -14,24 +15,12 @@
 [ext_resource type="Script" path="res://Scripts/CustomResources/PathResource.gd" id="7_k26f4"]
 [ext_resource type="PackedScene" uid="uid://878l507fj4y3" path="res://Prefabs/Entities/Enemies/JumpingFish.tscn" id="8_4adqs"]
 [ext_resource type="PackedScene" uid="uid://ra66ttnyi5qg" path="res://Prefabs/LevelMechanics/BarrelSpawner.tscn" id="12_wc8j4"]
+[ext_resource type="Texture2D" uid="uid://dh41bmysml2d" path="res://Sprites/Enemies/FlyingFish/flying-fish2.png" id="14_er2tm"]
 [ext_resource type="PackedScene" uid="uid://b606abb1annuq" path="res://Prefabs/LevelMechanics/Platform.tscn" id="14_ty8gb"]
+[ext_resource type="Texture2D" uid="uid://cbwqhh1p01ajb" path="res://Sprites/Enemies/FlyingFish/wing2.png" id="15_jfje1"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/Behaviour.gd" id="17_n6wav"]
-[ext_resource type="Texture2D" uid="uid://bhj1r4pxuh80p" path="res://Sprites/EndBoat/boat-stopped.png" id="19_dklx2"]
-[ext_resource type="Script" path="res://Scripts/EndLevel.gd" id="20_5ajjh"]
-[ext_resource type="Texture2D" uid="uid://cdn0qt7qc1kjb" path="res://Sprites/EndBoat/boat-stopped-top.png" id="20_py5lb"]
-[ext_resource type="Script" path="res://Scripts/Behaviours/WaveMover.gd" id="21_40ctf"]
-[ext_resource type="Texture2D" uid="uid://sj06dlpi35me" path="res://Sprites/EndBoat/Rowing/boat-rowing1.png" id="22_kn0rd"]
-[ext_resource type="Texture2D" uid="uid://dad8x7xabv3ah" path="res://Sprites/EndBoat/Rowing/boat-rowing2.png" id="23_bbgud"]
-[ext_resource type="Texture2D" uid="uid://6ghnpsqgjxe7" path="res://Sprites/EndBoat/Rowing/boat-rowing3.png" id="24_jvm0r"]
-[ext_resource type="Texture2D" uid="uid://bpnc4hsscq0sn" path="res://Sprites/EndBoat/Rowing/boat-rowing4.png" id="25_yicf3"]
-[ext_resource type="Texture2D" uid="uid://b8rrufx05pju" path="res://Sprites/EndBoat/Rowing/boat-rowing5.png" id="26_45ajh"]
+[ext_resource type="PackedScene" uid="uid://dhkw1kf5clmet" path="res://Prefabs/EndBoat.tscn" id="19_p62cx"]
 [ext_resource type="Texture2D" uid="uid://pm4cl0jaoc7b" path="res://Sprites/Enemies/FlyingFish/umbrella-platform.png" id="26_y68pt"]
-[ext_resource type="Texture2D" uid="uid://s45q5fxf7t6g" path="res://Sprites/EndBoat/Rowing/boat-rowing6.png" id="27_yrwyk"]
-[ext_resource type="Script" path="res://Scripts/Behaviours/CharacterMover.gd" id="30_07bw3"]
-[ext_resource type="Script" path="res://Scripts/Behaviours/CharacterVelocity.gd" id="31_g1tam"]
-[ext_resource type="Script" path="res://Scripts/Movement/Calculators/HorizontalMovement.gd" id="32_0aoog"]
-[ext_resource type="Script" path="res://Scripts/Input/Directions/DirectionalInput.gd" id="33_q0675"]
-[ext_resource type="Script" path="res://Scripts/Thrower.gd" id="34_ybubs"]
 
 [sub_resource type="Gradient" id="Gradient_ujbcw"]
 interpolation_mode = 1
@@ -59,92 +48,6 @@ points = PackedVector2Array(192, 240, 128, 240)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_53ykq"]
 size = Vector2(416, 560)
 
-[sub_resource type="Animation" id="Animation_j7v5r"]
-resource_name = "RESET"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Body/Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("19_dklx2")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Body/Sprite2D/Top:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_h2f64"]
-resource_name = "rowing"
-length = 1.4
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Body/Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.6, 0.7, 0.8, 0.9, 1.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [ExtResource("22_kn0rd"), ExtResource("23_bbgud"), ExtResource("24_jvm0r"), ExtResource("25_yicf3"), ExtResource("26_45ajh"), ExtResource("27_yrwyk")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Body/Sprite2D/Top:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Body/Thrower")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.7),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [Vector2(1, 0), true],
-"method": &"throw"
-}]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_pxwn1"]
-_data = {
-"RESET": SubResource("Animation_j7v5r"),
-"rowing": SubResource("Animation_h2f64")
-}
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u6hrl"]
-size = Vector2(8, 10)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ivsqr"]
-size = Vector2(46, 10)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_si1qi"]
-size = Vector2(4, 4)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7qsal"]
 size = Vector2(288, 416)
 
@@ -162,20 +65,36 @@ grow_vertical = 2
 
 [node name="Gems" type="Label" parent="CanvasLayer/Control"]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -26.0
-offset_top = 32.0
-offset_right = 26.0
-offset_bottom = 64.0
-grow_horizontal = 2
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -16.0
+offset_right = -92.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme = ExtResource("1_lnose")
 theme_override_font_sizes/font_size = 32
-horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="GemSprite" type="TextureRect" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 112.0
+offset_top = -20.0
+offset_right = 152.0
+offset_bottom = 20.0
+grow_vertical = 2
+texture = ExtResource("2_0bfqd")
+stretch_mode = 4
 
 [node name="CheckpointManager" type="Node" parent="." node_paths=PackedStringArray("player", "checkpoints")]
 script = ExtResource("1_77cpm")
@@ -283,8 +202,20 @@ scale = Vector2(40, 18)
 [node name="JumpingFish" parent="FishIntro" instance=ExtResource("8_4adqs")]
 position = Vector2(624, 208)
 
+[node name="BodySprite" parent="FishIntro/JumpingFish" index="0"]
+texture = ExtResource("14_er2tm")
+
+[node name="WingSprite" parent="FishIntro/JumpingFish/BodySprite" index="0"]
+texture = ExtResource("15_jfje1")
+
 [node name="JumpingFish2" parent="FishIntro" instance=ExtResource("8_4adqs")]
 position = Vector2(944, 208)
+
+[node name="BodySprite" parent="FishIntro/JumpingFish2" index="0"]
+texture = ExtResource("14_er2tm")
+
+[node name="WingSprite" parent="FishIntro/JumpingFish2/BodySprite" index="0"]
+texture = ExtResource("15_jfje1")
 
 [node name="Break1" type="Node" parent="."]
 
@@ -329,6 +260,12 @@ scale = Vector2(43, 16)
 [node name="JumpingFish" parent="Challenge1" instance=ExtResource("8_4adqs")]
 position = Vector2(2496, 816)
 
+[node name="BodySprite" parent="Challenge1/JumpingFish" index="0"]
+texture = ExtResource("14_er2tm")
+
+[node name="WingSprite" parent="Challenge1/JumpingFish/BodySprite" index="0"]
+texture = ExtResource("15_jfje1")
+
 [node name="ParabolicMover" parent="Challenge1/JumpingFish" index="2"]
 height = 144.0
 dist = 144.0
@@ -338,6 +275,12 @@ move = Vector2(144, 0)
 
 [node name="JumpingFish2" parent="Challenge1" instance=ExtResource("8_4adqs")]
 position = Vector2(2752, 816)
+
+[node name="BodySprite" parent="Challenge1/JumpingFish2" index="0"]
+texture = ExtResource("14_er2tm")
+
+[node name="WingSprite" parent="Challenge1/JumpingFish2/BodySprite" index="0"]
+texture = ExtResource("15_jfje1")
 
 [node name="ParabolicMover" parent="Challenge1/JumpingFish2" index="2"]
 height = 144.0
@@ -354,6 +297,12 @@ scale = Vector2(36, 8)
 
 [node name="JumpingFish" parent="Break2" instance=ExtResource("8_4adqs")]
 position = Vector2(3216, 752)
+
+[node name="BodySprite" parent="Break2/JumpingFish" index="0"]
+texture = ExtResource("14_er2tm")
+
+[node name="WingSprite" parent="Break2/JumpingFish/BodySprite" index="0"]
+texture = ExtResource("15_jfje1")
 
 [node name="ParabolicMover" parent="Break2/JumpingFish" index="2"]
 dist = 240.0
@@ -375,6 +324,12 @@ region_enabled = false
 
 [node name="JumpingFish2" parent="Break2" instance=ExtResource("8_4adqs")]
 position = Vector2(3472, 752)
+
+[node name="BodySprite" parent="Break2/JumpingFish2" index="0"]
+texture = ExtResource("14_er2tm")
+
+[node name="WingSprite" parent="Break2/JumpingFish2/BodySprite" index="0"]
+texture = ExtResource("15_jfje1")
 
 [node name="ParabolicMover" parent="Break2/JumpingFish2" index="2"]
 dist = 240.0
@@ -399,6 +354,12 @@ scale = Vector2(5, 2.5)
 
 [node name="JumpingFish3" parent="Break2" instance=ExtResource("8_4adqs")]
 position = Vector2(3712, 576)
+
+[node name="BodySprite" parent="Break2/JumpingFish3" index="0"]
+texture = ExtResource("14_er2tm")
+
+[node name="WingSprite" parent="Break2/JumpingFish3/BodySprite" index="0"]
+texture = ExtResource("15_jfje1")
 
 [node name="ParabolicMover" parent="Break2/JumpingFish3" index="2"]
 dist = 160.0
@@ -478,6 +439,12 @@ wait_time = 1.5
 [node name="JumpingFish" parent="Challenge2" instance=ExtResource("8_4adqs")]
 position = Vector2(4048, 624)
 
+[node name="BodySprite" parent="Challenge2/JumpingFish" index="0"]
+texture = ExtResource("14_er2tm")
+
+[node name="WingSprite" parent="Challenge2/JumpingFish/BodySprite" index="0"]
+texture = ExtResource("15_jfje1")
+
 [node name="ParabolicMover" parent="Challenge2/JumpingFish" index="2"]
 dist = 432.0
 
@@ -489,9 +456,11 @@ speed = 192.0
 position = Vector2(4480, 416)
 
 [node name="BodySprite" parent="Challenge2/JumpingFish2" index="0"]
+texture = ExtResource("14_er2tm")
 flip_h = true
 
 [node name="WingSprite" parent="Challenge2/JumpingFish2/BodySprite" index="0"]
+texture = ExtResource("15_jfje1")
 flip_h = true
 
 [node name="ParabolicMover" parent="Challenge2/JumpingFish2" index="2"]
@@ -503,109 +472,17 @@ speed = 192.0
 
 [node name="End" type="Node" parent="."]
 
-[node name="EndLevel" type="Node2D" parent="End" node_paths=PackedStringArray("camera", "player", "boat_anim", "gem_text")]
-position = Vector2(5104, 256)
-script = ExtResource("20_5ajjh")
-camera = NodePath("../../Camera")
-player = NodePath("../../Player")
-boat_anim = NodePath("../EndBoat/Body/AnimationPlayer")
-gem_text = NodePath("../../CanvasLayer/Control/Gems")
-
-[node name="EndBoat" type="Node2D" parent="End"]
+[node name="EndBoat" parent="End" instance=ExtResource("19_p62cx")]
 position = Vector2(5040, 282)
 
-[node name="Body" type="CharacterBody2D" parent="End/EndBoat" node_paths=PackedStringArray("obj")]
-position = Vector2(0, 3.01721)
-collision_layer = 0
-collision_mask = 0
-script = ExtResource("21_40ctf")
-obj = NodePath(".")
-amplitude = 5.0
-frequency = 0.043
-offset = 2.2
-speed = 1.0
+[node name="Body" parent="End/EndBoat" index="0"]
+position = Vector2(0, 4.22707)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="End/EndBoat/Body"]
-root_node = NodePath("../..")
-libraries = {
-"": SubResource("AnimationLibrary_pxwn1")
-}
-
-[node name="Sprite2D" type="Sprite2D" parent="End/EndBoat/Body"]
-z_index = -6
-z_as_relative = false
-position = Vector2(0, 15)
-texture = ExtResource("19_dklx2")
-centered = false
-offset = Vector2(0, -16)
-
-[node name="Top" type="Sprite2D" parent="End/EndBoat/Body/Sprite2D"]
-z_index = 1
-z_as_relative = false
-texture = ExtResource("20_py5lb")
-centered = false
-offset = Vector2(0, -16)
-
-[node name="PlayerCollision" type="Area2D" parent="End/EndBoat/Body"]
-z_index = -6
-z_as_relative = false
-position = Vector2(21, 12)
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="End/EndBoat/Body/PlayerCollision"]
-position = Vector2(4, 5)
-shape = SubResource("RectangleShape2D_u6hrl")
-
-[node name="Bottom" type="StaticBody2D" parent="End/EndBoat/Body"]
-position = Vector2(0, 16)
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="End/EndBoat/Body/Bottom"]
-position = Vector2(24, 9)
-shape = SubResource("RectangleShape2D_ivsqr")
-
-[node name="LeftWall" type="StaticBody2D" parent="End/EndBoat/Body"]
-position = Vector2(0, 16)
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="End/EndBoat/Body/LeftWall"]
-position = Vector2(2, 1)
-shape = SubResource("RectangleShape2D_si1qi")
-
-[node name="RightWall" type="StaticBody2D" parent="End/EndBoat/Body"]
-position = Vector2(44, 16)
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="End/EndBoat/Body/RightWall"]
-position = Vector2(2, 1)
-shape = SubResource("RectangleShape2D_si1qi")
-
-[node name="CharacterMover" type="Node" parent="End/EndBoat/Body" node_paths=PackedStringArray("body")]
-script = ExtResource("30_07bw3")
-body = NodePath("..")
-
-[node name="CharacterVelocity" type="Node" parent="End/EndBoat/Body" node_paths=PackedStringArray("body", "move")]
-script = ExtResource("31_g1tam")
-body = NodePath("..")
-move = NodePath("HorizontalMovement")
-
-[node name="HorizontalMovement" type="Node" parent="End/EndBoat/Body/CharacterVelocity" node_paths=PackedStringArray("direction", "body")]
-script = ExtResource("32_0aoog")
-direction = NodePath("DirectionalInput")
-body = NodePath("../..")
-speed = 30.0
-accel = 60.0
-
-[node name="DirectionalInput" type="Node" parent="End/EndBoat/Body/CharacterVelocity/HorizontalMovement"]
-script = ExtResource("33_q0675")
-
-[node name="Thrower" type="Node" parent="End/EndBoat/Body" node_paths=PackedStringArray("body")]
-script = ExtResource("34_ybubs")
-body = NodePath("..")
-intensity = 80.0
+[node name="EndLevel" parent="End/EndBoat" index="1" node_paths=PackedStringArray("camera", "player", "gem_spr", "gem_text")]
+camera = NodePath("../../../Camera")
+player = NodePath("../../../Player")
+gem_spr = NodePath("../../../CanvasLayer/Control/GemSprite")
+gem_text = NodePath("../../../CanvasLayer/Control/Gems")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="End"]
 position = Vector2(5360, -32)
@@ -630,11 +507,110 @@ position = Vector2(144, 208)
 shape = SubResource("RectangleShape2D_7qsal")
 
 [connection signal="depleted" from="Player/HealthCounter" to="CheckpointManager" method="respawn"]
+[connection signal="body_entered" from="TileMap/Collectible" to="TileMap/Collectible/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19014" to="TileMap/@Area2D@19014/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19015" to="TileMap/@Area2D@19015/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19016" to="TileMap/@Area2D@19016/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19017" to="TileMap/@Area2D@19017/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19018" to="TileMap/@Area2D@19018/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19019" to="TileMap/@Area2D@19019/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19020" to="TileMap/@Area2D@19020/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19021" to="TileMap/@Area2D@19021/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19022" to="TileMap/@Area2D@19022/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19023" to="TileMap/@Area2D@19023/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19024" to="TileMap/@Area2D@19024/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19025" to="TileMap/@Area2D@19025/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19026" to="TileMap/@Area2D@19026/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19027" to="TileMap/@Area2D@19027/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19028" to="TileMap/@Area2D@19028/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19029" to="TileMap/@Area2D@19029/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19030" to="TileMap/@Area2D@19030/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19031" to="TileMap/@Area2D@19031/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19032" to="TileMap/@Area2D@19032/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19033" to="TileMap/@Area2D@19033/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19034" to="TileMap/@Area2D@19034/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19035" to="TileMap/@Area2D@19035/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19036" to="TileMap/@Area2D@19036/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19037" to="TileMap/@Area2D@19037/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19038" to="TileMap/@Area2D@19038/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19039" to="TileMap/@Area2D@19039/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19040" to="TileMap/@Area2D@19040/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19041" to="TileMap/@Area2D@19041/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19042" to="TileMap/@Area2D@19042/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19043" to="TileMap/@Area2D@19043/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19044" to="TileMap/@Area2D@19044/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19045" to="TileMap/@Area2D@19045/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19046" to="TileMap/@Area2D@19046/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19047" to="TileMap/@Area2D@19047/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19048" to="TileMap/@Area2D@19048/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19049" to="TileMap/@Area2D@19049/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19070" to="TileMap/@Area2D@19070/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19072" to="TileMap/@Area2D@19072/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19074" to="TileMap/@Area2D@19074/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19081" to="TileMap/@Area2D@19081/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19083" to="TileMap/@Area2D@19083/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19085" to="TileMap/@Area2D@19085/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19092" to="TileMap/@Area2D@19092/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19094" to="TileMap/@Area2D@19094/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19096" to="TileMap/@Area2D@19096/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19119" to="TileMap/@Area2D@19119/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19120" to="TileMap/@Area2D@19120/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19121" to="TileMap/@Area2D@19121/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19122" to="TileMap/@Area2D@19122/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19123" to="TileMap/@Area2D@19123/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19124" to="TileMap/@Area2D@19124/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19125" to="TileMap/@Area2D@19125/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19126" to="TileMap/@Area2D@19126/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19127" to="TileMap/@Area2D@19127/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19128" to="TileMap/@Area2D@19128/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19129" to="TileMap/@Area2D@19129/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19130" to="TileMap/@Area2D@19130/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19131" to="TileMap/@Area2D@19131/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19132" to="TileMap/@Area2D@19132/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19133" to="TileMap/@Area2D@19133/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19134" to="TileMap/@Area2D@19134/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19135" to="TileMap/@Area2D@19135/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19136" to="TileMap/@Area2D@19136/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19137" to="TileMap/@Area2D@19137/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19138" to="TileMap/@Area2D@19138/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19139" to="TileMap/@Area2D@19139/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19140" to="TileMap/@Area2D@19140/OnCollected" method="enable" unbinds=1]
+[connection signal="area_entered" from="TileMap/Bandana" to="TileMap/Bandana" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19141" to="TileMap/@Area2D@19141/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19142" to="TileMap/@Area2D@19142/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19143" to="TileMap/@Area2D@19143/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19144" to="TileMap/@Area2D@19144/OnCollected" method="enable" unbinds=1]
+[connection signal="area_entered" from="TileMap/@Area2D@19145" to="TileMap/@Area2D@19145" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19146" to="TileMap/@Area2D@19146/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19147" to="TileMap/@Area2D@19147/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19148" to="TileMap/@Area2D@19148/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19149" to="TileMap/@Area2D@19149/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19150" to="TileMap/@Area2D@19150/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19151" to="TileMap/@Area2D@19151/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19155" to="TileMap/@Area2D@19155/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19156" to="TileMap/@Area2D@19156/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19157" to="TileMap/@Area2D@19157/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19158" to="TileMap/@Area2D@19158/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19159" to="TileMap/@Area2D@19159/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19160" to="TileMap/@Area2D@19160/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19161" to="TileMap/@Area2D@19161/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19162" to="TileMap/@Area2D@19162/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19163" to="TileMap/@Area2D@19163/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19164" to="TileMap/@Area2D@19164/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19165" to="TileMap/@Area2D@19165/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19166" to="TileMap/@Area2D@19166/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19167" to="TileMap/@Area2D@19167/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19168" to="TileMap/@Area2D@19168/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19169" to="TileMap/@Area2D@19169/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19170" to="TileMap/@Area2D@19170/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19171" to="TileMap/@Area2D@19171/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19172" to="TileMap/@Area2D@19172/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19173" to="TileMap/@Area2D@19173/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@19174" to="TileMap/@Area2D@19174/OnCollected" method="enable" unbinds=1]
 [connection signal="body_entered" from="Challenge2/CameraRiseArea" to="Challenge2/CameraRiseArea/SignalRepeater" method="enable" unbinds=1]
 [connection signal="body_exited" from="Challenge2/CameraRiseArea" to="Challenge2/CameraRiseArea/SignalRepeater" method="disable" unbinds=1]
 [connection signal="on_disable" from="Challenge2/CameraRiseArea/SignalRepeater" to="Camera" method="set_offset" binds= [Vector2(0, 0)]]
 [connection signal="on_enable" from="Challenge2/CameraRiseArea/SignalRepeater" to="Camera" method="set_offset" binds= [Vector2(0, -64)]]
-[connection signal="body_entered" from="End/EndBoat/Body/PlayerCollision" to="End/EndLevel" method="on_player_entered" unbinds=1]
 
 [editable path="Player"]
 [editable path="WaterfallIntro/Waterfall"]
@@ -656,3 +632,4 @@ shape = SubResource("RectangleShape2D_7qsal")
 [editable path="Challenge2/BarrelSpawner"]
 [editable path="Challenge2/JumpingFish"]
 [editable path="Challenge2/JumpingFish2"]
+[editable path="End/EndBoat"]

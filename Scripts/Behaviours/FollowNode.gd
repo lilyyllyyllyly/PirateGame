@@ -33,10 +33,10 @@ func _draw():
 func _process(_delta):
 	if !follower or !target or Engine.is_editor_hint(): return
 
-	var target_pos = target.position + follow_offset
+	var target_pos = target.global_position + follow_offset
 
-	follower.position.x = clamp(follower.position.x, target_pos.x - deadzone.end.x, target_pos.x - deadzone.position.x)
-	follower.position.y = clamp(follower.position.y, target_pos.y - deadzone.end.y, target_pos.y - deadzone.position.y)
+	follower.global_position.x = clamp(follower.global_position.x, target_pos.x - deadzone.end.x, target_pos.x - deadzone.position.x)
+	follower.global_position.y = clamp(follower.global_position.y, target_pos.y - deadzone.end.y, target_pos.y - deadzone.position.y)
 
 func set_target(new_target: NodePath):
 	target = get_node(new_target)
