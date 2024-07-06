@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bxhmiryt3ws3h"]
+[gd_scene load_steps=6 format=3 uid="uid://bxhmiryt3ws3h"]
 
 [ext_resource type="Script" path="res://Scripts/SceneChanger.gd" id="1_6ly1g"]
 [ext_resource type="Theme" uid="uid://dh0pcg828que3" path="res://UITheme.tres" id="1_sr18q"]
 [ext_resource type="Script" path="res://Scripts/SaveEditor.gd" id="3_tfe4s"]
 [ext_resource type="Resource" uid="uid://ckj1wwupytsk" path="res://save.tres" id="4_livys"]
+[ext_resource type="FontFile" uid="uid://be3dahgvfuoip" path="res://Fonts/KiwiSoda.ttf" id="5_y0sks"]
 
 [node name="Menu" type="Node2D"]
 
@@ -53,13 +54,42 @@ change_to = "res://Scenes/Areas/lobby.tscn"
 script = ExtResource("3_tfe4s")
 save = ExtResource("4_livys")
 
-[node name="Label" type="Label" parent="Control"]
+[node name="Fonts" type="Label" parent="Control"]
 layout_mode = 0
-offset_top = 208.0
-offset_right = 249.0
-offset_bottom = 243.0
+offset_left = 3.0
+offset_top = 179.0
+offset_right = 44.0
+offset_bottom = 195.0
 theme_override_font_sizes/font_size = 16
-text = "Font: Grape Soda from fontenddev.com"
+text = "Fonts:"
+
+[node name="GrapeSoda" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 193.0
+offset_right = 77.0
+offset_bottom = 209.0
+theme_override_font_sizes/font_size = 16
+text = "Grape Soda"
+
+[node name="KiwiSoda" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 207.0
+offset_right = 77.0
+offset_bottom = 223.0
+theme_override_fonts/font = ExtResource("5_y0sks")
+theme_override_font_sizes/font_size = 16
+text = "Kiwi Soda"
+
+[node name="Fontenddev" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 220.0
+offset_right = 138.0
+offset_bottom = 236.0
+theme_override_font_sizes/font_size = 16
+text = "From fontenddev.com <3"
 
 [connection signal="button_down" from="Control/VBoxContainer/Button" to="Control/VBoxContainer/Button/SceneChanger" method="change"]
 [connection signal="button_down" from="Control/VBoxContainer/Button" to="Control/VBoxContainer/Button/SaveEditor" method="load"]

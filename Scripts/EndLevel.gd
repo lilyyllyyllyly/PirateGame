@@ -5,14 +5,18 @@ class_name EndLevel extends Node2D
 
 @export var boat_anim: AnimationPlayer
 
+@export var map_anim: AnimationPlayer
+
+@export var end_jingle: AudioStreamPlayer2D
+
 @export_group("Gems Counter")
-@export var gem_spr: TextureRect
 @export var gem_text: Label
 @export var gem_delay_min: float
 @export var gem_delay_max: float
 @export var gem_delay_curve: Curve
 @export var gem_audio: AudioStreamPlayer2D
 @export var gem_audio_max_pitch: float
+@export var woo_audio: AudioStreamPlayer2D
 
 var gem_total = 0
 
@@ -32,8 +36,14 @@ func on_player_entered():
 	# starting boat animation
 	boat_anim.play("rowing")
 
+	# bring map down
+	map_anim.play("drop")
+
+	# start end jingle
+	end_jingle.play()
+
+func on_jingle_ended():
 	# counting gems
-	gem_spr.show()
 	var remaining_gems = len(get_tree().get_nodes_in_group("Gems"))
 	var collected_gems = gem_total - remaining_gems
 	for i in range(1, collected_gems + 1):
@@ -46,4 +56,5 @@ func on_player_entered():
 		await get_tree().create_timer(wait_time).timeout
 	
 	gem_text.text = "%d/%d" % [collected_gems, gem_total]
+	woo_audio.play()
 

@@ -1,35 +1,91 @@
-[gd_scene load_steps=7 format=3 uid="uid://dffeuy42yh51x"]
+[gd_scene load_steps=12 format=3 uid="uid://dffeuy42yh51x"]
 
 [ext_resource type="Theme" uid="uid://dh0pcg828que3" path="res://UITheme.tres" id="1_1m2s2"]
 [ext_resource type="PackedScene" uid="uid://dkyjaidt53m6p" path="res://Prefabs/Camera.tscn" id="1_7sjw0"]
 [ext_resource type="TileSet" uid="uid://bhpidh16mm137" path="res://tileset.tres" id="1_jwxh1"]
+[ext_resource type="Texture2D" uid="uid://d2c08dlmdkyno" path="res://Sprites/end.png" id="1_rc6ay"]
+[ext_resource type="FontFile" uid="uid://be3dahgvfuoip" path="res://Fonts/KiwiSoda.ttf" id="3_gebf0"]
 [ext_resource type="PackedScene" uid="uid://dhkw1kf5clmet" path="res://Prefabs/EndBoat.tscn" id="6_46l7s"]
 [ext_resource type="PackedScene" uid="uid://d3hqdk77sg32n" path="res://Prefabs/Entities/Player.tscn" id="10_mqw45"]
 [ext_resource type="PackedScene" uid="uid://lbk0irkrw228" path="res://Prefabs/LevelMechanics/Water.tscn" id="21_7tp82"]
+
+[sub_resource type="Animation" id="Animation_4rcfr"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -176)]
+}
+
+[sub_resource type="Animation" id="Animation_nf5mr"]
+resource_name = "drop"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(0.258816, 1),
+"update": 0,
+"values": [Vector2(0, -176), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4k52k"]
+_data = {
+"RESET": SubResource("Animation_4rcfr"),
+"drop": SubResource("Animation_nf5mr")
+}
 
 [node name="Test-level" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Control" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+offset_top = -176.0
+offset_right = 320.0
+offset_bottom = 64.0
+texture = ExtResource("1_rc6ay")
 
-[node name="Label" type="Label" parent="CanvasLayer/Control"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 23.0
-grow_horizontal = 2
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/TextureRect"]
+libraries = {
+"": SubResource("AnimationLibrary_4k52k")
+}
+
+[node name="GemText" type="Label" parent="CanvasLayer/TextureRect"]
+layout_mode = 0
+offset_left = 117.0
+offset_top = 79.0
+offset_right = 165.0
+offset_bottom = 95.0
 theme = ExtResource("1_1m2s2")
-theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0.67451, 0.298039, 0.247059, 1)
+theme_override_fonts/font = ExtResource("3_gebf0")
+theme_override_font_sizes/font_size = 16
+text = "0"
+vertical_alignment = 1
+
+[node name="Timer" type="Label" parent="CanvasLayer/TextureRect"]
+layout_mode = 0
+offset_left = 184.0
+offset_top = 79.0
+offset_right = 232.0
+offset_bottom = 95.0
+theme = ExtResource("1_1m2s2")
+theme_override_colors/font_color = Color(0.67451, 0.298039, 0.247059, 1)
+theme_override_fonts/font = ExtResource("3_gebf0")
+theme_override_font_sizes/font_size = 16
+text = "00:00"
+vertical_alignment = 1
 
 [node name="Camera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_7sjw0")]
 target = NodePath("../Player")
@@ -57,16 +113,17 @@ scale = Vector2(22, 8)
 position = Vector2(336, 151)
 
 [node name="Body" parent="EndBoat" index="0"]
-position = Vector2(0, 0.0214733)
+position = Vector2(0, 0.0293355)
 frequency = 0.085
 offset = 0.0
 
-[node name="EndLevel" parent="EndBoat" index="1" node_paths=PackedStringArray("camera", "player", "gem_text")]
+[node name="EndLevel" parent="EndBoat" index="1" node_paths=PackedStringArray("camera", "player", "map_anim", "gem_text")]
 camera = NodePath("../../Camera")
 player = NodePath("../../Player")
-gem_text = NodePath("../../CanvasLayer/Control/Label")
+map_anim = NodePath("../../CanvasLayer/TextureRect/AnimationPlayer")
+gem_text = NodePath("../../CanvasLayer/TextureRect/GemText")
 
-[node name="GemSound" parent="EndBoat/EndLevel" index="0"]
+[node name="GemSound" parent="EndBoat/EndLevel" index="1"]
 volume_db = -12.0
 
 [editable path="EndBoat"]
