@@ -1,6 +1,8 @@
-[gd_scene load_steps=78 format=3 uid="uid://d3hqdk77sg32n"]
+[gd_scene load_steps=80 format=3 uid="uid://d3hqdk77sg32n"]
 
 [ext_resource type="Texture2D" uid="uid://wvt8keytohdj" path="res://Sprites/Player/NoBandana/Idle/player-idle1.png" id="1_3kcyn"]
+[ext_resource type="Script" path="res://Scripts/PlayerSetResource.gd" id="1_weh6v"]
+[ext_resource type="Resource" uid="uid://b4vguxa4rp3h8" path="res://player.tres" id="2_ehj88"]
 [ext_resource type="Texture2D" uid="uid://bjascss77v04" path="res://Sprites/Player/NoBandana/Boost/player-boost1.png" id="2_tug5r"]
 [ext_resource type="Texture2D" uid="uid://bw2xopc3lakfh" path="res://Sprites/Player/NoBandana/Boost/player-boost2.png" id="3_mra5v"]
 [ext_resource type="Texture2D" uid="uid://ft6hj6474r4y" path="res://Sprites/Player/NoBandana/Boost/player-boost3.png" id="4_kbibu"]
@@ -336,6 +338,8 @@ collision_layer = 65
 collision_mask = 8
 platform_on_leave = 2
 platform_floor_layers = 8
+script = ExtResource("1_weh6v")
+player_res = ExtResource("2_ehj88")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_fxtra")
@@ -517,8 +521,8 @@ shape = SubResource("RectangleShape2D_ghwek")
 
 [connection signal="should_boost" from="WaterLeaveBoost" to="States/WaterState/Boost" method="boost"]
 [connection signal="jumped" from="States/GroundState/Jump" to="States/GroundState/Jump/JumpSound" method="play_rand_pitch"]
-[connection signal="boosted" from="States/WaterState/Boost" to="Effects/WaterBoostParticle" method="spawn_particle"]
 [connection signal="boosted" from="States/WaterState/Boost" to="States/WaterState/Boost/BoostSound" method="play_rand_pitch"]
+[connection signal="boosted" from="States/WaterState/Boost" to="Effects/WaterBoostParticle" method="spawn_particle"]
 [connection signal="jump_pressed" from="States/WaterState/Boost/JumpPressSignal" to="AnimationPlayer" method="on_jump_pressed"]
 [connection signal="jump_pressed" from="States/WaterState/Boost/JumpPressSignal" to="States/WaterState/Boost" method="boost_delayed"]
 [connection signal="area_entered" from="WaterChecker" to="AnimationPlayer" method="on_enter_water" unbinds=1]

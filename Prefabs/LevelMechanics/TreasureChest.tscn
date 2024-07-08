@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://btgg8h8diww88"]
+
+[ext_resource type="Script" path="res://Scripts/TreasureChest.gd" id="1_iqf5h"]
+[ext_resource type="Texture2D" uid="uid://fvu4hqr4vp8q" path="res://Sprites/TreasureChest/chest-closed.png" id="1_oqemi"]
+[ext_resource type="Resource" uid="uid://b4vguxa4rp3h8" path="res://player.tres" id="2_56ymb"]
+[ext_resource type="Texture2D" uid="uid://bmkuvoxplk5fj" path="res://Sprites/TreasureChest/chest-open.png" id="3_ny686"]
+[ext_resource type="Script" path="res://Scripts/Input/Signals/InteractSignal.gd" id="4_660sl"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4koh5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_oqemi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ny686")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qpjyp"]
+size = Vector2(16, 11)
+
+[node name="TreasureChest" type="Node2D" node_paths=PackedStringArray("interact_signal", "sprite")]
+script = ExtResource("1_iqf5h")
+player_res = ExtResource("2_56ymb")
+interact_signal = NodePath("InteractSignal")
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+z_index = -1
+sprite_frames = SubResource("SpriteFrames_4koh5")
+
+[node name="PlayerChecker" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerChecker"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_qpjyp")
+
+[node name="InteractSignal" type="Node" parent="."]
+script = ExtResource("4_660sl")
+
+[connection signal="body_entered" from="PlayerChecker" to="." method="on_player_entered"]
+[connection signal="body_exited" from="PlayerChecker" to="." method="on_player_exit"]
+[connection signal="interact_pressed" from="InteractSignal" to="." method="on_interacted"]

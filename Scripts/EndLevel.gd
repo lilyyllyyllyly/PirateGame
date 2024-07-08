@@ -58,3 +58,7 @@ func on_jingle_ended():
 	gem_text.text = "%d/%d" % [collected_gems, gem_total]
 	woo_audio.play()
 
+	# counting open chests
+	# TODO: open each chest in the map in order for the ones that were open
+	print(len(get_tree().get_nodes_in_group("OpenChest")))
+

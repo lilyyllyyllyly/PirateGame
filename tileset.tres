@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=20 format=3 uid="uid://bhpidh16mm137"]
+[gd_resource type="TileSet" load_steps=21 format=3 uid="uid://bhpidh16mm137"]
 
 [ext_resource type="PackedScene" uid="uid://uk0acae3vt17" path="res://Prefabs/Entities/Enemies/SpikeLeft.tscn" id="1_sc1vc"]
 [ext_resource type="PackedScene" uid="uid://c365hfrfoykem" path="res://Prefabs/LevelMechanics/Collectible.tscn" id="2_567rd"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://ci3g58nk8w8r8" path="res://Prefabs/Entities/Enemies/SpikeDown.tscn" id="6_d1yg2"]
 [ext_resource type="PackedScene" uid="uid://14djnhdxm8t4" path="res://Prefabs/Bandana.tscn" id="7_4r26v"]
 [ext_resource type="Texture2D" uid="uid://djyqh65dislps" path="res://Sprites/Tilesets/stone-tileset.png" id="7_hghe4"]
+[ext_resource type="PackedScene" uid="uid://btgg8h8diww88" path="res://Prefabs/LevelMechanics/TreasureChest.tscn" id="8_sn8cw"]
 [ext_resource type="Texture2D" uid="uid://bfr2m6ovneunv" path="res://Sprites/Tilesets/stone-bg-tileset.png" id="8_ylkx0"]
 [ext_resource type="Texture2D" uid="uid://fjv6xjigl3cb" path="res://Sprites/Tilesets/props-tileset.png" id="9_cgx6x"]
 
@@ -24,6 +25,7 @@ scenes/4/scene = ExtResource("4_sh4ia")
 scenes/5/scene = ExtResource("5_4kvmr")
 scenes/6/scene = ExtResource("6_d1yg2")
 scenes/7/scene = ExtResource("7_4r26v")
+scenes/8/scene = ExtResource("8_sn8cw")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ngu4m"]
 texture = ExtResource("5_c1ljv")
