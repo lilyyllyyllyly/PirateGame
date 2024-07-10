@@ -3,10 +3,11 @@ class_name PlayerAnimation extends AnimationPlayer
 @export var sprite: Sprite2D
 @export var body: CharacterBody2D
 
+@export var player_bandana_res: BoolResource
+
 @export_group("Input")
 @export var plane_direction:      DirectionalInput
 @export var horizontal_direction: DirectionalInput
-@export var health_counter: CounterSignal
 
 @export_group("Rotation")
 @export var swim_stop_rot: float
@@ -22,7 +23,7 @@ func fwrap(x, minv, maxv):
 	return (maxv if x < 0 else minv) + fmod(x, maxv - minv)
 
 func play_reset(anim):
-	if health_counter.counter >= health_counter.maxv: anim = anim + "-bandana" # horribly hardcoded, whoops
+	if player_bandana_res.value: anim = anim + "-bandana" # horribly hardcoded, whoops
 	if current_animation == anim or current_animation == "RESET": return
 
 	play("RESET")
@@ -33,8 +34,8 @@ func on_jump_pressed():
 
 	rot_goal = fwrap(atan2(direction.y, direction.x) + rot_offset, 0, TAU)
 	# horribly hardcoded again
-	play("player-boost" if health_counter.counter < health_counter.maxv else "player-boost-bandana")
-	queue("player-swim" if health_counter.counter < health_counter.maxv else "player-swim-bandana")
+	play("player-boost" if !player_bandana_res.value else "player-boost-bandana")
+	queue("player-swim" if !player_bandana_res.value else "player-swim-bandana")
 
 func on_enter_water():
 	in_water = true

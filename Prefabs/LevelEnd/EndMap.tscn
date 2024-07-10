@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bcgydwppy1aeu"]
+[gd_scene load_steps=8 format=3 uid="uid://bwpgaucxujcf0"]
 
 [ext_resource type="Texture2D" uid="uid://d2c08dlmdkyno" path="res://Sprites/end.png" id="1_ek77d"]
 [ext_resource type="Theme" uid="uid://dh0pcg828que3" path="res://UITheme.tres" id="2_xntni"]
 [ext_resource type="FontFile" uid="uid://be3dahgvfuoip" path="res://Fonts/KiwiSoda.ttf" id="3_kspvn"]
+[ext_resource type="PackedScene" uid="uid://cwu3tb0s2fww8" path="res://Prefabs/LevelEnd/EndChest.tscn" id="4_d6olu"]
 
 [sub_resource type="Animation" id="Animation_4rcfr"]
 resource_name = "RESET"
@@ -77,3 +78,25 @@ theme_override_fonts/font = ExtResource("3_kspvn")
 theme_override_font_sizes/font_size = 16
 text = "00:00"
 vertical_alignment = 1
+
+[node name="Chest1" parent="." instance=ExtResource("4_d6olu")]
+offset_left = 97.0
+offset_top = 97.0
+offset_right = 97.0
+offset_bottom = 97.0
+
+[node name="Chest2" parent="." instance=ExtResource("4_d6olu")]
+offset_left = 144.0
+offset_top = 100.0
+offset_right = 144.0
+offset_bottom = 100.0
+
+[node name="Chest3" parent="." instance=ExtResource("4_d6olu")]
+offset_left = 193.0
+offset_top = 97.0
+offset_right = 193.0
+offset_bottom = 97.0
+
+[editable path="Chest1"]
+[editable path="Chest2"]
+[editable path="Chest3"]

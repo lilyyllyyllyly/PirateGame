@@ -1,10 +1,23 @@
-[gd_scene load_steps=8 format=3 uid="uid://btgg8h8diww88"]
+[gd_scene load_steps=21 format=3 uid="uid://btgg8h8diww88"]
 
 [ext_resource type="Script" path="res://Scripts/TreasureChest.gd" id="1_iqf5h"]
 [ext_resource type="Texture2D" uid="uid://fvu4hqr4vp8q" path="res://Sprites/TreasureChest/chest-closed.png" id="1_oqemi"]
 [ext_resource type="Resource" uid="uid://b4vguxa4rp3h8" path="res://player.tres" id="2_56ymb"]
-[ext_resource type="Texture2D" uid="uid://bmkuvoxplk5fj" path="res://Sprites/TreasureChest/chest-open.png" id="3_ny686"]
+[ext_resource type="Resource" uid="uid://bwtfoe2cx8x4b" path="res://player_bandana.tres" id="3_htudd"]
+[ext_resource type="Texture2D" uid="uid://t2j5ln6m4fmd" path="res://Sprites/TreasureChest/chest-open.png" id="3_ny686"]
 [ext_resource type="Script" path="res://Scripts/Input/Signals/InteractSignal.gd" id="4_660sl"]
+[ext_resource type="Texture2D" uid="uid://c5ykct30unw5x" path="res://Sprites/TreasureChest/OpenNoBandana/chest-open1.png" id="4_rksjh"]
+[ext_resource type="Texture2D" uid="uid://bt068bntxsr7g" path="res://Sprites/TreasureChest/OpenNoBandana/chest-open2.png" id="5_tltpu"]
+[ext_resource type="Texture2D" uid="uid://byty3dgpwbuyw" path="res://Sprites/TreasureChest/OpenNoBandana/chest-open3.png" id="6_m4pri"]
+[ext_resource type="Texture2D" uid="uid://dkku1s2wik23b" path="res://Sprites/TreasureChest/OpenNoBandana/chest-open4.png" id="7_up10i"]
+[ext_resource type="Texture2D" uid="uid://bgs1g02l3dnrr" path="res://Sprites/TreasureChest/OpenNoBandana/chest-open5.png" id="8_jc2a4"]
+[ext_resource type="Texture2D" uid="uid://d00fprs2f7a3p" path="res://Sprites/TreasureChest/OpenNoBandana/chest-open6.png" id="9_ctlg3"]
+[ext_resource type="Texture2D" uid="uid://dh2qrp2ni2wjd" path="res://Sprites/TreasureChest/OpenBandana/chest-open-bandana1.png" id="10_4ndfw"]
+[ext_resource type="Texture2D" uid="uid://oecqp1v4vsty" path="res://Sprites/TreasureChest/OpenBandana/chest-open-bandana2.png" id="11_wdgtd"]
+[ext_resource type="Texture2D" uid="uid://ca5aa0fmnpogn" path="res://Sprites/TreasureChest/OpenBandana/chest-open-bandana3.png" id="12_eshpm"]
+[ext_resource type="Texture2D" uid="uid://draqhw08t8fja" path="res://Sprites/TreasureChest/OpenBandana/chest-open-bandana4.png" id="13_1qloq"]
+[ext_resource type="Texture2D" uid="uid://bol3hfe4k0ki4" path="res://Sprites/TreasureChest/OpenBandana/chest-open-bandana5.png" id="14_aj20e"]
+[ext_resource type="Texture2D" uid="uid://b5m81fg2v0nhb" path="res://Sprites/TreasureChest/OpenBandana/chest-open-bandana6.png" id="15_7gd2h"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4koh5"]
 animations = [{
@@ -18,36 +31,108 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("4_rksjh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tltpu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_m4pri")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_up10i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_m4pri")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_up10i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_m4pri")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_jc2a4")
+}, {
+"duration": 3.0,
+"texture": ExtResource("9_ctlg3")
+}],
+"loop": false,
+"name": &"open",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_4ndfw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_wdgtd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_eshpm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_1qloq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_eshpm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_1qloq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_eshpm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_aj20e")
+}, {
+"duration": 3.0,
+"texture": ExtResource("15_7gd2h")
+}],
+"loop": false,
+"name": &"open-bandana",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("3_ny686")
 }],
 "loop": true,
-"name": &"open",
+"name": &"stay-open",
 "speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qpjyp"]
 size = Vector2(16, 11)
 
-[node name="TreasureChest" type="Node2D" node_paths=PackedStringArray("interact_signal", "sprite")]
+[node name="TreasureChest" type="Node2D" node_paths=PackedStringArray("interact_signal", "sprite", "player_pos")]
 script = ExtResource("1_iqf5h")
 player_res = ExtResource("2_56ymb")
+player_bandana_res = ExtResource("3_htudd")
 interact_signal = NodePath("InteractSignal")
 sprite = NodePath("Sprite2D")
+player_pos = NodePath("PlayerPos")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 z_index = -1
 sprite_frames = SubResource("SpriteFrames_4koh5")
+centered = false
+offset = Vector2(-7, -5)
 
 [node name="PlayerChecker" type="Area2D" parent="."]
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerChecker"]
-position = Vector2(0, 2.5)
+position = Vector2(8, 10.5)
 shape = SubResource("RectangleShape2D_qpjyp")
 
 [node name="InteractSignal" type="Node" parent="."]
 script = ExtResource("4_660sl")
 
+[node name="PlayerPos" type="Node2D" parent="."]
+position = Vector2(4, 9)
+
+[connection signal="animation_finished" from="Sprite2D" to="." method="on_animation_finished"]
 [connection signal="body_entered" from="PlayerChecker" to="." method="on_player_entered"]
 [connection signal="body_exited" from="PlayerChecker" to="." method="on_player_exit"]
 [connection signal="interact_pressed" from="InteractSignal" to="." method="on_interacted"]

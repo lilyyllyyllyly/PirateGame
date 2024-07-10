@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://d3hqdk77sg32n"]
+[gd_scene load_steps=82 format=3 uid="uid://d3hqdk77sg32n"]
 
 [ext_resource type="Texture2D" uid="uid://wvt8keytohdj" path="res://Sprites/Player/NoBandana/Idle/player-idle1.png" id="1_3kcyn"]
 [ext_resource type="Script" path="res://Scripts/PlayerSetResource.gd" id="1_weh6v"]
@@ -57,10 +57,12 @@
 [ext_resource type="Script" path="res://Scripts/WaterChecker.gd" id="34_vlw6o"]
 [ext_resource type="Script" path="res://Scripts/Thrower.gd" id="35_xf1i7"]
 [ext_resource type="Script" path="res://Scripts/Input/Signals/CounterSignal.gd" id="36_wx7gs"]
+[ext_resource type="Resource" uid="uid://bwtfoe2cx8x4b" path="res://player_bandana.tres" id="38_nak4p"]
 [ext_resource type="AudioStream" uid="uid://q88fxdmjbmrs" path="res://Audio/jump.wav" id="46_odkvo"]
 [ext_resource type="Script" path="res://Scripts/PlaySound.gd" id="47_80v44"]
 [ext_resource type="AudioStream" uid="uid://usyypqotor5t" path="res://Audio/boost.wav" id="53_ykesk"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/OneshotSignal.gd" id="57_g3mn5"]
+[ext_resource type="Script" path="res://Scripts/UpdatePlayerBandana.gd" id="63_tweah"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fxtra"]
 radius = 4.0
@@ -342,22 +344,23 @@ script = ExtResource("1_weh6v")
 player_res = ExtResource("2_ehj88")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CapsuleShape2D_fxtra")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_3kcyn")
 offset = Vector2(0, -2)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("sprite", "body", "plane_direction", "horizontal_direction", "health_counter")]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("sprite", "body", "plane_direction", "horizontal_direction")]
 libraries = {
 "": SubResource("AnimationLibrary_5elcj")
 }
 script = ExtResource("18_idgqc")
 sprite = NodePath("../Sprite2D")
 body = NodePath("..")
+player_bandana_res = ExtResource("38_nak4p")
 plane_direction = NodePath("../States/WaterState/WaterMovement/PlaneMovement/Direction")
 horizontal_direction = NodePath("../States/GroundState/GroundMovement/HorizontalMovement/Direction")
-health_counter = NodePath("../HealthCounter")
 swim_stop_rot = 12.0
 rot_offset_deg = 90.0
 
@@ -470,6 +473,7 @@ script = ExtResource("47_80v44")
 pitch_range = 0.4
 
 [node name="WaterChecker" type="Area2D" parent="."]
+visible = false
 collision_layer = 4
 collision_mask = 2
 monitorable = false
@@ -489,6 +493,7 @@ boost_effect = ExtResource("5_gmarb")
 rot_offset = 4.712
 
 [node name="DamageChecker" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 32
 
@@ -512,7 +517,12 @@ script = ExtResource("57_g3mn5")
 [node name="InvulTimer" type="Timer" parent="HealthCounter"]
 one_shot = true
 
+[node name="UpdatePlayerBandana" type="Node" parent="HealthCounter"]
+script = ExtResource("63_tweah")
+player_bandana_res = ExtResource("38_nak4p")
+
 [node name="BandanaChecker" type="Area2D" parent="."]
+visible = false
 collision_layer = 256
 collision_mask = 128
 
@@ -533,6 +543,7 @@ shape = SubResource("RectangleShape2D_ghwek")
 [connection signal="left_water" from="WaterChecker" to="States/StateEvents/LeaveWater" method="switch"]
 [connection signal="area_entered" from="DamageChecker" to="Thrower" method="throw_away_from"]
 [connection signal="area_entered" from="DamageChecker" to="HealthCounter/Damage" method="do" unbinds=1]
+[connection signal="changed" from="HealthCounter" to="HealthCounter/UpdatePlayerBandana" method="on_health_changed"]
 [connection signal="depleted" from="HealthCounter" to="HealthCounter" method="reset"]
 [connection signal="done" from="HealthCounter/Damage" to="HealthCounter" method="decrement"]
 [connection signal="done" from="HealthCounter/Damage" to="HealthCounter/InvulTimer" method="start" binds= [0.5]]

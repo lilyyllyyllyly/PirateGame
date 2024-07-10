@@ -17,6 +17,12 @@ class_name EndLevel extends Node2D
 @export var gem_audio: AudioStreamPlayer2D
 @export var gem_audio_max_pitch: float
 @export var woo_audio: AudioStreamPlayer2D
+@export var wait_after_gems: float
+
+@export_group("Treasure Chests")
+@export var chest_delay: float
+@export var chests: Array[TreasureChest]
+@export var ui_chests: Array[AnimationPlayer]
 
 var gem_total = 0
 
@@ -58,7 +64,12 @@ func on_jingle_ended():
 	gem_text.text = "%d/%d" % [collected_gems, gem_total]
 	woo_audio.play()
 
+	await get_tree().create_timer(wait_after_gems).timeout
+
 	# counting open chests
-	# TODO: open each chest in the map in order for the ones that were open
-	print(len(get_tree().get_nodes_in_group("OpenChest")))
+	for i in range(len(chests)):
+		if !chests[i].open: continue
+		ui_chests[i].play("open")
+		await get_tree().create_timer(chest_delay).timeout
+
 

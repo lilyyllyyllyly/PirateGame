@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://t2j5ln6m4fmd"
-path="res://.godot/imported/chest-open.png-9692b31a094cfad9856d239cafb8dc03.ctex"
+uid="uid://oecqp1v4vsty"
+path="res://.godot/imported/chest-open-bandana2.png-004147599797321186ed67c45d20fac4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/TreasureChest/chest-open.png"
-dest_files=["res://.godot/imported/chest-open.png-9692b31a094cfad9856d239cafb8dc03.ctex"]
+source_file="res://Sprites/TreasureChest/OpenBandana/chest-open-bandana2.png"
+dest_files=["res://.godot/imported/chest-open-bandana2.png-004147599797321186ed67c45d20fac4.ctex"]
 
 [params]
 
