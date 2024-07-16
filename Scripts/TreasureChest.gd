@@ -3,7 +3,8 @@ class_name TreasureChest extends Node
 @export var player_res: NodeResource
 @export var player_bandana_res: BoolResource
 @export var interact_signal: InteractSignal
-@export var sprite: AnimatedSprite2D
+@export var anim: AnimationPlayer
+@export var particles: CPUParticles2D
 @export var player_pos: Node2D
 
 var player_colliding = false
@@ -24,7 +25,7 @@ func on_interacted():
 
 	# open chest
 	open = true
-	sprite.play("open" if !player_bandana_res.value else "open-bandana")
+	anim.play("open" if !player_bandana_res.value else "open-bandana")
 
 	# hide, position and freeze player
 	var player = get_node(player_res.value)
@@ -33,14 +34,17 @@ func on_interacted():
 	player.hide()
 	player.process_mode = Node.PROCESS_MODE_DISABLED
 
-func on_animation_finished():
-	if sprite.animation != "open" and sprite.animation != "open-bandana": return
+func on_animation_finished(anim_name):
+	if anim_name != "open" and anim_name != "open-bandana": return
 
 	# play opened animation
-	sprite.play("stay-open")
+	anim.play("stay-open")
 
 	# show and unfreeze player
 	var player = get_node(player_res.value)
 	player.show()
 	player.process_mode = Node.PROCESS_MODE_INHERIT
+
+func on_opened():
+	particles.emitting = true
 

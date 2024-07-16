@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://btgg8h8diww88"]
+[gd_scene load_steps=32 format=3 uid="uid://btgg8h8diww88"]
 
 [ext_resource type="Script" path="res://Scripts/TreasureChest.gd" id="1_iqf5h"]
 [ext_resource type="Texture2D" uid="uid://fvu4hqr4vp8q" path="res://Sprites/TreasureChest/chest-closed.png" id="1_oqemi"]
@@ -13,109 +13,406 @@
 [ext_resource type="Texture2D" uid="uid://bgs1g02l3dnrr" path="res://Sprites/TreasureChest/OpenNoBandana/chest-open5.png" id="8_jc2a4"]
 [ext_resource type="Texture2D" uid="uid://d00fprs2f7a3p" path="res://Sprites/TreasureChest/OpenNoBandana/chest-open6.png" id="9_ctlg3"]
 [ext_resource type="Texture2D" uid="uid://dh2qrp2ni2wjd" path="res://Sprites/TreasureChest/OpenBandana/chest-open-bandana1.png" id="10_4ndfw"]
+[ext_resource type="Texture2D" uid="uid://ddmawimca666a" path="res://Sprites/TreasureChest/chest-front.png" id="11_jdbd2"]
 [ext_resource type="Texture2D" uid="uid://oecqp1v4vsty" path="res://Sprites/TreasureChest/OpenBandana/chest-open-bandana2.png" id="11_wdgtd"]
 [ext_resource type="Texture2D" uid="uid://ca5aa0fmnpogn" path="res://Sprites/TreasureChest/OpenBandana/chest-open-bandana3.png" id="12_eshpm"]
 [ext_resource type="Texture2D" uid="uid://draqhw08t8fja" path="res://Sprites/TreasureChest/OpenBandana/chest-open-bandana4.png" id="13_1qloq"]
 [ext_resource type="Texture2D" uid="uid://bol3hfe4k0ki4" path="res://Sprites/TreasureChest/OpenBandana/chest-open-bandana5.png" id="14_aj20e"]
 [ext_resource type="Texture2D" uid="uid://b5m81fg2v0nhb" path="res://Sprites/TreasureChest/OpenBandana/chest-open-bandana6.png" id="15_7gd2h"]
+[ext_resource type="Texture2D" uid="uid://2qmj8sns4kvf" path="res://Sprites/TreasureChest/chest-front-bandana.png" id="18_tnl0d"]
+[ext_resource type="Texture2D" uid="uid://cp5ieyetmksh4" path="res://Sprites/diamond.png" id="19_nuux3"]
+[ext_resource type="Texture2D" uid="uid://bb0hlq701ne4i" path="res://Sprites/gem-particle.png" id="19_q8pya"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_4koh5"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_oqemi")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_rksjh")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_tltpu")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_m4pri")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_up10i")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_m4pri")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_up10i")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_m4pri")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_jc2a4")
-}, {
-"duration": 3.0,
-"texture": ExtResource("9_ctlg3")
-}],
-"loop": false,
-"name": &"open",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("10_4ndfw")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_wdgtd")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_eshpm")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_1qloq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_eshpm")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_1qloq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_eshpm")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_aj20e")
-}, {
-"duration": 3.0,
-"texture": ExtResource("15_7gd2h")
-}],
-"loop": false,
-"name": &"open-bandana",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_ny686")
-}],
-"loop": true,
-"name": &"stay-open",
-"speed": 5.0
+[sub_resource type="Animation" id="Animation_k5vir"]
+resource_name = "RESET"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_oqemi")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Diamond:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Front:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Diamond:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(7, 13)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Diamond:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.3, 0.3)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Front:texture")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("11_jdbd2")]
+}
+
+[sub_resource type="Animation" id="Animation_i0ov7"]
+resource_name = "open"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("4_rksjh"), ExtResource("5_tltpu"), ExtResource("6_m4pri"), ExtResource("7_up10i"), ExtResource("6_m4pri"), ExtResource("7_up10i"), ExtResource("6_m4pri"), ExtResource("8_jc2a4"), ExtResource("9_ctlg3")]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"on_opened"
 }]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Diamond:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Front:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Front:texture")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("11_jdbd2")]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Diamond:position")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(7, 13), Vector2(4, -5)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Diamond:scale")
+tracks/6/interp = 2
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(1, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.3, 0.3), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_e6cxf"]
+resource_name = "open-bandana"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("10_4ndfw"), ExtResource("11_wdgtd"), ExtResource("12_eshpm"), ExtResource("13_1qloq"), ExtResource("12_eshpm"), ExtResource("13_1qloq"), ExtResource("12_eshpm"), ExtResource("14_aj20e"), ExtResource("15_7gd2h")]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"on_opened"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Diamond:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Diamond:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(7, 13), Vector2(4, -5)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Front:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Front:texture")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("18_tnl0d")]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Diamond:scale")
+tracks/6/interp = 2
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(1, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.3, 0.3), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xpnih"]
+resource_name = "stay-open"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_ny686")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Diamond:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Front:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Diamond:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(7, 13)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Diamond:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.3, 0.3)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Front:texture")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("11_jdbd2")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4fr7p"]
+_data = {
+"RESET": SubResource("Animation_k5vir"),
+"open": SubResource("Animation_i0ov7"),
+"open-bandana": SubResource("Animation_e6cxf"),
+"stay-open": SubResource("Animation_xpnih")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qpjyp"]
 size = Vector2(16, 11)
 
-[node name="TreasureChest" type="Node2D" node_paths=PackedStringArray("interact_signal", "sprite", "player_pos")]
+[sub_resource type="Curve" id="Curve_xmx7m"]
+max_value = 90.0
+_data = [Vector2(0, 0), 0.0, 25.5963, 0, 0, Vector2(1, 28.6813), 29.5342, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_kut0x"]
+_data = [Vector2(0, 0.989011), 0.0, 0.0, 0, 0, Vector2(0.981567, 0.010989), -2.21429, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_bkkdv"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.507937)
+colors = PackedColorArray(1, 4, 1, 1, 1, 1, 1, 1)
+
+[node name="TreasureChest" type="Node2D" node_paths=PackedStringArray("interact_signal", "anim", "particles", "player_pos")]
 script = ExtResource("1_iqf5h")
 player_res = ExtResource("2_56ymb")
 player_bandana_res = ExtResource("3_htudd")
 interact_signal = NodePath("InteractSignal")
-sprite = NodePath("Sprite2D")
+anim = NodePath("Sprite2D/AnimationPlayer")
+particles = NodePath("CPUParticles2D")
 player_pos = NodePath("PlayerPos")
 
-[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -1
-sprite_frames = SubResource("SpriteFrames_4koh5")
+texture = ExtResource("1_oqemi")
+centered = false
+offset = Vector2(-7, -5)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_4fr7p")
+}
+
+[node name="Diamond" type="Sprite2D" parent="Sprite2D"]
+visible = false
+z_index = 15
+z_as_relative = false
+position = Vector2(7, 13)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("19_nuux3")
+
+[node name="Front" type="Sprite2D" parent="Sprite2D"]
+visible = false
+z_index = 16
+z_as_relative = false
+texture = ExtResource("11_jdbd2")
 centered = false
 offset = Vector2(-7, -5)
 
@@ -132,7 +429,29 @@ script = ExtResource("4_660sl")
 [node name="PlayerPos" type="Node2D" parent="."]
 position = Vector2(4, 9)
 
-[connection signal="animation_finished" from="Sprite2D" to="." method="on_animation_finished"]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+z_index = 1
+position = Vector2(7, 9)
+emitting = false
+amount = 10
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.9
+texture = ExtResource("19_q8pya")
+emission_shape = 3
+emission_rect_extents = Vector2(3, 1)
+direction = Vector2(0, -1)
+spread = 22.12
+gravity = Vector2(0, 600)
+initial_velocity_min = 120.0
+initial_velocity_max = 140.0
+angle_min = 15.7
+angle_max = 29.7
+angle_curve = SubResource("Curve_xmx7m")
+scale_amount_curve = SubResource("Curve_kut0x")
+color_initial_ramp = SubResource("Gradient_bkkdv")
+
+[connection signal="animation_finished" from="Sprite2D/AnimationPlayer" to="." method="on_animation_finished"]
 [connection signal="body_entered" from="PlayerChecker" to="." method="on_player_entered"]
 [connection signal="body_exited" from="PlayerChecker" to="." method="on_player_exit"]
 [connection signal="interact_pressed" from="InteractSignal" to="." method="on_interacted"]
