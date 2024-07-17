@@ -31,12 +31,20 @@ var remaining_gems = 0
 var collected_gems = 0
 var gem_count_finished = false
 
+signal finished
+
 func _ready():
 	await get_tree().process_frame
 	gem_total = len(get_tree().get_nodes_in_group("Gems"))
 
 func on_skipped():
-	if ended and !gem_count_finished: on_gem_count_finished()
+	if !ended: return
+
+	if !gem_count_finished:
+		on_gem_count_finished()
+		return
+	
+	finished.emit()
 
 func on_player_entered():
 	ended = true
