@@ -33,4 +33,4 @@ enabled = false
 [connection signal="finished" from="CollectSound" to="." method="queue_free"]
 [connection signal="on_enable" from="OnCollected" to="Sprite2D" method="hide"]
 [connection signal="on_enable" from="OnCollected" to="CollectSound" method="play_rand_pitch"]
-[connection signal="on_enable" from="OnCollected" to="CollisionShape2D" method="set_disabled" binds= [true]]
+[connection signal="on_enable" from="OnCollected" to="CollisionShape2D" method="set_deferred" binds= [&"disabled", true]]
