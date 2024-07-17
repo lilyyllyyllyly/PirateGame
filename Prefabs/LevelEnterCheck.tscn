@@ -1,22 +1,21 @@
-[gd_scene load_steps=7 format=3 uid="uid://2wuupiqeypa3"]
+[gd_scene load_steps=9 format=3 uid="uid://2wuupiqeypa3"]
 
 [ext_resource type="Texture2D" uid="uid://i1werajk38px" path="res://Sprites/square.png" id="1_wx3lh"]
 [ext_resource type="Script" path="res://Scripts/SceneChanger.gd" id="2_hjsex"]
 [ext_resource type="Script" path="res://Scripts/Input/Signals/SaveCheckSignal.gd" id="4_c84po"]
 [ext_resource type="Resource" uid="uid://ckj1wwupytsk" path="res://save.tres" id="5_4435a"]
+[ext_resource type="Script" path="res://Scripts/Input/Signals/InteractSignal.gd" id="6_nqac2"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/Behaviour.gd" id="6_w1bgv"]
+[ext_resource type="Resource" uid="uid://b4vguxa4rp3h8" path="res://player.tres" id="7_f2gtf"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u6hrl"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jdkv8"]
 size = Vector2(16, 16)
 
-[node name="LevelEnterCheck" type="Area2D"]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(8, 8)
-shape = SubResource("RectangleShape2D_u6hrl")
+[node name="LevelEnterCheck" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+z_as_relative = false
 texture = ExtResource("1_wx3lh")
 centered = false
 
@@ -32,6 +31,19 @@ save = ExtResource("5_4435a")
 script = ExtResource("6_w1bgv")
 enabled = false
 
-[connection signal="body_entered" from="." to="SaveCheckSignal/Checker" method="enable" unbinds=1]
+[node name="InteractSignal" type="Node2D" parent="."]
+script = ExtResource("6_nqac2")
+player_res = ExtResource("7_f2gtf")
+
+[node name="Area2D" type="Area2D" parent="InteractSignal"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractSignal/Area2D"]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_jdkv8")
+
 [connection signal="on_true" from="SaveCheckSignal" to="SceneChanger" method="change"]
 [connection signal="on_enable" from="SaveCheckSignal/Checker" to="SaveCheckSignal/Checker" method="disable"]
+[connection signal="interact_pressed" from="InteractSignal" to="SaveCheckSignal/Checker" method="enable"]
+[connection signal="body_entered" from="InteractSignal/Area2D" to="InteractSignal" method="on_player_entered"]
+[connection signal="body_exited" from="InteractSignal/Area2D" to="InteractSignal" method="on_player_exit"]

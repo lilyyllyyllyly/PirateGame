@@ -363,7 +363,7 @@ _data = {
 "stay-open": SubResource("Animation_xpnih")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qpjyp"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4ly2"]
 size = Vector2(16, 11)
 
 [sub_resource type="Curve" id="Curve_xmx7m"]
@@ -416,15 +416,15 @@ texture = ExtResource("11_jdbd2")
 centered = false
 offset = Vector2(-7, -5)
 
-[node name="PlayerChecker" type="Area2D" parent="."]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerChecker"]
-position = Vector2(8, 10.5)
-shape = SubResource("RectangleShape2D_qpjyp")
-
-[node name="InteractSignal" type="Node" parent="."]
+[node name="InteractSignal" type="Node2D" parent="."]
 script = ExtResource("4_660sl")
+player_res = ExtResource("2_56ymb")
+
+[node name="Area2D" type="Area2D" parent="InteractSignal"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractSignal/Area2D"]
+position = Vector2(8, 10.5)
+shape = SubResource("RectangleShape2D_g4ly2")
 
 [node name="PlayerPos" type="Node2D" parent="."]
 position = Vector2(4, 9)
@@ -452,6 +452,6 @@ scale_amount_curve = SubResource("Curve_kut0x")
 color_initial_ramp = SubResource("Gradient_bkkdv")
 
 [connection signal="animation_finished" from="Sprite2D/AnimationPlayer" to="." method="on_animation_finished"]
-[connection signal="body_entered" from="PlayerChecker" to="." method="on_player_entered"]
-[connection signal="body_exited" from="PlayerChecker" to="." method="on_player_exit"]
 [connection signal="interact_pressed" from="InteractSignal" to="." method="on_interacted"]
+[connection signal="body_entered" from="InteractSignal/Area2D" to="InteractSignal" method="on_player_entered"]
+[connection signal="body_exited" from="InteractSignal/Area2D" to="InteractSignal" method="on_player_exit"]

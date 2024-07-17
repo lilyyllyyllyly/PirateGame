@@ -42,7 +42,7 @@ text = "tutorial"
 [node name="Level1" parent="." instance=ExtResource("6_vkoma")]
 position = Vector2(208, 0)
 
-[node name="SceneChanger" parent="Level1" index="2"]
+[node name="SceneChanger" parent="Level1" index="1"]
 change_to = "res://Scenes/Areas/level-waterfalls.tscn"
 
 [node name="Label" type="Label" parent="Level1"]
@@ -62,7 +62,7 @@ text = "level 1"
 [node name="End" parent="." instance=ExtResource("6_vkoma")]
 position = Vector2(336, 0)
 
-[node name="SceneChanger" parent="End" index="2"]
+[node name="SceneChanger" parent="End" index="1"]
 change_to = "res://Scenes/end.tscn"
 
 [node name="Label" type="Label" parent="End"]

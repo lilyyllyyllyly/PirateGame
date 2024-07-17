@@ -35,7 +35,7 @@ save = ExtResource("6_08v7i")
 script = ExtResource("7_1jsfh")
 enabled = false
 
-[connection signal="body_entered" from="LevelExit" to="LevelExit/SaveEditor/EditSave" method="enable" unbinds=1]
+[connection signal="interact_pressed" from="LevelExit/InteractSignal" to="LevelExit/SaveEditor/EditSave" method="enable"]
 [connection signal="on_enable" from="LevelExit/SaveEditor/EditSave" to="LevelExit/SaveEditor/EditSave" method="disable"]
 [connection signal="on_enable" from="LevelExit/SaveEditor/EditSave" to="LevelExit/SaveEditor" method="edit_property" binds= ["tutorial_complete", true]]
 

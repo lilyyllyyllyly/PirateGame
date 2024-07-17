@@ -113,7 +113,7 @@ point_count = 3
 [node name="EndBoat" type="Node2D"]
 
 [node name="Body" type="CharacterBody2D" parent="." node_paths=PackedStringArray("obj")]
-position = Vector2(0, 0.181594)
+position = Vector2(0, 3.69359)
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_xuxm8")
@@ -210,7 +210,6 @@ position = Vector2(64, -26)
 script = ExtResource("15_p86jc")
 boat_anim = NodePath("../Body/AnimationPlayer")
 end_jingle = NodePath("EndJingle")
-end_delay = 1.0
 gem_delay_min = 0.05
 gem_delay_max = 0.6
 gem_delay_curve = SubResource("Curve_m8e2p")
