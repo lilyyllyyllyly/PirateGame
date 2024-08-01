@@ -2,6 +2,11 @@ class_name SaveEditor extends Node
 
 @export var save: SaveResource
 
+@export var default_key: String = ""
+
+func edit_default_property(value):
+	edit_property(default_key, value)
+
 func edit_property(key: String, value):
 	if !save.data.has(key): return
 

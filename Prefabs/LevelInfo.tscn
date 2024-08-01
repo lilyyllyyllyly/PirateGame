@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://mqidnmfg5yv5"]
+[gd_scene load_steps=21 format=3 uid="uid://mqidnmfg5yv5"]
 
 [ext_resource type="Script" path="res://Scripts/Behaviours/Behaviour.gd" id="1_cmtes"]
 [ext_resource type="Texture2D" uid="uid://fuup8sr320cj" path="res://Sprites/LevelInfo/FlagUncleared/flag-uncleared1.png" id="2_c3p6m"]
@@ -14,6 +14,9 @@
 [ext_resource type="Texture2D" uid="uid://by3b5t82xa5ae" path="res://Sprites/LevelInfo/FlagCleared/flag-cleared6.png" id="11_c5um5"]
 [ext_resource type="Script" path="res://Scripts/Input/Signals/SaveCheckSignal.gd" id="12_7wk22"]
 [ext_resource type="Resource" uid="uid://ckj1wwupytsk" path="res://save.tres" id="13_7srmf"]
+[ext_resource type="Texture2D" uid="uid://c45tbdoulky6m" path="res://Sprites/gem.png" id="15_8t7nm"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/LabelFormat.gd" id="16_a0eih"]
+[ext_resource type="Script" path="res://Scripts/Input/Signals/SaveValueSignal.gd" id="17_xcqe0"]
 
 [sub_resource type="Animation" id="Animation_grjn6"]
 resource_name = "flag-cleared"
@@ -59,23 +62,24 @@ _data = {
 script = ExtResource("1_cmtes")
 enabled = false
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="BG" type="RichTextLabel" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -40.0
+offset_left = -42.0
 offset_top = -72.0
-offset_right = 56.0
+offset_right = 58.0
 offset_bottom = -4.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("2_cv8fx")
 
-[node name="Label" type="Label" parent="RichTextLabel"]
+[node name="LevelName" type="Label" parent="BG"]
+layout_mode = 0
 offset_left = 2.0
 offset_top = 2.0
-offset_right = 94.0
+offset_right = 98.0
 offset_bottom = 34.0
 theme = ExtResource("2_cv8fx")
 text = "Test Level"
@@ -88,7 +92,7 @@ script = ExtResource("1_cmtes")
 enabled = false
 
 [node name="Sprite" type="Sprite2D" parent="Flag"]
-position = Vector2(0, -30)
+position = Vector2(-24, -30)
 texture = ExtResource("2_c3p6m")
 centered = false
 
@@ -101,12 +105,45 @@ libraries = {
 script = ExtResource("12_7wk22")
 save = ExtResource("13_7srmf")
 
+[node name="Gems" type="Node2D" parent="."]
+script = ExtResource("1_cmtes")
+
+[node name="Sprite" type="Sprite2D" parent="Gems"]
+position = Vector2(0, -29)
+texture = ExtResource("15_8t7nm")
+centered = false
+
+[node name="GemCount" type="Label" parent="Gems"]
+offset_left = 16.0
+offset_top = -30.0
+offset_right = 40.0
+offset_bottom = -14.0
+theme = ExtResource("2_cv8fx")
+text = "x%d"
+
+[node name="LabelFormat" type="Node" parent="Gems/GemCount" node_paths=PackedStringArray("label")]
+script = ExtResource("16_a0eih")
+label = NodePath("..")
+
+[node name="SaveValueSignal" type="Node" parent="Gems/GemCount"]
+script = ExtResource("17_xcqe0")
+save = ExtResource("13_7srmf")
+default_key = "level1_collected_gems"
+
+[connection signal="on_disable" from="." to="BG" method="hide"]
 [connection signal="on_disable" from="." to="Flag" method="disable"]
-[connection signal="on_disable" from="." to="RichTextLabel" method="hide"]
+[connection signal="on_disable" from="." to="Gems" method="disable"]
+[connection signal="on_enable" from="." to="BG" method="show"]
 [connection signal="on_enable" from="." to="Flag" method="enable"]
-[connection signal="on_enable" from="." to="RichTextLabel" method="show"]
+[connection signal="on_enable" from="." to="Gems" method="enable"]
 [connection signal="on_disable" from="Flag" to="Flag/Sprite" method="hide"]
 [connection signal="on_enable" from="Flag" to="Flag/Sprite" method="show"]
 [connection signal="on_enable" from="Flag" to="Flag/SaveCheckSignal" method="check"]
 [connection signal="on_false" from="Flag/SaveCheckSignal" to="Flag/Sprite/AnimationPlayer" method="play" binds= ["flag-uncleared"]]
 [connection signal="on_true" from="Flag/SaveCheckSignal" to="Flag/Sprite/AnimationPlayer" method="play" binds= ["flag-cleared"]]
+[connection signal="on_disable" from="Gems" to="Gems/Sprite" method="hide"]
+[connection signal="on_disable" from="Gems" to="Gems/GemCount" method="hide"]
+[connection signal="on_enable" from="Gems" to="Gems/Sprite" method="show"]
+[connection signal="on_enable" from="Gems" to="Gems/GemCount" method="show"]
+[connection signal="on_enable" from="Gems" to="Gems/GemCount/SaveValueSignal" method="pass_from_key"]
+[connection signal="pass_value" from="Gems/GemCount/SaveValueSignal" to="Gems/GemCount/LabelFormat" method="replace"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dhkw1kf5clmet"]
+[gd_scene load_steps=29 format=3 uid="uid://dhkw1kf5clmet"]
 
 [ext_resource type="Script" path="res://Scripts/Behaviours/WaveMover.gd" id="1_xuxm8"]
 [ext_resource type="Texture2D" uid="uid://bhj1r4pxuh80p" path="res://Sprites/EndBoat/boat-stopped.png" id="2_ljxal"]
@@ -17,8 +17,10 @@
 [ext_resource type="Script" path="res://Scripts/EndLevel.gd" id="15_p86jc"]
 [ext_resource type="Script" path="res://Scripts/SceneChanger.gd" id="16_mxrpl"]
 [ext_resource type="Script" path="res://Scripts/Input/Signals/SkipSignal.gd" id="16_o7a7o"]
+[ext_resource type="Script" path="res://Scripts/SaveEditor.gd" id="16_poe24"]
 [ext_resource type="AudioStream" uid="uid://bu16ag1hs0pw" path="res://Audio/gem.wav" id="16_tuqfa"]
 [ext_resource type="AudioStream" uid="uid://cvkq6htw81ul5" path="res://Audio/woo.wav" id="17_6i6vg"]
+[ext_resource type="Resource" uid="uid://ckj1wwupytsk" path="res://save.tres" id="17_naiyo"]
 
 [sub_resource type="Animation" id="Animation_j7v5r"]
 resource_name = "RESET"
@@ -113,7 +115,7 @@ point_count = 3
 [node name="EndBoat" type="Node2D"]
 
 [node name="Body" type="CharacterBody2D" parent="." node_paths=PackedStringArray("obj")]
-position = Vector2(0, 3.69359)
+position = Vector2(0, 4.18895)
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_xuxm8")
@@ -219,6 +221,11 @@ woo_audio = NodePath("WooSound")
 wait_after_gems = 1.0
 chest_delay = 0.3
 
+[node name="GemsSaveEditor" type="Node" parent="EndLevel"]
+script = ExtResource("16_poe24")
+save = ExtResource("17_naiyo")
+default_key = "level1_collected_gems"
+
 [node name="SceneChanger" type="Node" parent="EndLevel"]
 script = ExtResource("16_mxrpl")
 change_to = "res://Scenes/Areas/lobby.tscn"
@@ -237,6 +244,7 @@ stream = ExtResource("17_6i6vg")
 volume_db = -6.0
 
 [connection signal="body_entered" from="Body/PlayerCollision" to="EndLevel" method="on_player_entered" unbinds=1]
+[connection signal="counted_gems" from="EndLevel" to="EndLevel/GemsSaveEditor" method="edit_default_property"]
 [connection signal="finished" from="EndLevel" to="EndLevel/SceneChanger" method="change"]
 [connection signal="skipped" from="EndLevel/SkipSignal" to="EndLevel" method="on_skipped"]
 [connection signal="finished" from="EndLevel/EndJingle" to="EndLevel" method="on_jingle_ended"]

@@ -51,9 +51,11 @@ default_key = "tutorial_complete"
 
 [node name="LevelInfo" parent="Level1" instance=ExtResource("7_ed63h")]
 
-[node name="Label" parent="Level1/LevelInfo/RichTextLabel" index="1"]
-layout_mode = 0
-text = "Rushing Highlands"
+[node name="LevelName" parent="Level1/LevelInfo/BG" index="1"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 96.0
+offset_bottom = 32.0
 
 [node name="SaveCheckSignal" parent="Level1/LevelInfo/Flag" index="1"]
 default_key = "level1_complete"

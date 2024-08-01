@@ -31,6 +31,7 @@ var remaining_gems = 0
 var collected_gems = 0
 var gem_count_finished = false
 
+signal counted_gems(gems)
 signal finished
 
 func _ready():
@@ -84,6 +85,8 @@ func on_jingle_ended():
 	on_gem_count_finished()
 
 func on_gem_count_finished():
+	counted_gems.emit(collected_gems)
+
 	gem_count_finished = true
 	gem_text.text = "%d/%d" % [collected_gems, gem_total]
 	woo_audio.play()
