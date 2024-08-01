@@ -49,21 +49,11 @@ change_to = "res://Scenes/Areas/level-waterfalls.tscn"
 [node name="SaveCheckSignal" parent="Level1" index="2"]
 default_key = "tutorial_complete"
 
-[node name="Label" type="Label" parent="Level1"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -29.0
-offset_top = -23.0
-offset_right = 29.0
-grow_horizontal = 2
-grow_vertical = 0
-theme = ExtResource("5_atlur")
-text = "level 1"
-
 [node name="LevelInfo" parent="Level1" instance=ExtResource("7_ed63h")]
+
+[node name="Label" parent="Level1/LevelInfo/RichTextLabel" index="1"]
+layout_mode = 0
+text = "Rushing Highlands"
 
 [node name="SaveCheckSignal" parent="Level1/LevelInfo/Flag" index="1"]
 default_key = "level1_complete"
