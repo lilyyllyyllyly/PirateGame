@@ -14,12 +14,12 @@
 [ext_resource type="Script" path="res://Scripts/CustomResources/PathResource.gd" id="7_k26f4"]
 [ext_resource type="PackedScene" uid="uid://878l507fj4y3" path="res://Prefabs/Entities/Enemies/JumpingFish.tscn" id="8_4adqs"]
 [ext_resource type="PackedScene" uid="uid://ra66ttnyi5qg" path="res://Prefabs/LevelMechanics/BarrelSpawner.tscn" id="12_wc8j4"]
-[ext_resource type="Texture2D" uid="uid://ddigom6cewf8d" path="res://Sprites/Enemies/FlyingFish/flying-fish3.png" id="14_p0d5b"]
 [ext_resource type="PackedScene" uid="uid://b606abb1annuq" path="res://Prefabs/LevelMechanics/Platform.tscn" id="14_ty8gb"]
-[ext_resource type="Texture2D" uid="uid://bspjdhlywfhna" path="res://Sprites/Enemies/FlyingFish/wing3.png" id="15_8l3h6"]
 [ext_resource type="PackedScene" uid="uid://btgg8h8diww88" path="res://Prefabs/LevelMechanics/TreasureChest.tscn" id="16_bjolo"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/Behaviour.gd" id="17_n6wav"]
 [ext_resource type="PackedScene" uid="uid://dhkw1kf5clmet" path="res://Prefabs/LevelEnd/EndBoat.tscn" id="19_p62cx"]
+[ext_resource type="Script" path="res://Scripts/SaveEditor.gd" id="22_sueww"]
+[ext_resource type="Resource" uid="uid://ckj1wwupytsk" path="res://save.tres" id="23_jr2bq"]
 [ext_resource type="Texture2D" uid="uid://pm4cl0jaoc7b" path="res://Sprites/Enemies/FlyingFish/umbrella-platform.png" id="26_y68pt"]
 
 [sub_resource type="Gradient" id="Gradient_ujbcw"]
@@ -164,20 +164,8 @@ scale = Vector2(40, 18)
 [node name="JumpingFish" parent="FishIntro" instance=ExtResource("8_4adqs")]
 position = Vector2(624, 208)
 
-[node name="BodySprite" parent="FishIntro/JumpingFish" index="0"]
-texture = ExtResource("14_p0d5b")
-
-[node name="WingSprite" parent="FishIntro/JumpingFish/BodySprite" index="0"]
-texture = ExtResource("15_8l3h6")
-
 [node name="JumpingFish2" parent="FishIntro" instance=ExtResource("8_4adqs")]
 position = Vector2(944, 208)
-
-[node name="BodySprite" parent="FishIntro/JumpingFish2" index="0"]
-texture = ExtResource("14_p0d5b")
-
-[node name="WingSprite" parent="FishIntro/JumpingFish2/BodySprite" index="0"]
-texture = ExtResource("15_8l3h6")
 
 [node name="Break1" type="Node" parent="."]
 
@@ -225,12 +213,6 @@ scale = Vector2(43, 16)
 [node name="JumpingFish" parent="Challenge1" instance=ExtResource("8_4adqs")]
 position = Vector2(2496, 816)
 
-[node name="BodySprite" parent="Challenge1/JumpingFish" index="0"]
-texture = ExtResource("14_p0d5b")
-
-[node name="WingSprite" parent="Challenge1/JumpingFish/BodySprite" index="0"]
-texture = ExtResource("15_8l3h6")
-
 [node name="ParabolicMover" parent="Challenge1/JumpingFish" index="2"]
 height = 144.0
 dist = 144.0
@@ -240,12 +222,6 @@ move = Vector2(144, 0)
 
 [node name="JumpingFish2" parent="Challenge1" instance=ExtResource("8_4adqs")]
 position = Vector2(2752, 816)
-
-[node name="BodySprite" parent="Challenge1/JumpingFish2" index="0"]
-texture = ExtResource("14_p0d5b")
-
-[node name="WingSprite" parent="Challenge1/JumpingFish2/BodySprite" index="0"]
-texture = ExtResource("15_8l3h6")
 
 [node name="ParabolicMover" parent="Challenge1/JumpingFish2" index="2"]
 height = 144.0
@@ -265,12 +241,6 @@ scale = Vector2(36, 8)
 
 [node name="JumpingFish" parent="Break2" instance=ExtResource("8_4adqs")]
 position = Vector2(3216, 752)
-
-[node name="BodySprite" parent="Break2/JumpingFish" index="0"]
-texture = ExtResource("14_p0d5b")
-
-[node name="WingSprite" parent="Break2/JumpingFish/BodySprite" index="0"]
-texture = ExtResource("15_8l3h6")
 
 [node name="ParabolicMover" parent="Break2/JumpingFish" index="2"]
 dist = 240.0
@@ -292,12 +262,6 @@ region_enabled = false
 
 [node name="JumpingFish2" parent="Break2" instance=ExtResource("8_4adqs")]
 position = Vector2(3472, 752)
-
-[node name="BodySprite" parent="Break2/JumpingFish2" index="0"]
-texture = ExtResource("14_p0d5b")
-
-[node name="WingSprite" parent="Break2/JumpingFish2/BodySprite" index="0"]
-texture = ExtResource("15_8l3h6")
 
 [node name="ParabolicMover" parent="Break2/JumpingFish2" index="2"]
 dist = 240.0
@@ -322,12 +286,6 @@ scale = Vector2(5, 2.5)
 
 [node name="JumpingFish3" parent="Break2" instance=ExtResource("8_4adqs")]
 position = Vector2(3712, 576)
-
-[node name="BodySprite" parent="Break2/JumpingFish3" index="0"]
-texture = ExtResource("14_p0d5b")
-
-[node name="WingSprite" parent="Break2/JumpingFish3/BodySprite" index="0"]
-texture = ExtResource("15_8l3h6")
 
 [node name="ParabolicMover" parent="Break2/JumpingFish3" index="2"]
 dist = 160.0
@@ -410,12 +368,6 @@ wait_time = 1.5
 [node name="JumpingFish" parent="Challenge2" instance=ExtResource("8_4adqs")]
 position = Vector2(4048, 624)
 
-[node name="BodySprite" parent="Challenge2/JumpingFish" index="0"]
-texture = ExtResource("14_p0d5b")
-
-[node name="WingSprite" parent="Challenge2/JumpingFish/BodySprite" index="0"]
-texture = ExtResource("15_8l3h6")
-
 [node name="ParabolicMover" parent="Challenge2/JumpingFish" index="2"]
 dist = 432.0
 
@@ -427,11 +379,9 @@ speed = 192.0
 position = Vector2(4480, 416)
 
 [node name="BodySprite" parent="Challenge2/JumpingFish2" index="0"]
-texture = ExtResource("14_p0d5b")
 flip_h = true
 
 [node name="WingSprite" parent="Challenge2/JumpingFish2/BodySprite" index="0"]
-texture = ExtResource("15_8l3h6")
 flip_h = true
 
 [node name="ParabolicMover" parent="Challenge2/JumpingFish2" index="2"]
@@ -447,7 +397,7 @@ speed = 192.0
 position = Vector2(5040, 282)
 
 [node name="Body" parent="End/EndBoat" index="0"]
-position = Vector2(0, 4.20259)
+position = Vector2(0, 0.47204)
 
 [node name="EndLevel" parent="End/EndBoat" index="1" node_paths=PackedStringArray("camera", "player", "map_anim", "gem_text", "chests", "ui_chests")]
 camera = NodePath("../../../Camera")
@@ -456,6 +406,10 @@ map_anim = NodePath("../../../CanvasLayer/EndMap/AnimationPlayer")
 gem_text = NodePath("../../../CanvasLayer/EndMap/GemText")
 chests = [NodePath("../../../Break1/TreasureChest"), NodePath("../../../Challenge1/TreasureChest2"), NodePath("../../../Break2/TreasureChest3")]
 ui_chests = [NodePath("../../../CanvasLayer/EndMap/Chest1/AnimationPlayer"), NodePath("../../../CanvasLayer/EndMap/Chest2/AnimationPlayer"), NodePath("../../../CanvasLayer/EndMap/Chest3/AnimationPlayer")]
+
+[node name="SaveEditor" type="Node" parent="End/EndBoat"]
+script = ExtResource("22_sueww")
+save = ExtResource("23_jr2bq")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="End"]
 position = Vector2(5360, -32)
@@ -484,6 +438,7 @@ shape = SubResource("RectangleShape2D_7qsal")
 [connection signal="body_exited" from="Challenge2/CameraRiseArea" to="Challenge2/CameraRiseArea/SignalRepeater" method="disable" unbinds=1]
 [connection signal="on_disable" from="Challenge2/CameraRiseArea/SignalRepeater" to="Camera" method="set_offset" binds= [Vector2(0, 0)]]
 [connection signal="on_enable" from="Challenge2/CameraRiseArea/SignalRepeater" to="Camera" method="set_offset" binds= [Vector2(0, -64)]]
+[connection signal="finished" from="End/EndBoat/EndLevel" to="End/EndBoat/SaveEditor" method="edit_property" binds= ["level1_complete", true]]
 
 [editable path="CanvasLayer/EndMap"]
 [editable path="CanvasLayer/EndMap/Chest1"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0clc2a3g28rv"]
+[gd_scene load_steps=8 format=3 uid="uid://b0clc2a3g28rv"]
 
 [ext_resource type="TileSet" uid="uid://bhpidh16mm137" path="res://tileset.tres" id="1_p0oa8"]
 [ext_resource type="PackedScene" uid="uid://dkyjaidt53m6p" path="res://Prefabs/Camera.tscn" id="2_p2vrt"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://buy8h0h6ptft7" path="res://Prefabs/LevelEnter.tscn" id="4_ptxoe"]
 [ext_resource type="Theme" uid="uid://dh0pcg828que3" path="res://UITheme.tres" id="5_atlur"]
 [ext_resource type="PackedScene" uid="uid://2wuupiqeypa3" path="res://Prefabs/LevelEnterCheck.tscn" id="6_vkoma"]
+[ext_resource type="PackedScene" uid="uid://mqidnmfg5yv5" path="res://Prefabs/LevelInfo.tscn" id="7_ed63h"]
 
 [node name="Lobby" type="Node2D"]
 
@@ -22,7 +23,7 @@ target = NodePath("../Player")
 [node name="Tutorial" parent="." instance=ExtResource("4_ptxoe")]
 position = Vector2(64, 0)
 
-[node name="SceneChanger" parent="Tutorial" index="2"]
+[node name="SceneChanger" parent="Tutorial" index="3"]
 change_to = "res://Scenes/Areas/tutorial.tscn"
 
 [node name="Label" type="Label" parent="Tutorial"]
@@ -45,6 +46,9 @@ position = Vector2(208, 0)
 [node name="SceneChanger" parent="Level1" index="1"]
 change_to = "res://Scenes/Areas/level-waterfalls.tscn"
 
+[node name="SaveCheckSignal" parent="Level1" index="2"]
+default_key = "tutorial_complete"
+
 [node name="Label" type="Label" parent="Level1"]
 anchors_preset = 7
 anchor_left = 0.5
@@ -59,11 +63,19 @@ grow_vertical = 0
 theme = ExtResource("5_atlur")
 text = "level 1"
 
+[node name="LevelInfo" parent="Level1" instance=ExtResource("7_ed63h")]
+
+[node name="SaveCheckSignal" parent="Level1/LevelInfo/Flag" index="1"]
+default_key = "level1_complete"
+
 [node name="End" parent="." instance=ExtResource("6_vkoma")]
 position = Vector2(336, 0)
 
 [node name="SceneChanger" parent="End" index="1"]
 change_to = "res://Scenes/end.tscn"
+
+[node name="SaveCheckSignal" parent="End" index="2"]
+default_key = "level1_complete"
 
 [node name="Label" type="Label" parent="End"]
 anchors_preset = 7
@@ -83,7 +95,7 @@ text = "end
 [node name="Menu" parent="." instance=ExtResource("4_ptxoe")]
 position = Vector2(-64, 0)
 
-[node name="SceneChanger" parent="Menu" index="2"]
+[node name="SceneChanger" parent="Menu" index="3"]
 change_to = "res://Scenes/menu.tscn"
 
 [node name="Label" type="Label" parent="Menu"]
@@ -104,7 +116,7 @@ text = "menu
 [node name="Debug" parent="." instance=ExtResource("4_ptxoe")]
 position = Vector2(-128, 0)
 
-[node name="SceneChanger" parent="Debug" index="2"]
+[node name="SceneChanger" parent="Debug" index="3"]
 change_to = "res://Scenes/Areas/test-level.tscn"
 
 [node name="Label" type="Label" parent="Debug"]
@@ -115,11 +127,12 @@ offset_bottom = 7.0
 theme = ExtResource("5_atlur")
 text = "debug"
 
-[connection signal="on_enable" from="Level1/SaveCheckSignal/Checker" to="Level1/SaveCheckSignal" method="check" binds= ["tutorial_complete", true]]
-[connection signal="on_enable" from="End/SaveCheckSignal/Checker" to="End/SaveCheckSignal" method="check" binds= ["level1_complete", true]]
+[connection signal="body_entered" from="Level1/PlayerChecker" to="Level1/LevelInfo" method="enable" unbinds=1]
+[connection signal="body_exited" from="Level1/PlayerChecker" to="Level1/LevelInfo" method="disable" unbinds=1]
 
 [editable path="Tutorial"]
 [editable path="Level1"]
+[editable path="Level1/LevelInfo"]
 [editable path="End"]
 [editable path="Menu"]
 [editable path="Debug"]

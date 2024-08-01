@@ -16,20 +16,20 @@ z_as_relative = false
 texture = ExtResource("1_vsg2r")
 centered = false
 
+[node name="PlayerChecker" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerChecker"]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_jtaga")
+
 [node name="InteractSignal" type="Node2D" parent="."]
 script = ExtResource("2_t2hda")
 player_res = ExtResource("3_t34av")
 
-[node name="Area2D" type="Area2D" parent="InteractSignal"]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractSignal/Area2D"]
-position = Vector2(8, 8)
-shape = SubResource("RectangleShape2D_jtaga")
-
 [node name="SceneChanger" type="Node" parent="."]
 script = ExtResource("2_apedn")
 
+[connection signal="body_entered" from="PlayerChecker" to="InteractSignal" method="on_player_entered"]
+[connection signal="body_exited" from="PlayerChecker" to="InteractSignal" method="on_player_exit"]
 [connection signal="interact_pressed" from="InteractSignal" to="SceneChanger" method="change"]
-[connection signal="body_entered" from="InteractSignal/Area2D" to="InteractSignal" method="on_player_entered"]
-[connection signal="body_exited" from="InteractSignal/Area2D" to="InteractSignal" method="on_player_exit"]

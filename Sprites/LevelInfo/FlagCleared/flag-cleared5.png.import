@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2c08dlmdkyno"
-path="res://.godot/imported/end.png-630c83ee8467c0875b3c46ea51922f70.ctex"
+uid="uid://vc4vdc5jjhfw"
+path="res://.godot/imported/flag-cleared5.png-f94987ff9345409320b1edc65321b45e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/end.png"
-dest_files=["res://.godot/imported/end.png-630c83ee8467c0875b3c46ea51922f70.ctex"]
+source_file="res://Sprites/LevelInfo/FlagCleared/flag-cleared5.png"
+dest_files=["res://.godot/imported/flag-cleared5.png-f94987ff9345409320b1edc65321b45e.ctex"]
 
 [params]
 

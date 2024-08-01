@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bwpgaucxujcf0"]
 
-[ext_resource type="Texture2D" uid="uid://d2c08dlmdkyno" path="res://Sprites/end.png" id="1_ek77d"]
+[ext_resource type="Texture2D" uid="uid://d2c08dlmdkyno" path="res://Sprites/EndMap/end.png" id="1_ek77d"]
 [ext_resource type="Theme" uid="uid://dh0pcg828que3" path="res://UITheme.tres" id="2_xntni"]
 [ext_resource type="FontFile" uid="uid://be3dahgvfuoip" path="res://Fonts/KiwiSoda.ttf" id="3_kspvn"]
 [ext_resource type="PackedScene" uid="uid://cwu3tb0s2fww8" path="res://Prefabs/LevelEnd/EndChest.tscn" id="4_d6olu"]

@@ -1,0 +1,85 @@
+[gd_scene load_steps=17 format=3 uid="uid://mqidnmfg5yv5"]
+
+[ext_resource type="Script" path="res://Scripts/Behaviours/Behaviour.gd" id="1_cmtes"]
+[ext_resource type="Texture2D" uid="uid://fuup8sr320cj" path="res://Sprites/LevelInfo/FlagUncleared/flag-uncleared1.png" id="2_c3p6m"]
+[ext_resource type="Texture2D" uid="uid://bc1gjl5kfff3" path="res://Sprites/LevelInfo/FlagUncleared/flag-uncleared2.png" id="3_quryj"]
+[ext_resource type="Texture2D" uid="uid://tfxn6gcvft0a" path="res://Sprites/LevelInfo/FlagUncleared/flag-uncleared3.png" id="4_mgfa7"]
+[ext_resource type="Texture2D" uid="uid://d4hstwcxj8itq" path="res://Sprites/LevelInfo/FlagUncleared/flag-uncleared4.png" id="5_7ocaw"]
+[ext_resource type="Texture2D" uid="uid://ld57j0kc7aw" path="res://Sprites/LevelInfo/FlagCleared/flag-cleared1.png" id="6_eaf4t"]
+[ext_resource type="Texture2D" uid="uid://b5wvor8dwsefj" path="res://Sprites/LevelInfo/FlagCleared/flag-cleared2.png" id="7_ey7j5"]
+[ext_resource type="Texture2D" uid="uid://pk1os870q86h" path="res://Sprites/LevelInfo/FlagCleared/flag-cleared3.png" id="8_ofopb"]
+[ext_resource type="Texture2D" uid="uid://cjd1qw5i5xd5n" path="res://Sprites/LevelInfo/FlagCleared/flag-cleared4.png" id="9_61sth"]
+[ext_resource type="Texture2D" uid="uid://vc4vdc5jjhfw" path="res://Sprites/LevelInfo/FlagCleared/flag-cleared5.png" id="10_cs2hp"]
+[ext_resource type="Texture2D" uid="uid://by3b5t82xa5ae" path="res://Sprites/LevelInfo/FlagCleared/flag-cleared6.png" id="11_c5um5"]
+[ext_resource type="Script" path="res://Scripts/Input/Signals/SaveCheckSignal.gd" id="12_7wk22"]
+[ext_resource type="Resource" uid="uid://ckj1wwupytsk" path="res://save.tres" id="13_7srmf"]
+
+[sub_resource type="Animation" id="Animation_grjn6"]
+resource_name = "flag-cleared"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("6_eaf4t"), ExtResource("7_ey7j5"), ExtResource("8_ofopb"), ExtResource("9_61sth"), ExtResource("10_cs2hp"), ExtResource("11_c5um5")]
+}
+
+[sub_resource type="Animation" id="Animation_1i5vl"]
+resource_name = "flag-uncleared"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_c3p6m"), ExtResource("3_quryj"), ExtResource("4_mgfa7"), ExtResource("5_7ocaw")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8hsgd"]
+_data = {
+"flag-cleared": SubResource("Animation_grjn6"),
+"flag-uncleared": SubResource("Animation_1i5vl")
+}
+
+[node name="LevelInfo" type="Node2D"]
+script = ExtResource("1_cmtes")
+enabled = false
+
+[node name="Flag" type="Node2D" parent="."]
+script = ExtResource("1_cmtes")
+enabled = false
+
+[node name="Sprite" type="Sprite2D" parent="Flag"]
+position = Vector2(0, -32)
+texture = ExtResource("2_c3p6m")
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Flag/Sprite"]
+libraries = {
+"": SubResource("AnimationLibrary_8hsgd")
+}
+
+[node name="SaveCheckSignal" type="Node" parent="Flag"]
+script = ExtResource("12_7wk22")
+save = ExtResource("13_7srmf")
+
+[connection signal="on_disable" from="." to="Flag" method="disable"]
+[connection signal="on_enable" from="." to="Flag" method="enable"]
+[connection signal="on_disable" from="Flag" to="Flag/Sprite" method="hide"]
+[connection signal="on_enable" from="Flag" to="Flag/Sprite" method="show"]
+[connection signal="on_enable" from="Flag" to="Flag/SaveCheckSignal" method="check"]
+[connection signal="on_false" from="Flag/SaveCheckSignal" to="Flag/Sprite/AnimationPlayer" method="play" binds= ["flag-uncleared"]]
+[connection signal="on_true" from="Flag/SaveCheckSignal" to="Flag/Sprite/AnimationPlayer" method="play" binds= ["flag-cleared"]]
