@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://878l507fj4y3"]
+[gd_scene load_steps=18 format=3 uid="uid://878l507fj4y3"]
 
 [ext_resource type="Texture2D" uid="uid://271j2q8hxfhv" path="res://Sprites/Enemies/FlyingFish/flying-fish-jump.png" id="1_cq7mt"]
 [ext_resource type="Texture2D" uid="uid://ddigom6cewf8d" path="res://Sprites/Enemies/FlyingFish/flying-fish3.png" id="1_sr3ct"]
@@ -11,6 +11,35 @@
 [ext_resource type="Texture2D" uid="uid://d23p66oj8rhk7" path="res://Sprites/Enemies/FlyingFish/wing1.png" id="6_x458u"]
 [ext_resource type="Texture2D" uid="uid://cbwqhh1p01ajb" path="res://Sprites/Enemies/FlyingFish/wing2.png" id="7_13cpv"]
 [ext_resource type="Script" path="res://Scripts/Animation/Enemies/FlyingFishAnimation.gd" id="10_sxre5"]
+
+[sub_resource type="Animation" id="Animation_mrpyp"]
+resource_name = "RESET"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_v61pj")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BodySprite/WingSprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_x458u")]
+}
 
 [sub_resource type="Animation" id="Animation_hv6f0"]
 resource_name = "idle"
@@ -71,6 +100,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vidam"]
 _data = {
+"RESET": SubResource("Animation_mrpyp"),
 "idle": SubResource("Animation_hv6f0"),
 "jump": SubResource("Animation_sqf72")
 }
