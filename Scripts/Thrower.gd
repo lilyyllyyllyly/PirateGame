@@ -11,3 +11,8 @@ func throw_away_from(from: Node2D, add: bool = false):
 	var heading = -dist.normalized()
 	throw(heading, add)
 
+func throw_towards(toward: Node2D, add: bool = false):
+	var dist = toward.global_position - body.global_position
+	var heading = dist.normalized()
+	throw(heading, add)
+

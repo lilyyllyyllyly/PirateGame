@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dffeuy42yh51x"]
+[gd_scene load_steps=9 format=3 uid="uid://dffeuy42yh51x"]
 
 [ext_resource type="PackedScene" uid="uid://bwpgaucxujcf0" path="res://Prefabs/LevelEnd/EndMap.tscn" id="1_7bcer"]
 [ext_resource type="PackedScene" uid="uid://dkyjaidt53m6p" path="res://Prefabs/Camera.tscn" id="1_7sjw0"]
 [ext_resource type="TileSet" uid="uid://bhpidh16mm137" path="res://tileset.tres" id="1_jwxh1"]
 [ext_resource type="PackedScene" uid="uid://dhkw1kf5clmet" path="res://Prefabs/LevelEnd/EndBoat.tscn" id="6_46l7s"]
+[ext_resource type="PackedScene" uid="uid://dsgc2ceff1gt3" path="res://Prefabs/Entities/Enemies/Penguin.tscn" id="8_asuq0"]
 [ext_resource type="PackedScene" uid="uid://btgg8h8diww88" path="res://Prefabs/LevelMechanics/TreasureChest.tscn" id="10_4asgh"]
 [ext_resource type="PackedScene" uid="uid://d3hqdk77sg32n" path="res://Prefabs/Entities/Player.tscn" id="10_mqw45"]
 [ext_resource type="PackedScene" uid="uid://lbk0irkrw228" path="res://Prefabs/LevelMechanics/Water.tscn" id="21_7tp82"]
@@ -52,7 +53,7 @@ gem_text = NodePath("../../CanvasLayer/EndMap/GemText")
 chests = [NodePath("../../TreasureChest"), NodePath("../../TreasureChest2"), NodePath("../../TreasureChest3")]
 ui_chests = [NodePath("../../CanvasLayer/EndMap/Chest1/AnimationPlayer"), NodePath("../../CanvasLayer/EndMap/Chest2/AnimationPlayer"), NodePath("../../CanvasLayer/EndMap/Chest3/AnimationPlayer")]
 
-[node name="GemSound" parent="EndBoat/EndLevel" index="1"]
+[node name="GemSound" parent="EndBoat/EndLevel" index="4"]
 volume_db = -12.0
 
 [node name="TreasureChest" parent="." instance=ExtResource("10_4asgh")]
@@ -63,6 +64,9 @@ position = Vector2(144, 160)
 
 [node name="TreasureChest3" parent="." instance=ExtResource("10_4asgh")]
 position = Vector2(192, 160)
+
+[node name="Penguin" parent="." instance=ExtResource("8_asuq0")]
+position = Vector2(160, 160)
 
 [editable path="CanvasLayer/EndMap"]
 [editable path="CanvasLayer/EndMap/Chest1"]

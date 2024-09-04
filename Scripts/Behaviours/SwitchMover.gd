@@ -16,6 +16,11 @@ var start_time = 0
 
 const THRESHOLD = 1
 
+func reset_starting_pos():
+	start_pos = obj.position
+	end_pos = start_pos + move
+	goal = end_pos
+
 func _on_enable():
 	super()
 	start_time = Time.get_ticks_msec()
@@ -24,8 +29,8 @@ func _process(delta):
 	var prev_pos = start_pos if goal == end_pos else end_pos
 
 	if ((move_axis == AXIS.BOTH   and obj.position.distance_to(goal) <= THRESHOLD)   or
-	    (move_axis == AXIS.X_AXIS and abs(obj.position.x - goal.x) <= THRESHOLD) or
-	    (move_axis == AXIS.Y_AXIS and abs(obj.position.y - goal.y) <= THRESHOLD)):
+		(move_axis == AXIS.X_AXIS and abs(obj.position.x - goal.x) <= THRESHOLD) or
+		(move_axis == AXIS.Y_AXIS and abs(obj.position.y - goal.y) <= THRESHOLD)):
 		goal = prev_pos
 		disable()
 		return

@@ -1,0 +1,136 @@
+[gd_scene load_steps=18 format=3 uid="uid://dsgc2ceff1gt3"]
+
+[ext_resource type="Script" path="res://Scripts/Behaviours/CharacterMover.gd" id="1_77ry4"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/States/StateMachine.gd" id="2_7exr1"]
+[ext_resource type="Script" path="res://Scripts/Thrower.gd" id="2_rr8ox"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/CharacterVelocity.gd" id="2_ygk35"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/States/StateSwitcher.gd" id="3_6we0o"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/Gravity.gd" id="3_ljc6o"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/States/State.gd" id="3_t4io8"]
+[ext_resource type="Script" path="res://Scripts/Movement/Calculators/HorizontalDrag.gd" id="3_v6vds"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/SwitchMover.gd" id="5_6w7p5"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/PenguinDash.gd" id="6_86d7a"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/Behaviour.gd" id="6_papcn"]
+[ext_resource type="Resource" uid="uid://b4vguxa4rp3h8" path="res://player.tres" id="7_veu1j"]
+[ext_resource type="Script" path="res://Scripts/Input/Signals/VelocityLimitSignal.gd" id="13_0yftn"]
+[ext_resource type="Texture2D" uid="uid://sn4peyygunmf" path="res://Sprites/Enemies/Penguin/penguin-idle1.png" id="14_hqvvb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pbi0q"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4xc0b"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ahb4p"]
+radius = 72.0
+
+[node name="Penguin" type="CharacterBody2D"]
+collision_layer = 80
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 9)
+shape = SubResource("CircleShape2D_pbi0q")
+
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("1_77ry4")
+body = NodePath("..")
+
+[node name="States" type="Node" parent="." node_paths=PackedStringArray("state")]
+script = ExtResource("2_7exr1")
+state = NodePath("WalkState")
+
+[node name="StateEvents" type="Node" parent="States"]
+
+[node name="SawPlayer" type="Node" parent="States/StateEvents" node_paths=PackedStringArray("state_machine", "new_state")]
+script = ExtResource("3_6we0o")
+state_machine = NodePath("../..")
+new_state = NodePath("../../DashState")
+
+[node name="DashEnded" type="Node" parent="States/StateEvents" node_paths=PackedStringArray("state_machine", "new_state")]
+script = ExtResource("3_6we0o")
+state_machine = NodePath("../..")
+new_state = NodePath("../../WalkState")
+
+[node name="WalkState" type="Node" parent="States" node_paths=PackedStringArray("behaviours")]
+script = ExtResource("3_t4io8")
+behaviours = [NodePath("SwitchWrapper")]
+enabled = false
+
+[node name="SwitchWrapper" type="Node" parent="States/WalkState"]
+script = ExtResource("6_papcn")
+enabled = false
+
+[node name="SwitchMover" type="Node" parent="States/WalkState/SwitchWrapper" node_paths=PackedStringArray("obj")]
+script = ExtResource("5_6w7p5")
+move_axis = 1
+obj = NodePath("../../../..")
+move = Vector2(32, 0)
+
+[node name="Timer" type="Timer" parent="States/WalkState/SwitchWrapper"]
+one_shot = true
+
+[node name="DashState" type="Node" parent="States" node_paths=PackedStringArray("behaviours")]
+script = ExtResource("3_t4io8")
+behaviours = [NodePath("DashMovement"), NodePath("PenguinDash")]
+enabled = false
+
+[node name="DashMovement" type="Node" parent="States/DashState" node_paths=PackedStringArray("body", "move")]
+script = ExtResource("2_ygk35")
+body = NodePath("../../..")
+move = NodePath("HorizontalDrag")
+enabled = false
+
+[node name="HorizontalDrag" type="Node" parent="States/DashState/DashMovement" node_paths=PackedStringArray("body")]
+script = ExtResource("3_v6vds")
+body = NodePath("../../../..")
+drag = 2.0
+
+[node name="PenguinDash" type="Node" parent="States/DashState" node_paths=PackedStringArray("thrower")]
+script = ExtResource("6_86d7a")
+thrower = NodePath("Thrower")
+player = ExtResource("7_veu1j")
+enabled = false
+
+[node name="Thrower" type="Node" parent="States/DashState/PenguinDash" node_paths=PackedStringArray("body")]
+script = ExtResource("2_rr8ox")
+body = NodePath("../../../..")
+intensity = 250.0
+
+[node name="Gravity" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("3_ljc6o")
+body = NodePath("..")
+
+[node name="DamageArea" type="Area2D" parent="."]
+position = Vector2(8, 9)
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+top_level = true
+shape = SubResource("CircleShape2D_4xc0b")
+
+[node name="PlayerChecker" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerChecker"]
+position = Vector2(8, 8)
+shape = SubResource("CircleShape2D_ahb4p")
+
+[node name="VelocityLimitSignal" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("13_0yftn")
+body = NodePath("..")
+vel_limit = 10.0
+low_limit = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("14_hqvvb")
+centered = false
+
+[connection signal="switched" from="States/StateEvents/DashEnded" to="." method="set_velocity" binds= [Vector2(0, 0)]]
+[connection signal="on_enable" from="States/WalkState/SwitchWrapper" to="States/WalkState/SwitchWrapper/SwitchMover" method="enable"]
+[connection signal="on_enable" from="States/WalkState/SwitchWrapper" to="States/WalkState/SwitchWrapper/SwitchMover" method="reset_starting_pos"]
+[connection signal="on_disable" from="States/WalkState/SwitchWrapper/SwitchMover" to="States/WalkState/SwitchWrapper/Timer" method="start"]
+[connection signal="timeout" from="States/WalkState/SwitchWrapper/Timer" to="States/WalkState/SwitchWrapper/SwitchMover" method="enable"]
+[connection signal="body_entered" from="PlayerChecker" to="States/StateEvents/SawPlayer" method="switch" unbinds=1]
+[connection signal="passed_limit" from="VelocityLimitSignal" to="States/StateEvents/DashEnded" method="switch"]
