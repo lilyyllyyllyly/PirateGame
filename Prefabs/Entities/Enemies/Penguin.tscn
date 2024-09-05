@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dsgc2ceff1gt3"]
+[gd_scene load_steps=19 format=3 uid="uid://dsgc2ceff1gt3"]
 
 [ext_resource type="Script" path="res://Scripts/Behaviours/CharacterMover.gd" id="1_77ry4"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/States/StateMachine.gd" id="2_7exr1"]
@@ -10,8 +10,9 @@
 [ext_resource type="Script" path="res://Scripts/Movement/Calculators/HorizontalDrag.gd" id="3_v6vds"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/SwitchMover.gd" id="5_6w7p5"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/PenguinDash.gd" id="6_86d7a"]
-[ext_resource type="Script" path="res://Scripts/Behaviours/Behaviour.gd" id="6_papcn"]
 [ext_resource type="Resource" uid="uid://b4vguxa4rp3h8" path="res://player.tres" id="7_veu1j"]
+[ext_resource type="Script" path="res://Scripts/Movement/Calculators/HorizontalMovement.gd" id="8_dxgf1"]
+[ext_resource type="Script" path="res://Scripts/Input/Directions/FollowDirection.gd" id="9_4rcd8"]
 [ext_resource type="Script" path="res://Scripts/Input/Signals/VelocityLimitSignal.gd" id="13_0yftn"]
 [ext_resource type="Texture2D" uid="uid://sn4peyygunmf" path="res://Sprites/Enemies/Penguin/penguin-idle1.png" id="14_hqvvb"]
 
@@ -21,8 +22,9 @@ radius = 7.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_4xc0b"]
 radius = 5.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ahb4p"]
-radius = 72.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oupt0"]
+radius = 80.0
+height = 256.0
 
 [node name="Penguin" type="CharacterBody2D"]
 collision_layer = 80
@@ -38,11 +40,26 @@ body = NodePath("..")
 
 [node name="States" type="Node" parent="." node_paths=PackedStringArray("state")]
 script = ExtResource("2_7exr1")
-state = NodePath("WalkState")
+state = NodePath("PatrolState")
 
 [node name="StateEvents" type="Node" parent="States"]
 
 [node name="SawPlayer" type="Node" parent="States/StateEvents" node_paths=PackedStringArray("state_machine", "new_state")]
+script = ExtResource("3_6we0o")
+state_machine = NodePath("../..")
+new_state = NodePath("../../PrepareDashState")
+
+[node name="PlayerFar" type="Node" parent="States/StateEvents" node_paths=PackedStringArray("state_machine", "new_state")]
+script = ExtResource("3_6we0o")
+state_machine = NodePath("../..")
+new_state = NodePath("../../PatrolState")
+
+[node name="DashTimerDepleted" type="Node" parent="States/StateEvents" node_paths=PackedStringArray("state_machine", "new_state")]
+script = ExtResource("3_6we0o")
+state_machine = NodePath("../..")
+new_state = NodePath("../../PrepareDashState")
+
+[node name="DashPrepared" type="Node" parent="States/StateEvents" node_paths=PackedStringArray("state_machine", "new_state")]
 script = ExtResource("3_6we0o")
 state_machine = NodePath("../..")
 new_state = NodePath("../../DashState")
@@ -50,24 +67,59 @@ new_state = NodePath("../../DashState")
 [node name="DashEnded" type="Node" parent="States/StateEvents" node_paths=PackedStringArray("state_machine", "new_state")]
 script = ExtResource("3_6we0o")
 state_machine = NodePath("../..")
-new_state = NodePath("../../WalkState")
+new_state = NodePath("../../FollowState")
 
-[node name="WalkState" type="Node" parent="States" node_paths=PackedStringArray("behaviours")]
+[node name="PatrolState" type="Node" parent="States" node_paths=PackedStringArray("behaviours")]
 script = ExtResource("3_t4io8")
-behaviours = [NodePath("SwitchWrapper")]
+behaviours = [NodePath("SwitchMover")]
 enabled = false
 
-[node name="SwitchWrapper" type="Node" parent="States/WalkState"]
-script = ExtResource("6_papcn")
-enabled = false
-
-[node name="SwitchMover" type="Node" parent="States/WalkState/SwitchWrapper" node_paths=PackedStringArray("obj")]
+[node name="SwitchMover" type="Node" parent="States/PatrolState" node_paths=PackedStringArray("obj")]
 script = ExtResource("5_6w7p5")
 move_axis = 1
-obj = NodePath("../../../..")
-move = Vector2(32, 0)
+obj = NodePath("../../..")
+move = Vector2(24, 0)
+speed = 24.0
+enabled = false
 
-[node name="Timer" type="Timer" parent="States/WalkState/SwitchWrapper"]
+[node name="PauseTimer" type="Timer" parent="States/PatrolState"]
+one_shot = true
+
+[node name="FollowState" type="Node" parent="States" node_paths=PackedStringArray("behaviours")]
+script = ExtResource("3_t4io8")
+behaviours = [NodePath("Movement")]
+enabled = false
+
+[node name="Movement" type="Node" parent="States/FollowState" node_paths=PackedStringArray("body", "move")]
+script = ExtResource("2_ygk35")
+body = NodePath("../../..")
+move = NodePath("HorizontalMovement")
+enabled = false
+
+[node name="HorizontalMovement" type="Node" parent="States/FollowState/Movement" node_paths=PackedStringArray("direction", "body")]
+script = ExtResource("8_dxgf1")
+direction = NodePath("FollowDirection")
+body = NodePath("../../../..")
+speed = 50.0
+accel = 50.0
+
+[node name="FollowDirection" type="Node" parent="States/FollowState/Movement/HorizontalMovement" node_paths=PackedStringArray("object")]
+script = ExtResource("9_4rcd8")
+object = NodePath("../../../../..")
+target_res = ExtResource("7_veu1j")
+offset = Vector2(8, 8)
+axis = 1
+
+[node name="DashTimer" type="Timer" parent="States/FollowState"]
+wait_time = 1.5
+one_shot = true
+
+[node name="PrepareDashState" type="Node" parent="States"]
+script = ExtResource("3_t4io8")
+enabled = false
+
+[node name="Timer" type="Timer" parent="States/PrepareDashState"]
+wait_time = 0.7
 one_shot = true
 
 [node name="DashState" type="Node" parent="States" node_paths=PackedStringArray("behaviours")]
@@ -97,6 +149,12 @@ script = ExtResource("2_rr8ox")
 body = NodePath("../../../..")
 intensity = 250.0
 
+[node name="DashEndChecker" type="Node" parent="States/DashState" node_paths=PackedStringArray("body")]
+script = ExtResource("13_0yftn")
+body = NodePath("../../..")
+vel_limit = 10.0
+low_limit = true
+
 [node name="Gravity" type="Node" parent="." node_paths=PackedStringArray("body")]
 script = ExtResource("3_ljc6o")
 body = NodePath("..")
@@ -115,22 +173,24 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerChecker"]
 position = Vector2(8, 8)
-shape = SubResource("CircleShape2D_ahb4p")
-
-[node name="VelocityLimitSignal" type="Node" parent="." node_paths=PackedStringArray("body")]
-script = ExtResource("13_0yftn")
-body = NodePath("..")
-vel_limit = 10.0
-low_limit = true
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_oupt0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("14_hqvvb")
 centered = false
 
-[connection signal="switched" from="States/StateEvents/DashEnded" to="." method="set_velocity" binds= [Vector2(0, 0)]]
-[connection signal="on_enable" from="States/WalkState/SwitchWrapper" to="States/WalkState/SwitchWrapper/SwitchMover" method="enable"]
-[connection signal="on_enable" from="States/WalkState/SwitchWrapper" to="States/WalkState/SwitchWrapper/SwitchMover" method="reset_starting_pos"]
-[connection signal="on_disable" from="States/WalkState/SwitchWrapper/SwitchMover" to="States/WalkState/SwitchWrapper/Timer" method="start"]
-[connection signal="timeout" from="States/WalkState/SwitchWrapper/Timer" to="States/WalkState/SwitchWrapper/SwitchMover" method="enable"]
+[connection signal="on_enable" from="States/PatrolState" to="States/PatrolState/SwitchMover" method="reset_starting_pos"]
+[connection signal="on_enable" from="States/PatrolState" to="States/PatrolState/PauseTimer" method="stop"]
+[connection signal="on_disable" from="States/PatrolState/SwitchMover" to="States/PatrolState/PauseTimer" method="start"]
+[connection signal="on_enable" from="States/PatrolState/SwitchMover" to="." method="set_velocity" binds= [Vector2(0, 0)]]
+[connection signal="timeout" from="States/PatrolState/PauseTimer" to="States/PatrolState/SwitchMover" method="enable"]
+[connection signal="on_enable" from="States/FollowState" to="States/FollowState/DashTimer" method="start"]
+[connection signal="timeout" from="States/FollowState/DashTimer" to="States/StateEvents/DashTimerDepleted" method="switch"]
+[connection signal="on_enable" from="States/PrepareDashState" to="States/PrepareDashState/Timer" method="start"]
+[connection signal="on_enable" from="States/PrepareDashState" to="." method="set_velocity" binds= [Vector2(0, 0)]]
+[connection signal="timeout" from="States/PrepareDashState/Timer" to="States/StateEvents/DashPrepared" method="switch"]
+[connection signal="on_enable" from="States/DashState" to="States/FollowState/DashTimer" method="start"]
+[connection signal="passed_limit" from="States/DashState/DashEndChecker" to="States/StateEvents/DashEnded" method="switch"]
 [connection signal="body_entered" from="PlayerChecker" to="States/StateEvents/SawPlayer" method="switch" unbinds=1]
-[connection signal="passed_limit" from="VelocityLimitSignal" to="States/StateEvents/DashEnded" method="switch"]
+[connection signal="body_exited" from="PlayerChecker" to="States/StateEvents/PlayerFar" method="switch" unbinds=1]

@@ -8,4 +8,3 @@ signal switched
 func switch():
 	state_machine.state = new_state
 	switched.emit()
-
