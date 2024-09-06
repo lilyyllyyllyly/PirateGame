@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dsgc2ceff1gt3"]
+[gd_scene load_steps=38 format=3 uid="uid://dsgc2ceff1gt3"]
 
 [ext_resource type="Script" path="res://Scripts/Behaviours/CharacterMover.gd" id="1_77ry4"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/States/StateMachine.gd" id="2_7exr1"]
@@ -9,12 +9,25 @@
 [ext_resource type="Script" path="res://Scripts/Behaviours/States/State.gd" id="3_t4io8"]
 [ext_resource type="Script" path="res://Scripts/Movement/Calculators/HorizontalDrag.gd" id="3_v6vds"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/SwitchMover.gd" id="5_6w7p5"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/FaceMovement.gd" id="6_16e4u"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/PenguinDash.gd" id="6_86d7a"]
 [ext_resource type="Resource" uid="uid://b4vguxa4rp3h8" path="res://player.tres" id="7_veu1j"]
 [ext_resource type="Script" path="res://Scripts/Movement/Calculators/HorizontalMovement.gd" id="8_dxgf1"]
 [ext_resource type="Script" path="res://Scripts/Input/Directions/FollowDirection.gd" id="9_4rcd8"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/FaceTarget.gd" id="10_audhj"]
 [ext_resource type="Script" path="res://Scripts/Input/Signals/VelocityLimitSignal.gd" id="13_0yftn"]
-[ext_resource type="Texture2D" uid="uid://sn4peyygunmf" path="res://Sprites/Enemies/Penguin/penguin-idle1.png" id="14_hqvvb"]
+[ext_resource type="Texture2D" uid="uid://dhpsv8njwx3og" path="res://Sprites/Enemies/Penguin/Idle/penguin-idle1.png" id="15_vyt54"]
+[ext_resource type="Texture2D" uid="uid://es1x5w8k1uac" path="res://Sprites/Enemies/Penguin/Walk/penguin-walk1.png" id="16_hbpwo"]
+[ext_resource type="Texture2D" uid="uid://b1r21kq8joyj5" path="res://Sprites/Enemies/Penguin/Walk/penguin-walk2.png" id="17_4pjnd"]
+[ext_resource type="Texture2D" uid="uid://ct2kxqc7heh4m" path="res://Sprites/Enemies/Penguin/Walk/penguin-walk3.png" id="18_t3fj7"]
+[ext_resource type="Texture2D" uid="uid://chkj0lp7youhs" path="res://Sprites/Enemies/Penguin/Walk/penguin-walk4.png" id="19_0o0r1"]
+[ext_resource type="Texture2D" uid="uid://bnukfnxnwwntj" path="res://Sprites/Enemies/Penguin/PrepareDash/penguin-prepare-dash1.png" id="20_honx1"]
+[ext_resource type="Texture2D" uid="uid://dkouino5nwsfj" path="res://Sprites/Enemies/Penguin/PrepareDash/penguin-prepare-dash2.png" id="21_10h7c"]
+[ext_resource type="Texture2D" uid="uid://c1ipavm7qel7x" path="res://Sprites/Enemies/Penguin/PrepareDash/penguin-prepare-dash3.png" id="22_y2pbp"]
+[ext_resource type="Texture2D" uid="uid://blbt6y7mvjco4" path="res://Sprites/Enemies/Penguin/PrepareDash/penguin-prepare-dash4.png" id="23_dx50k"]
+[ext_resource type="Texture2D" uid="uid://ccxvu6rrqi5mf" path="res://Sprites/Enemies/Penguin/Dash/penguin-dash1.png" id="24_gcgeg"]
+[ext_resource type="Texture2D" uid="uid://dfyfnw33eimn4" path="res://Sprites/Enemies/Penguin/Dash/penguin-dash2.png" id="25_717cy"]
+[ext_resource type="Texture2D" uid="uid://c33iy40iuqqfn" path="res://Sprites/Enemies/Penguin/Dash/penguin-dash3.png" id="26_br1bo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pbi0q"]
 radius = 7.0
@@ -25,6 +38,156 @@ radius = 5.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oupt0"]
 radius = 80.0
 height = 256.0
+
+[sub_resource type="Animation" id="Animation_nibo0"]
+resource_name = "RESET"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("15_vyt54")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-4, -4)]
+}
+
+[sub_resource type="Animation" id="Animation_bcia7"]
+resource_name = "dash"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("24_gcgeg"), ExtResource("25_717cy"), ExtResource("26_br1bo")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(0.25, 2, 1),
+"update": 0,
+"values": [Vector2(-4, -4), Vector2(-4, -8), Vector2(-4, -4)]
+}
+
+[sub_resource type="Animation" id="Animation_rly04"]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("15_vyt54")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-4, -4)]
+}
+
+[sub_resource type="Animation" id="Animation_xpa14"]
+resource_name = "prepare-dash"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("20_honx1"), ExtResource("21_10h7c"), ExtResource("22_y2pbp"), ExtResource("23_dx50k")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(0.25, 2, 1),
+"update": 0,
+"values": [Vector2(-4, -4), Vector2(-4, -7), Vector2(-4, -4)]
+}
+
+[sub_resource type="Animation" id="Animation_cvugq"]
+resource_name = "walk"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("16_hbpwo"), ExtResource("17_4pjnd"), ExtResource("18_t3fj7"), ExtResource("19_0o0r1")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-4, -4)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cy5ys"]
+_data = {
+"RESET": SubResource("Animation_nibo0"),
+"dash": SubResource("Animation_bcia7"),
+"idle": SubResource("Animation_rly04"),
+"prepare-dash": SubResource("Animation_xpa14"),
+"walk": SubResource("Animation_cvugq")
+}
 
 [node name="Penguin" type="CharacterBody2D"]
 collision_layer = 80
@@ -85,9 +248,14 @@ enabled = false
 [node name="PauseTimer" type="Timer" parent="States/PatrolState"]
 one_shot = true
 
+[node name="FaceMovement" type="Node" parent="States/PatrolState" node_paths=PackedStringArray("sprite")]
+script = ExtResource("6_16e4u")
+sprite = NodePath("../../../Sprite2D")
+facing_right = false
+
 [node name="FollowState" type="Node" parent="States" node_paths=PackedStringArray("behaviours")]
 script = ExtResource("3_t4io8")
-behaviours = [NodePath("Movement")]
+behaviours = [NodePath("Movement"), NodePath("FaceTarget")]
 enabled = false
 
 [node name="Movement" type="Node" parent="States/FollowState" node_paths=PackedStringArray("body", "move")]
@@ -114,13 +282,30 @@ axis = 1
 wait_time = 1.5
 one_shot = true
 
-[node name="PrepareDashState" type="Node" parent="States"]
+[node name="FaceTarget" type="Node" parent="States/FollowState" node_paths=PackedStringArray("sprite")]
+script = ExtResource("10_audhj")
+sprite = NodePath("../../../Sprite2D")
+target_res = ExtResource("7_veu1j")
+offset = 8.0
+facing_right = false
+enabled = false
+
+[node name="PrepareDashState" type="Node" parent="States" node_paths=PackedStringArray("behaviours")]
 script = ExtResource("3_t4io8")
+behaviours = [NodePath("FaceTarget")]
 enabled = false
 
 [node name="Timer" type="Timer" parent="States/PrepareDashState"]
-wait_time = 0.7
+wait_time = 0.4
 one_shot = true
+
+[node name="FaceTarget" type="Node" parent="States/PrepareDashState" node_paths=PackedStringArray("sprite")]
+script = ExtResource("10_audhj")
+sprite = NodePath("../../../Sprite2D")
+target_res = ExtResource("7_veu1j")
+offset = 8.0
+facing_right = false
+enabled = false
 
 [node name="DashState" type="Node" parent="States" node_paths=PackedStringArray("behaviours")]
 script = ExtResource("3_t4io8")
@@ -160,7 +345,7 @@ script = ExtResource("3_ljc6o")
 body = NodePath("..")
 
 [node name="DamageArea" type="Area2D" parent="."]
-position = Vector2(8, 9)
+position = Vector2(8, 11)
 collision_layer = 32
 collision_mask = 0
 
@@ -177,20 +362,32 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_oupt0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("14_hqvvb")
+texture = ExtResource("15_vyt54")
 centered = false
+offset = Vector2(-4, -4)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cy5ys")
+}
 
 [connection signal="on_enable" from="States/PatrolState" to="States/PatrolState/SwitchMover" method="reset_starting_pos"]
 [connection signal="on_enable" from="States/PatrolState" to="States/PatrolState/PauseTimer" method="stop"]
 [connection signal="on_disable" from="States/PatrolState/SwitchMover" to="States/PatrolState/PauseTimer" method="start"]
+[connection signal="on_disable" from="States/PatrolState/SwitchMover" to="AnimationPlayer" method="play" binds= [&"idle"]]
 [connection signal="on_enable" from="States/PatrolState/SwitchMover" to="." method="set_velocity" binds= [Vector2(0, 0)]]
+[connection signal="on_enable" from="States/PatrolState/SwitchMover" to="AnimationPlayer" method="play" binds= [&"walk"]]
 [connection signal="timeout" from="States/PatrolState/PauseTimer" to="States/PatrolState/SwitchMover" method="enable"]
 [connection signal="on_enable" from="States/FollowState" to="States/FollowState/DashTimer" method="start"]
+[connection signal="on_enable" from="States/FollowState" to="AnimationPlayer" method="play" binds= [&"walk"]]
 [connection signal="timeout" from="States/FollowState/DashTimer" to="States/StateEvents/DashTimerDepleted" method="switch"]
 [connection signal="on_enable" from="States/PrepareDashState" to="States/PrepareDashState/Timer" method="start"]
 [connection signal="on_enable" from="States/PrepareDashState" to="." method="set_velocity" binds= [Vector2(0, 0)]]
+[connection signal="on_enable" from="States/PrepareDashState" to="AnimationPlayer" method="play" binds= [&"prepare-dash"]]
 [connection signal="timeout" from="States/PrepareDashState/Timer" to="States/StateEvents/DashPrepared" method="switch"]
 [connection signal="on_enable" from="States/DashState" to="States/FollowState/DashTimer" method="start"]
+[connection signal="on_enable" from="States/DashState" to="AnimationPlayer" method="play" binds= [&"dash"]]
 [connection signal="passed_limit" from="States/DashState/DashEndChecker" to="States/StateEvents/DashEnded" method="switch"]
 [connection signal="body_entered" from="PlayerChecker" to="States/StateEvents/SawPlayer" method="switch" unbinds=1]
 [connection signal="body_exited" from="PlayerChecker" to="States/StateEvents/PlayerFar" method="switch" unbinds=1]
+[connection signal="ready" from="AnimationPlayer" to="AnimationPlayer" method="play" binds= [&"idle"]]
