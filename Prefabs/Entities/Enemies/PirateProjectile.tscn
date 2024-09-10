@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://dc6mh6ojvu37t"]
+
+[ext_resource type="Texture2D" uid="uid://djxysab1nq615" path="res://Sprites/Enemies/GunPirate/projectile.png" id="1_roeui"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/Gravity.gd" id="3_oylt2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lmo6t"]
+radius = 6.0
+
+[node name="PirateProjectile" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_roeui")
+
+[node name="DamageArea" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+shape = SubResource("CircleShape2D_lmo6t")
+
+[node name="Gravity" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("3_oylt2")
+body = NodePath("..")
+enabled = false
+
+[node name="FallTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="FallTimer" to="Gravity" method="enable"]
