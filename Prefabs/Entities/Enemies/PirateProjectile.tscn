@@ -1,32 +1,81 @@
-[gd_scene load_steps=4 format=3 uid="uid://dc6mh6ojvu37t"]
+[gd_scene load_steps=8 format=3 uid="uid://dc6mh6ojvu37t"]
 
 [ext_resource type="Texture2D" uid="uid://djxysab1nq615" path="res://Sprites/Enemies/GunPirate/projectile.png" id="1_roeui"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/CharacterMover.gd" id="2_hj8wu"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/Gravity.gd" id="3_oylt2"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/Behaviour.gd" id="4_5jcej"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lmo6t"]
 radius = 5.0
 
-[node name="PirateProjectile" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_p2kof"]
+radius = 6.0
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[sub_resource type="Curve" id="Curve_kq66v"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.78846, 0.0, 0, 0]
+point_count = 2
+
+[node name="PirateProjectile" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="ToBeDeleted" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="ToBeDeleted"]
 z_as_relative = false
 texture = ExtResource("1_roeui")
 
-[node name="DamageArea" type="Area2D" parent="."]
+[node name="DamageArea" type="Area2D" parent="ToBeDeleted"]
 collision_layer = 32
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ToBeDeleted/DamageArea"]
 shape = SubResource("CircleShape2D_lmo6t")
 
-[node name="Gravity" type="Node" parent="." node_paths=PackedStringArray("body")]
+[node name="WallChecker" type="Area2D" parent="ToBeDeleted"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ToBeDeleted/WallChecker"]
+shape = SubResource("CircleShape2D_p2kof")
+
+[node name="CharacterMover" type="Node" parent="ToBeDeleted" node_paths=PackedStringArray("body")]
+script = ExtResource("2_hj8wu")
+body = NodePath("../..")
+
+[node name="Gravity" type="Node" parent="ToBeDeleted" node_paths=PackedStringArray("body")]
 script = ExtResource("3_oylt2")
-body = NodePath("..")
+body = NodePath("../..")
 enabled = false
 
-[node name="FallTimer" type="Timer" parent="."]
-wait_time = 4.0
+[node name="FallTimer" type="Timer" parent="ToBeDeleted"]
+wait_time = 2.0
 one_shot = true
 autostart = true
 
-[connection signal="timeout" from="FallTimer" to="Gravity" method="enable"]
+[node name="EnableParticle" type="Node2D" parent="."]
+script = ExtResource("4_5jcej")
+enabled = false
+
+[node name="DestroyParticle" type="CPUParticles2D" parent="EnableParticle"]
+emitting = false
+amount = 1
+lifetime = 0.35
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("1_roeui")
+direction = Vector2(0, -1)
+gravity = Vector2(0, 800)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+scale_amount_curve = SubResource("Curve_kq66v")
+
+[node name="DeathTimer" type="Timer" parent="EnableParticle"]
+wait_time = 0.35
+
+[connection signal="body_entered" from="ToBeDeleted/WallChecker" to="ToBeDeleted" method="queue_free" unbinds=1]
+[connection signal="body_entered" from="ToBeDeleted/WallChecker" to="EnableParticle" method="enable" unbinds=1]
+[connection signal="timeout" from="ToBeDeleted/FallTimer" to="ToBeDeleted/Gravity" method="enable"]
+[connection signal="on_enable" from="EnableParticle" to="EnableParticle/DeathTimer" method="start"]
+[connection signal="on_enable" from="EnableParticle" to="EnableParticle/DestroyParticle" method="set_emitting" binds= [true]]
+[connection signal="timeout" from="EnableParticle/DeathTimer" to="." method="queue_free"]
