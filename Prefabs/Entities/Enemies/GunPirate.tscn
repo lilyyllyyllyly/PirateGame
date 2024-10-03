@@ -1,13 +1,181 @@
-[gd_scene load_steps=5 format=3 uid="uid://2eg4pm0jmnwp"]
+[gd_scene load_steps=18 format=3 uid="uid://2eg4pm0jmnwp"]
 
 [ext_resource type="Texture2D" uid="uid://daofxr7oac6db" path="res://Sprites/Enemies/GunPirate/Idle/gun-pirate-idle1.png" id="1_ivynm"]
+[ext_resource type="Texture2D" uid="uid://1uvpf1wllbv0" path="res://Sprites/Enemies/GunPirate/Idle/gun-pirate-idle2.png" id="2_p2ffq"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/PirateGun.gd" id="2_x337p"]
 [ext_resource type="PackedScene" uid="uid://dc6mh6ojvu37t" path="res://Prefabs/Entities/Enemies/PirateProjectile.tscn" id="3_f4c2n"]
+[ext_resource type="Texture2D" uid="uid://c8y5nkcedo1gu" path="res://Sprites/Enemies/GunPirate/Idle/gun-pirate-idle3.png" id="3_ifjrr"]
+[ext_resource type="Resource" uid="uid://b4vguxa4rp3h8" path="res://player.tres" id="3_w8rw5"]
+[ext_resource type="Texture2D" uid="uid://btimvenixcynm" path="res://Sprites/Enemies/GunPirate/Idle/gun-pirate-idle4.png" id="4_n3m2m"]
+[ext_resource type="Texture2D" uid="uid://dgcg0h45v4nd4" path="res://Sprites/Enemies/GunPirate/Shoot/gun-pirate-shoot1.png" id="5_6nt2n"]
+[ext_resource type="Texture2D" uid="uid://b2j2s6bptse1j" path="res://Sprites/Enemies/GunPirate/Shoot/gun-pirate-shoot2.png" id="6_aiblo"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/Behaviour.gd" id="7_lhp8c"]
+
+[sub_resource type="Animation" id="Animation_3id2a"]
+resource_name = "RESET"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_ivynm")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-16, -4)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D/MuzzleFlash:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_f5vh5"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("1_ivynm"), ExtResource("2_p2ffq"), ExtResource("3_ifjrr"), ExtResource("4_n3m2m")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-16, -4)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D/MuzzleFlash:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_g3w6i"]
+resource_name = "shoot"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("5_6nt2n"), ExtResource("6_aiblo"), ExtResource("5_6nt2n")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-16, -5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D/MuzzleFlash:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D/MuzzleFlash:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_26vnf"]
+_data = {
+"RESET": SubResource("Animation_3id2a"),
+"idle": SubResource("Animation_f5vh5"),
+"shoot": SubResource("Animation_g3w6i")
+}
+
+[sub_resource type="Gradient" id="Gradient_crk5a"]
+interpolation_mode = 1
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1yjej"]
+gradient = SubResource("Gradient_crk5a")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1.025, 0.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ym7qa"]
 size = Vector2(8, 14)
 
 [node name="GunPirate" type="Node2D"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_26vnf")
+}
+
+[node name="BackToIdle" type="Node" parent="AnimationPlayer"]
+script = ExtResource("7_lhp8c")
+enabled = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
@@ -15,9 +183,20 @@ texture = ExtResource("1_ivynm")
 centered = false
 offset = Vector2(-16, -4)
 
-[node name="PirateGun" type="Node" parent="." node_paths=PackedStringArray("spawn_at", "child_of")]
+[node name="MuzzleFlash" type="Sprite2D" parent="Sprite2D"]
+visible = false
+z_index = 1
+position = Vector2(-13, 4)
+texture = SubResource("GradientTexture2D_1yjej")
+
+[node name="PirateGun" type="Node" parent="." node_paths=PackedStringArray("sprite", "muzzle_flash", "anim", "spawn_at", "child_of")]
 script = ExtResource("2_x337p")
 proj_speed = 80.0
+sprite = NodePath("../Sprite2D")
+muzzle_flash = NodePath("../Sprite2D/MuzzleFlash")
+player_res = ExtResource("3_w8rw5")
+center_offset = 8.0
+anim = NodePath("../AnimationPlayer")
 scene = ExtResource("3_f4c2n")
 spawn_at = NodePath("..")
 offset = Vector2(-12, 5)
@@ -28,9 +207,16 @@ wait_time = 2.0
 autostart = true
 
 [node name="DamageArea" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
 position = Vector2(7, 9)
 shape = SubResource("RectangleShape2D_ym7qa")
 
+[connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer/BackToIdle" method="enable" unbinds=1]
+[connection signal="ready" from="AnimationPlayer" to="AnimationPlayer" method="play" binds= [&"idle"]]
+[connection signal="on_enable" from="AnimationPlayer/BackToIdle" to="AnimationPlayer/BackToIdle" method="disable"]
+[connection signal="on_enable" from="AnimationPlayer/BackToIdle" to="AnimationPlayer" method="play" binds= [&"idle"]]
 [connection signal="timeout" from="PirateGun/ShootTimer" to="PirateGun" method="spawn"]
+[connection signal="timeout" from="PirateGun/ShootTimer" to="AnimationPlayer" method="play" binds= [&"shoot"]]
