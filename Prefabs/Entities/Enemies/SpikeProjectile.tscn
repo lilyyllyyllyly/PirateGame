@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://dh67xsjc8indn"]
+
+[ext_resource type="Texture2D" uid="uid://i1werajk38px" path="res://Sprites/square.png" id="1_mm3qh"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/ConstantMover.gd" id="2_yq3qb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hw0n6"]
+size = Vector2(6, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h45ku"]
+size = Vector2(6, 6)
+
+[node name="SpikeProjectile" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.375, 0.375)
+texture = ExtResource("1_mm3qh")
+centered = false
+
+[node name="DamageArea" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+position = Vector2(3, 3)
+shape = SubResource("RectangleShape2D_hw0n6")
+
+[node name="WallChecker" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallChecker"]
+position = Vector2(3, 3)
+shape = SubResource("RectangleShape2D_h45ku")
+
+[node name="ConstantMover" type="Node" parent="." node_paths=PackedStringArray("object")]
+script = ExtResource("2_yq3qb")
+object = NodePath("..")
+move = Vector2(64, 0)
+
+[connection signal="body_entered" from="WallChecker" to="." method="queue_free" unbinds=1]

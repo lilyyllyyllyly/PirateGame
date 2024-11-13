@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3 uid="uid://cp1j8tdxbf5e"]
+
+[ext_resource type="PackedScene" uid="uid://dh67xsjc8indn" path="res://Prefabs/Entities/Enemies/SpikeProjectile.tscn" id="1_iqiqg"]
+
+[node name="SpikeRing" type="Node2D"]
+
+[node name="DestroyTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[node name="SpikeProjectile" parent="." instance=ExtResource("1_iqiqg")]
+
+[node name="ConstantMover" parent="SpikeProjectile" index="3"]
+move = Vector2(100, 0)
+
+[node name="SpikeProjectile2" parent="." instance=ExtResource("1_iqiqg")]
+
+[node name="ConstantMover" parent="SpikeProjectile2" index="3"]
+move = Vector2(-100, 0)
+
+[node name="SpikeProjectile3" parent="." instance=ExtResource("1_iqiqg")]
+
+[node name="ConstantMover" parent="SpikeProjectile3" index="3"]
+move = Vector2(0, -100)
+
+[node name="SpikeProjectile4" parent="." instance=ExtResource("1_iqiqg")]
+
+[node name="ConstantMover" parent="SpikeProjectile4" index="3"]
+move = Vector2(0, 100)
+
+[node name="SpikeProjectile5" parent="." instance=ExtResource("1_iqiqg")]
+
+[node name="ConstantMover" parent="SpikeProjectile5" index="3"]
+move = Vector2(70, -70)
+
+[node name="SpikeProjectile6" parent="." instance=ExtResource("1_iqiqg")]
+
+[node name="ConstantMover" parent="SpikeProjectile6" index="3"]
+move = Vector2(70, 70)
+
+[node name="SpikeProjectile7" parent="." instance=ExtResource("1_iqiqg")]
+
+[node name="ConstantMover" parent="SpikeProjectile7" index="3"]
+move = Vector2(-70, 70)
+
+[node name="SpikeProjectile8" parent="." instance=ExtResource("1_iqiqg")]
+
+[node name="ConstantMover" parent="SpikeProjectile8" index="3"]
+move = Vector2(-70, -70)
+
+[connection signal="timeout" from="DestroyTimer" to="." method="queue_free"]
+
+[editable path="SpikeProjectile"]
+[editable path="SpikeProjectile2"]
+[editable path="SpikeProjectile3"]
+[editable path="SpikeProjectile4"]
+[editable path="SpikeProjectile5"]
+[editable path="SpikeProjectile6"]
+[editable path="SpikeProjectile7"]
+[editable path="SpikeProjectile8"]

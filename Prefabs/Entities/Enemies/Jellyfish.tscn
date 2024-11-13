@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://f1ocp64sx54m"]
+
+[ext_resource type="Texture2D" uid="uid://i1werajk38px" path="res://Sprites/square.png" id="1_bkkvt"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/Behaviour.gd" id="2_kbusq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sdpj2"]
+size = Vector2(112, 112)
+
+[node name="Jellyfish" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(8, 8)
+texture = ExtResource("1_bkkvt")
+
+[node name="Shock" type="Node2D" parent="."]
+position = Vector2(8, 8)
+script = ExtResource("2_kbusq")
+enabled = false
+
+[node name="DamageArea" type="Area2D" parent="Shock"]
+collision_layer = 32
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shock/DamageArea"]
+shape = SubResource("RectangleShape2D_sdpj2")
+
+[node name="Sprite2D" type="Sprite2D" parent="Shock"]
+modulate = Color(0.219608, 0.756863, 0.921569, 0.768627)
+scale = Vector2(7, 7)
+texture = ExtResource("1_bkkvt")
+
+[node name="EnableShockTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+autostart = true
+
+[node name="DisableShockTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[connection signal="on_disable" from="Shock" to="Shock/DamageArea/CollisionShape2D" method="set_disabled" binds= [true]]
+[connection signal="on_disable" from="Shock" to="Shock/Sprite2D" method="set_visible" binds= [false]]
+[connection signal="on_enable" from="Shock" to="Shock/DamageArea/CollisionShape2D" method="set_disabled" binds= [false]]
+[connection signal="on_enable" from="Shock" to="Shock/Sprite2D" method="set_visible" binds= [true]]
+[connection signal="timeout" from="EnableShockTimer" to="Shock" method="enable"]
+[connection signal="timeout" from="EnableShockTimer" to="DisableShockTimer" method="start"]
+[connection signal="timeout" from="DisableShockTimer" to="Shock" method="disable"]
+[connection signal="timeout" from="DisableShockTimer" to="EnableShockTimer" method="start"]

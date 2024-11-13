@@ -7,7 +7,10 @@ class_name Spawner extends Behaviour
 
 func spawn():
 	var new = scene.instantiate()
-	child_of.add_child(new)
+	if is_instance_valid(child_of):
+		child_of.add_child(new)
+	else:
+		get_tree().current_scene.add_child(new)
 
 	if !(new is Node2D): return new
 	new.global_position = spawn_at.global_position + offset

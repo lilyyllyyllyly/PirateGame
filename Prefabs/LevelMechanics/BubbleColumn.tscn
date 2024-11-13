@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5ogt8icgf8nb"]
+
+[ext_resource type="Script" path="res://Scripts/BubbleColumn.gd" id="1_k2vos"]
+[ext_resource type="Texture2D" uid="uid://i1werajk38px" path="res://Sprites/square.png" id="1_sr64y"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/ConstantMover.gd" id="2_5j6i0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5r0cg"]
+size = Vector2(16, 16)
+
+[node name="BubbleColumn" type="Area2D" node_paths=PackedStringArray("mover")]
+collision_layer = 0
+monitorable = false
+script = ExtResource("1_k2vos")
+direction = Vector2(1, 0)
+mover = NodePath("ConstantMover")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_5r0cg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+texture = ExtResource("1_sr64y")
+centered = false
+
+[node name="ConstantMover" type="Node" parent="."]
+script = ExtResource("2_5j6i0")
+
+[connection signal="body_entered" from="." to="ConstantMover" method="set_object"]
+[connection signal="body_exited" from="." to="ConstantMover" method="unset_object"]

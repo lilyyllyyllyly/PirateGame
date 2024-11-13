@@ -1,0 +1,60 @@
+[gd_scene load_steps=10 format=3 uid="uid://bjjw8q3aw6drs"]
+
+[ext_resource type="Texture2D" uid="uid://cmquk5jfcssog" path="res://Sprites/Enemies/GreenFish/green-fish1.png" id="1_0v8gq"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/CharacterMover.gd" id="2_2ykd3"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/CharacterVelocity.gd" id="3_bdtxp"]
+[ext_resource type="Script" path="res://Scripts/Movement/Calculators/PlaneMovement.gd" id="4_my8wi"]
+[ext_resource type="Script" path="res://Scripts/Input/Directions/PathDirection.gd" id="5_trtsm"]
+[ext_resource type="Script" path="res://Scripts/PathVisualizer.gd" id="6_snj2a"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/Spawner.gd" id="7_u1o58"]
+[ext_resource type="PackedScene" uid="uid://cp1j8tdxbf5e" path="res://Prefabs/Entities/Enemies/SpikeRing.tscn" id="8_oaism"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ind01"]
+radius = 5.0
+
+[node name="SpikedFish" type="CharacterBody2D"]
+collision_layer = 80
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+top_level = true
+shape = SubResource("CircleShape2D_ind01")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.306667, 0.2, 1, 1)
+texture = ExtResource("1_0v8gq")
+
+[node name="CharacterMover" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("2_2ykd3")
+body = NodePath("..")
+
+[node name="CharacterVelocity" type="Node" parent="." node_paths=PackedStringArray("body", "move")]
+script = ExtResource("3_bdtxp")
+body = NodePath("..")
+move = NodePath("PlaneMovement")
+
+[node name="PlaneMovement" type="Node" parent="CharacterVelocity" node_paths=PackedStringArray("direction", "body")]
+script = ExtResource("4_my8wi")
+direction = NodePath("PathDirection")
+body = NodePath("../..")
+speed = 20.0
+accel = 50.0
+
+[node name="PathDirection" type="Node" parent="CharacterVelocity/PlaneMovement" node_paths=PackedStringArray("object", "path_visualizer")]
+script = ExtResource("5_trtsm")
+object = NodePath("../../..")
+path_visualizer = NodePath("PathVisualizer")
+
+[node name="PathVisualizer" type="Node2D" parent="CharacterVelocity/PlaneMovement/PathDirection"]
+script = ExtResource("6_snj2a")
+
+[node name="ProjSpawner" type="Node" parent="." node_paths=PackedStringArray("spawn_at")]
+script = ExtResource("7_u1o58")
+scene = ExtResource("8_oaism")
+spawn_at = NodePath("..")
+
+[node name="ShootTimer" type="Timer" parent="ProjSpawner"]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="ProjSpawner/ShootTimer" to="ProjSpawner" method="spawn"]
