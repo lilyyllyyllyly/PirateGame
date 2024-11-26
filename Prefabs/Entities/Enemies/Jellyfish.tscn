@@ -32,12 +32,12 @@ scale = Vector2(7, 7)
 texture = ExtResource("1_bkkvt")
 
 [node name="EnableShockTimer" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 1.5
 one_shot = true
 autostart = true
 
 [node name="DisableShockTimer" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 2.5
 one_shot = true
 
 [connection signal="on_disable" from="Shock" to="Shock/DamageArea/CollisionShape2D" method="set_disabled" binds= [true]]
