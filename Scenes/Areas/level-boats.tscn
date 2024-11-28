@@ -96,18 +96,6 @@ position = Vector2(2872, 144)
 
 [node name="Node" type="Node" parent="."]
 
-[connection signal="body_entered" from="TileMap/Collectible" to="TileMap/Collectible/OnCollected" method="enable" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@61098" to="TileMap/@Area2D@61098/OnCollected" method="enable" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@61099" to="TileMap/@Area2D@61099/OnCollected" method="enable" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@61100" to="TileMap/@Area2D@61100/OnCollected" method="enable" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@61101" to="TileMap/@Area2D@61101/OnCollected" method="enable" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@61102" to="TileMap/@Area2D@61102/OnCollected" method="enable" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@65542" to="TileMap/@Area2D@65542/OnCollected" method="enable" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@65543" to="TileMap/@Area2D@65543/OnCollected" method="enable" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@65544" to="TileMap/@Area2D@65544/OnCollected" method="enable" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@65545" to="TileMap/@Area2D@65545/OnCollected" method="enable" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@65546" to="TileMap/@Area2D@65546/OnCollected" method="enable" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@65547" to="TileMap/@Area2D@65547/OnCollected" method="enable" unbinds=1]
 [connection signal="body_entered" from="BubbleIntro/CameraMoveArea" to="BubbleIntro/CameraMoveArea/SetCameraOffset" method="enable" unbinds=1]
 [connection signal="body_exited" from="BubbleIntro/CameraMoveArea" to="BubbleIntro/CameraMoveArea/SetCameraOffset" method="disable" unbinds=1]
 [connection signal="on_disable" from="BubbleIntro/CameraMoveArea/SetCameraOffset" to="Camera" method="set_offset" binds= [Vector2(0, 0)]]

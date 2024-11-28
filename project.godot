@@ -131,6 +131,7 @@ skip={
 2d_physics/layer_7="Body"
 2d_physics/layer_8="Bandana"
 2d_physics/layer_9="BandanaChecker"
+2d_physics/layer_10="Rope"
 
 [physics]
 

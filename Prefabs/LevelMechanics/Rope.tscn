@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://blffvnwcatf1l"]
+
+[ext_resource type="Texture2D" uid="uid://d1l8vfcasvf0b" path="res://Sprites/rope.png" id="1_oqu4s"]
+[ext_resource type="Script" path="res://Scripts/LineColliderUpdate.gd" id="2_f45dg"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_t4wx3"]
+
+[node name="Rope" type="Node2D"]
+
+[node name="Line2D" type="Line2D" parent="."]
+texture_repeat = 2
+points = PackedVector2Array(0, 0, 144, 0)
+texture = ExtResource("1_oqu4s")
+texture_mode = 1
+
+[node name="Collision" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
+shape = SubResource("SegmentShape2D_t4wx3")
+
+[node name="LineColliderUpdate" type="Node" parent="Collision/CollisionShape2D" node_paths=PackedStringArray("collision", "line")]
+script = ExtResource("2_f45dg")
+collision = NodePath("..")
+line = NodePath("../../../Line2D")
