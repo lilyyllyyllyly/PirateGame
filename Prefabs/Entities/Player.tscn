@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://d3hqdk77sg32n"]
+[gd_scene load_steps=84 format=3 uid="uid://d3hqdk77sg32n"]
 
 [ext_resource type="Texture2D" uid="uid://wvt8keytohdj" path="res://Sprites/Player/NoBandana/Idle/player-idle1.png" id="1_3kcyn"]
 [ext_resource type="Script" path="res://Scripts/PlayerSetResource.gd" id="1_weh6v"]
@@ -64,6 +64,7 @@
 [ext_resource type="Script" path="res://Scripts/Behaviours/OneshotSignal.gd" id="57_g3mn5"]
 [ext_resource type="Script" path="res://Scripts/UpdatePlayerBandana.gd" id="63_tweah"]
 [ext_resource type="Script" path="res://Scripts/RaycastVelocity.gd" id="64_n27jk"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/Behaviour.gd" id="65_lobb0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fxtra"]
 radius = 4.0
@@ -562,6 +563,14 @@ collide_with_bodies = false
 script = ExtResource("64_n27jk")
 body = NodePath("..")
 axis = 2
+positive_only = true
+
+[node name="DisableTimer" type="Node" parent="RopeChecker"]
+script = ExtResource("65_lobb0")
+enabled = false
+
+[node name="Timer" type="Timer" parent="RopeChecker/DisableTimer"]
+wait_time = 0.5
 
 [connection signal="should_boost" from="WaterLeaveBoost" to="States/WaterState/Boost" method="boost"]
 [connection signal="jumped" from="States/GroundState/Jump" to="States/GroundState/Jump/JumpSound" method="play_rand_pitch"]
@@ -569,6 +578,7 @@ axis = 2
 [connection signal="boosted" from="States/WaterState/Boost" to="Effects/WaterBoostParticle" method="spawn_particle"]
 [connection signal="jump_pressed" from="States/WaterState/Boost/JumpPressSignal" to="AnimationPlayer" method="on_jump_pressed"]
 [connection signal="jump_pressed" from="States/WaterState/Boost/JumpPressSignal" to="States/WaterState/Boost" method="boost_delayed"]
+[connection signal="on_disable" from="States/RopeState" to="RopeChecker/DisableTimer" method="enable"]
 [connection signal="on_enable" from="States/RopeState" to="." method="set_velocity" binds= [Vector2(0, 0)]]
 [connection signal="jump_pressed" from="States/RopeState/JumpPressSignal" to="States/StateEvents/LeaveRope" method="switch"]
 [connection signal="jump_pressed" from="States/RopeState/JumpPressSignal" to="States/RopeState/Thrower" method="throw" binds= [Vector2(0, -1)]]
@@ -587,3 +597,7 @@ axis = 2
 [connection signal="timeout" from="HealthCounter/InvulTimer" to="HealthCounter/Damage" method="enable"]
 [connection signal="area_entered" from="BandanaChecker" to="HealthCounter" method="reset" unbinds=1]
 [connection signal="collision_enter" from="RopeChecker" to="States/StateEvents/TouchRope" method="switch"]
+[connection signal="on_enable" from="RopeChecker/DisableTimer" to="RopeChecker/DisableTimer/Timer" method="start"]
+[connection signal="on_enable" from="RopeChecker/DisableTimer" to="RopeChecker" method="set_check" binds= [false]]
+[connection signal="timeout" from="RopeChecker/DisableTimer/Timer" to="RopeChecker/DisableTimer" method="disable"]
+[connection signal="timeout" from="RopeChecker/DisableTimer/Timer" to="RopeChecker" method="set_check" binds= [true]]

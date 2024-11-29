@@ -8,10 +8,16 @@ enum Axis {BOTH, X_AXIS, Y_AXIS}
 @export var body: CharacterBody2D
 @export var axis: Axis
 @export var positive_only = false # shouldnt be here, its just for the rope, but i cant be asked
+@export var check = true # bad
 
 var collided_last_frame = false
 
+func set_check(new_check: bool):
+	check = new_check
+
 func _process(delta):
+	if !check: return
+
 	if   axis == Axis.BOTH:
 		target_position = body.velocity * delta
 	elif axis == Axis.X_AXIS:
