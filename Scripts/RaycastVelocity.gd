@@ -31,9 +31,7 @@ func _process(delta):
 
 	force_raycast_update()
 
-	if   !collided_last_frame &&  is_colliding():
-		collision_enter.emit(get_collider())
-		print("player: %s | target: %s" % [body.position, target_position])
+	if   !collided_last_frame &&  is_colliding(): collision_enter.emit(get_collider())
 	elif  collided_last_frame && !is_colliding(): collision_exit.emit(get_collider())
 
 	collided_last_frame = is_colliding()
