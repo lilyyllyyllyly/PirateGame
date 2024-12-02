@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://d3hqdk77sg32n"]
+[gd_scene load_steps=89 format=3 uid="uid://d3hqdk77sg32n"]
 
 [ext_resource type="Texture2D" uid="uid://wvt8keytohdj" path="res://Sprites/Player/NoBandana/Idle/player-idle1.png" id="1_3kcyn"]
 [ext_resource type="Script" path="res://Scripts/PlayerSetResource.gd" id="1_weh6v"]
@@ -60,8 +60,13 @@
 [ext_resource type="Resource" uid="uid://bwtfoe2cx8x4b" path="res://player_bandana.tres" id="38_nak4p"]
 [ext_resource type="AudioStream" uid="uid://q88fxdmjbmrs" path="res://Audio/jump.wav" id="46_odkvo"]
 [ext_resource type="Script" path="res://Scripts/PlaySound.gd" id="47_80v44"]
+[ext_resource type="Script" path="res://Scripts/Input/Signals/DebugPressSignal.gd" id="52_octom"]
 [ext_resource type="AudioStream" uid="uid://usyypqotor5t" path="res://Audio/boost.wav" id="53_ykesk"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/OneshotSignal.gd" id="57_g3mn5"]
+[ext_resource type="Script" path="res://Scripts/Input/Directions/RopeDirection.gd" id="58_tm6b4"]
+[ext_resource type="Script" path="res://Scripts/Behaviours/RopeConstrainer.gd" id="59_bkfpl"]
+[ext_resource type="Script" path="res://Scripts/Input/Signals/TreeExitSignal.gd" id="61_in3r6"]
+[ext_resource type="Script" path="res://Scripts/Debugger.gd" id="61_iskni"]
 [ext_resource type="Script" path="res://Scripts/UpdatePlayerBandana.gd" id="63_tweah"]
 [ext_resource type="Script" path="res://Scripts/RaycastVelocity.gd" id="64_n27jk"]
 [ext_resource type="Script" path="res://Scripts/Behaviours/Behaviour.gd" id="65_lobb0"]
@@ -346,7 +351,6 @@ script = ExtResource("1_weh6v")
 player_res = ExtResource("2_ehj88")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CapsuleShape2D_fxtra")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -401,6 +405,16 @@ script = ExtResource("22_1mnb8")
 state_machine = NodePath("../..")
 new_state = NodePath("../../GroundState")
 
+[node name="EnterDebug" type="Node" parent="States/StateEvents" node_paths=PackedStringArray("state_machine", "new_state")]
+script = ExtResource("22_1mnb8")
+state_machine = NodePath("../..")
+new_state = NodePath("../../DebugState")
+
+[node name="LeaveDebug" type="Node" parent="States/StateEvents" node_paths=PackedStringArray("state_machine", "new_state")]
+script = ExtResource("22_1mnb8")
+state_machine = NodePath("../..")
+new_state = NodePath("../../GroundState")
+
 [node name="GroundState" type="Node" parent="States" node_paths=PackedStringArray("behaviours")]
 script = ExtResource("23_lw60q")
 behaviours = [NodePath("GroundMovement"), NodePath("Jump"), NodePath("Gravity")]
@@ -445,6 +459,9 @@ script = ExtResource("20_8hehk")
 body = NodePath("../../..")
 enabled = false
 
+[node name="DebugPressSignal" type="Node" parent="States/GroundState"]
+script = ExtResource("52_octom")
+
 [node name="WaterState" type="Node" parent="States" node_paths=PackedStringArray("behaviours")]
 script = ExtResource("23_lw60q")
 behaviours = [NodePath("WaterMovement"), NodePath("Boost")]
@@ -484,8 +501,9 @@ volume_db = -8.0
 script = ExtResource("47_80v44")
 pitch_range = 0.4
 
-[node name="RopeState" type="Node" parent="States"]
+[node name="RopeState" type="Node" parent="States" node_paths=PackedStringArray("behaviours")]
 script = ExtResource("23_lw60q")
+behaviours = [NodePath("RopeMovement"), NodePath("RopeConstrainer")]
 enabled = false
 
 [node name="JumpPressSignal" type="Node" parent="States/RopeState"]
@@ -495,6 +513,64 @@ script = ExtResource("31_fxhgp")
 script = ExtResource("35_xf1i7")
 body = NodePath("../../..")
 intensity = 300.0
+
+[node name="RopeMovement" type="Node" parent="States/RopeState" node_paths=PackedStringArray("body", "move")]
+script = ExtResource("20_nj0y8")
+body = NodePath("../../..")
+move = NodePath("PlaneMovement")
+
+[node name="PlaneMovement" type="Node" parent="States/RopeState/RopeMovement" node_paths=PackedStringArray("direction", "body")]
+script = ExtResource("28_ttw5v")
+direction = NodePath("RopeDirection")
+body = NodePath("../../../..")
+speed = 125.0
+accel = 325.0
+
+[node name="RopeDirection" type="Node" parent="States/RopeState/RopeMovement/PlaneMovement"]
+script = ExtResource("58_tm6b4")
+
+[node name="RopeConstrainer" type="Node" parent="States/RopeState" node_paths=PackedStringArray("body")]
+script = ExtResource("59_bkfpl")
+body = NodePath("../../..")
+y_offset = -8.0
+
+[node name="TreeExitSignal" type="Node" parent="States/RopeState"]
+script = ExtResource("61_in3r6")
+
+[node name="DebugState" type="Node" parent="States" node_paths=PackedStringArray("behaviours")]
+script = ExtResource("23_lw60q")
+behaviours = [NodePath("DebugMovement")]
+enabled = false
+
+[node name="DebugMovement" type="Node" parent="States/DebugState" node_paths=PackedStringArray("body", "move")]
+script = ExtResource("20_nj0y8")
+body = NodePath("../../..")
+move = NodePath("PlaneMovement")
+enabled = false
+
+[node name="PlaneMovement" type="Node" parent="States/DebugState/DebugMovement" node_paths=PackedStringArray("direction", "body")]
+script = ExtResource("28_ttw5v")
+direction = NodePath("PlayerPlaneDirection")
+body = NodePath("../../../..")
+speed = 700.0
+accel = 2000.0
+
+[node name="PlayerPlaneDirection" type="Node" parent="States/DebugState/DebugMovement/PlaneMovement"]
+script = ExtResource("29_8h0eh")
+
+[node name="DontLeaveInstantly" type="Node" parent="States/DebugState"]
+script = ExtResource("65_lobb0")
+enabled = false
+
+[node name="DebugPressSignal" type="Node" parent="States/DebugState/DontLeaveInstantly"]
+script = ExtResource("52_octom")
+
+[node name="DontLeaveTimer" type="Timer" parent="States/DebugState"]
+wait_time = 0.1
+one_shot = true
+
+[node name="Debugger" type="Node" parent="States/DebugState"]
+script = ExtResource("61_iskni")
 
 [node name="WaterChecker" type="Area2D" parent="."]
 visible = false
@@ -525,7 +601,7 @@ collision_mask = 32
 position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_pjuib")
 
-[node name="Thrower" type="Node" parent="." node_paths=PackedStringArray("body")]
+[node name="Knockback" type="Node" parent="." node_paths=PackedStringArray("body")]
 script = ExtResource("35_xf1i7")
 body = NodePath("..")
 intensity = 200.0
@@ -562,7 +638,6 @@ collide_with_areas = true
 collide_with_bodies = false
 script = ExtResource("64_n27jk")
 body = NodePath("..")
-axis = 2
 positive_only = true
 
 [node name="DisableTimer" type="Node" parent="RopeChecker"]
@@ -572,23 +647,42 @@ enabled = false
 [node name="Timer" type="Timer" parent="RopeChecker/DisableTimer"]
 wait_time = 0.5
 
+[node name="Debugger" type="Node" parent="RopeChecker"]
+script = ExtResource("61_iskni")
+message = "touched a rope somehow"
+
 [connection signal="should_boost" from="WaterLeaveBoost" to="States/WaterState/Boost" method="boost"]
 [connection signal="jumped" from="States/GroundState/Jump" to="States/GroundState/Jump/JumpSound" method="play_rand_pitch"]
+[connection signal="debug_pressed" from="States/GroundState/DebugPressSignal" to="States/StateEvents/EnterDebug" method="switch"]
 [connection signal="boosted" from="States/WaterState/Boost" to="States/WaterState/Boost/BoostSound" method="play_rand_pitch"]
 [connection signal="boosted" from="States/WaterState/Boost" to="Effects/WaterBoostParticle" method="spawn_particle"]
 [connection signal="jump_pressed" from="States/WaterState/Boost/JumpPressSignal" to="AnimationPlayer" method="on_jump_pressed"]
 [connection signal="jump_pressed" from="States/WaterState/Boost/JumpPressSignal" to="States/WaterState/Boost" method="boost_delayed"]
 [connection signal="on_disable" from="States/RopeState" to="RopeChecker/DisableTimer" method="enable"]
-[connection signal="on_enable" from="States/RopeState" to="." method="set_velocity" binds= [Vector2(0, 0)]]
 [connection signal="jump_pressed" from="States/RopeState/JumpPressSignal" to="States/StateEvents/LeaveRope" method="switch"]
-[connection signal="jump_pressed" from="States/RopeState/JumpPressSignal" to="States/RopeState/Thrower" method="throw" binds= [Vector2(0, -1)]]
+[connection signal="jump_pressed" from="States/RopeState/JumpPressSignal" to="States/RopeState/Thrower" method="throw" binds= [Vector2(0, -1), true]]
+[connection signal="node_exiting" from="States/RopeState/TreeExitSignal" to="States/StateEvents/LeaveRope" method="switch"]
+[connection signal="on_disable" from="States/DebugState" to="States/DebugState/DontLeaveInstantly" method="disable"]
+[connection signal="on_disable" from="States/DebugState" to="CollisionShape2D" method="set_disabled" binds= [false]]
+[connection signal="on_disable" from="States/DebugState" to="States/DebugState/Debugger" method="debug_param" binds= ["LEFT DEBUG"]]
+[connection signal="on_disable" from="States/DebugState" to="WaterChecker" method="set_monitoring" binds= [true]]
+[connection signal="on_disable" from="States/DebugState" to="DamageChecker" method="set_monitoring" binds= [true]]
+[connection signal="on_disable" from="States/DebugState" to="RopeChecker" method="set_check" binds= [true]]
+[connection signal="on_enable" from="States/DebugState" to="States/DebugState/DontLeaveTimer" method="start"]
+[connection signal="on_enable" from="States/DebugState" to="CollisionShape2D" method="set_disabled" binds= [true]]
+[connection signal="on_enable" from="States/DebugState" to="States/DebugState/Debugger" method="debug_param" binds= ["ENTERED DEBUG"]]
+[connection signal="on_enable" from="States/DebugState" to="WaterChecker" method="set_monitoring" binds= [false]]
+[connection signal="on_enable" from="States/DebugState" to="DamageChecker" method="set_monitoring" binds= [false]]
+[connection signal="on_enable" from="States/DebugState" to="RopeChecker" method="set_check" binds= [false]]
+[connection signal="debug_pressed" from="States/DebugState/DontLeaveInstantly/DebugPressSignal" to="States/StateEvents/LeaveDebug" method="switch"]
+[connection signal="timeout" from="States/DebugState/DontLeaveTimer" to="States/DebugState/DontLeaveInstantly" method="enable"]
 [connection signal="area_entered" from="WaterChecker" to="AnimationPlayer" method="on_enter_water" unbinds=1]
 [connection signal="area_entered" from="WaterChecker" to="States/StateEvents/EnterWater" method="switch" unbinds=1]
 [connection signal="area_exited" from="WaterChecker" to="WaterChecker" method="on_area_exited" unbinds=1]
 [connection signal="left_water" from="WaterChecker" to="AnimationPlayer" method="on_exit_water"]
 [connection signal="left_water" from="WaterChecker" to="WaterLeaveBoost" method="on_water_exited"]
 [connection signal="left_water" from="WaterChecker" to="States/StateEvents/LeaveWater" method="switch"]
-[connection signal="area_entered" from="DamageChecker" to="Thrower" method="throw_away_from"]
+[connection signal="area_entered" from="DamageChecker" to="Knockback" method="throw_away_from"]
 [connection signal="area_entered" from="DamageChecker" to="HealthCounter/Damage" method="do" unbinds=1]
 [connection signal="changed" from="HealthCounter" to="HealthCounter/UpdatePlayerBandana" method="on_health_changed"]
 [connection signal="depleted" from="HealthCounter" to="HealthCounter" method="reset"]
@@ -596,7 +690,11 @@ wait_time = 0.5
 [connection signal="done" from="HealthCounter/Damage" to="HealthCounter/InvulTimer" method="start" binds= [0.5]]
 [connection signal="timeout" from="HealthCounter/InvulTimer" to="HealthCounter/Damage" method="enable"]
 [connection signal="area_entered" from="BandanaChecker" to="HealthCounter" method="reset" unbinds=1]
-[connection signal="collision_enter" from="RopeChecker" to="States/StateEvents/TouchRope" method="switch"]
+[connection signal="collision_enter" from="RopeChecker" to="States/RopeState/RopeMovement/PlaneMovement/RopeDirection" method="set_rope_from_collider"]
+[connection signal="collision_enter" from="RopeChecker" to="States/RopeState/RopeConstrainer" method="set_rope_from_collider"]
+[connection signal="collision_enter" from="RopeChecker" to="States/RopeState/TreeExitSignal" method="set_node"]
+[connection signal="collision_enter" from="RopeChecker" to="States/StateEvents/TouchRope" method="switch" unbinds=1]
+[connection signal="collision_enter" from="RopeChecker" to="RopeChecker/Debugger" method="debug" unbinds=1]
 [connection signal="on_enable" from="RopeChecker/DisableTimer" to="RopeChecker/DisableTimer/Timer" method="start"]
 [connection signal="on_enable" from="RopeChecker/DisableTimer" to="RopeChecker" method="set_check" binds= [false]]
 [connection signal="timeout" from="RopeChecker/DisableTimer/Timer" to="RopeChecker/DisableTimer" method="disable"]

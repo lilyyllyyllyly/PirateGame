@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/Behaviours/Behaviour.gd" id="2_kbusq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sdpj2"]
+resource_local_to_scene = true
 size = Vector2(112, 112)
 
 [node name="Jellyfish" type="Node2D"]

@@ -1,7 +1,7 @@
 class_name RaycastVelocity extends RayCast2D
 
-signal collision_enter
-signal collision_exit
+signal collision_enter(collider: Object)
+signal collision_exit(collider: Object)
 
 enum Axis {BOTH, X_AXIS, Y_AXIS}
 
@@ -26,13 +26,15 @@ func _process(delta):
 		target_position = body.velocity * delta * Vector2(0, 1)
 
 	if positive_only:
-		if target_position.x < 0: target_position.x = 0
+		#if target_position.x < 0: target_position.x = 0
 		if target_position.y < 0: target_position.y = 0
 
 	force_raycast_update()
 
-	if   !collided_last_frame &&  is_colliding(): collision_enter.emit()
-	elif  collided_last_frame && !is_colliding(): collision_exit.emit()
+	if   !collided_last_frame &&  is_colliding():
+		collision_enter.emit(get_collider())
+		print("player: %s | target: %s" % [body.position, target_position])
+	elif  collided_last_frame && !is_colliding(): collision_exit.emit(get_collider())
 
 	collided_last_frame = is_colliding()
 

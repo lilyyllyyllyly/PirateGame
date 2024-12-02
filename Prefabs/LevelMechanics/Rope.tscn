@@ -1,9 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://blffvnwcatf1l"]
+[gd_scene load_steps=4 format=3 uid="uid://bj6yrxhgegjmp"]
 
 [ext_resource type="Texture2D" uid="uid://d1l8vfcasvf0b" path="res://Sprites/rope.png" id="1_oqu4s"]
 [ext_resource type="Script" path="res://Scripts/LineColliderUpdate.gd" id="2_f45dg"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_t4wx3"]
+resource_local_to_scene = true
 
 [node name="Rope" type="Node2D"]
 
