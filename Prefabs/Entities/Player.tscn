@@ -647,10 +647,6 @@ enabled = false
 [node name="Timer" type="Timer" parent="RopeChecker/DisableTimer"]
 wait_time = 0.5
 
-[node name="Debugger" type="Node" parent="RopeChecker"]
-script = ExtResource("61_iskni")
-message = "touched a rope somehow"
-
 [connection signal="should_boost" from="WaterLeaveBoost" to="States/WaterState/Boost" method="boost"]
 [connection signal="jumped" from="States/GroundState/Jump" to="States/GroundState/Jump/JumpSound" method="play_rand_pitch"]
 [connection signal="debug_pressed" from="States/GroundState/DebugPressSignal" to="States/StateEvents/EnterDebug" method="switch"]
@@ -694,7 +690,6 @@ message = "touched a rope somehow"
 [connection signal="collision_enter" from="RopeChecker" to="States/RopeState/RopeConstrainer" method="set_rope_from_collider"]
 [connection signal="collision_enter" from="RopeChecker" to="States/RopeState/TreeExitSignal" method="set_node"]
 [connection signal="collision_enter" from="RopeChecker" to="States/StateEvents/TouchRope" method="switch" unbinds=1]
-[connection signal="collision_enter" from="RopeChecker" to="RopeChecker/Debugger" method="debug" unbinds=1]
 [connection signal="on_enable" from="RopeChecker/DisableTimer" to="RopeChecker/DisableTimer/Timer" method="start"]
 [connection signal="on_enable" from="RopeChecker/DisableTimer" to="RopeChecker" method="set_check" binds= [false]]
 [connection signal="timeout" from="RopeChecker/DisableTimer/Timer" to="RopeChecker/DisableTimer" method="disable"]
