@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cp1j8tdxbf5e" path="res://Prefabs/Entities/Enemies/SpikeRing.tscn" id="8_oaism"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ind01"]
+resource_local_to_scene = true
 radius = 5.0
 
 [node name="SpikedFish" type="CharacterBody2D"]

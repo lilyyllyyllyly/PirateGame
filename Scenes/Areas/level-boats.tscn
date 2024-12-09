@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://ytsst2b3cq33"]
+[gd_scene load_steps=37 format=3 uid="uid://ytsst2b3cq33"]
 
 [ext_resource type="PackedScene" uid="uid://dkyjaidt53m6p" path="res://Prefabs/Camera.tscn" id="1_1nwj3"]
 [ext_resource type="PackedScene" uid="uid://d3hqdk77sg32n" path="res://Prefabs/Entities/Player.tscn" id="2_7vc2v"]
@@ -18,6 +18,10 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sak5p"]
 size = Vector2(2144, 480)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6btca"]
+resource_local_to_scene = true
+radius = 5.0
 
 [sub_resource type="Resource" id="Resource_trd4d"]
 script = ExtResource("9_domsh")
@@ -50,7 +54,12 @@ shader_parameter/WAVE_AMPL = 0.03
 shader_parameter/WAVE_FREQ = 30.0
 shader_parameter/WAVE_SPEED = 1.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_uepoi"]
+resource_local_to_scene = true
+radius = 5.0
+
 [sub_resource type="Resource" id="Resource_iup3g"]
+resource_local_to_scene = true
 script = ExtResource("9_domsh")
 points = PackedVector2Array(4208, 784, 4208, 896)
 
@@ -62,20 +71,36 @@ size = Vector2(112, 176)
 resource_local_to_scene = true
 size = Vector2(112, 176)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_bqyd7"]
+resource_local_to_scene = true
+radius = 5.0
+
 [sub_resource type="Resource" id="Resource_cwkgk"]
 script = ExtResource("9_domsh")
 points = PackedVector2Array(4896, 896, 5024, 896)
 
-[sub_resource type="Resource" id="Resource_21sbj"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_w1pew"]
+resource_local_to_scene = true
+radius = 5.0
+
+[sub_resource type="Resource" id="Resource_7pcfh"]
 script = ExtResource("9_domsh")
 points = PackedVector2Array(5088, 784, 5216, 784)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nkr8e"]
+resource_local_to_scene = true
+radius = 5.0
 
 [sub_resource type="Resource" id="Resource_57qly"]
 resource_local_to_scene = true
 script = ExtResource("9_domsh")
 points = PackedVector2Array(5280, 912, 5280, 832)
 
-[sub_resource type="Resource" id="Resource_l82mg"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_bg11s"]
+resource_local_to_scene = true
+radius = 5.0
+
+[sub_resource type="Resource" id="Resource_oalon"]
 script = ExtResource("9_domsh")
 points = PackedVector2Array(5424, 832, 5424, 752)
 
@@ -136,6 +161,9 @@ position = Vector2(2400, 464)
 
 [node name="SpikedFish" parent="BoatIntro" instance=ExtResource("8_v5uk4")]
 position = Vector2(2784, 384)
+
+[node name="CollisionShape2D" parent="BoatIntro/SpikedFish" index="0"]
+shape = SubResource("CircleShape2D_6btca")
 
 [node name="PathVisualizer" parent="BoatIntro/SpikedFish/CharacterVelocity/PlaneMovement/PathDirection" index="0"]
 path = SubResource("Resource_trd4d")
@@ -304,6 +332,9 @@ position = Vector2(3824, 832)
 [node name="SpikedFish" parent="RopeFallChallenge" instance=ExtResource("8_v5uk4")]
 position = Vector2(4208, 784)
 
+[node name="CollisionShape2D" parent="RopeFallChallenge/SpikedFish" index="0"]
+shape = SubResource("CircleShape2D_uepoi")
+
 [node name="PathVisualizer" parent="RopeFallChallenge/SpikedFish/CharacterVelocity/PlaneMovement/PathDirection" index="0"]
 path = SubResource("Resource_iup3g")
 
@@ -332,33 +363,23 @@ scale = Vector2(7, 11)
 [node name="GreenFish" parent="RopeFallChallenge" instance=ExtResource("14_at6lh")]
 position = Vector2(4896, 896)
 
+[node name="CollisionShape2D" parent="RopeFallChallenge/GreenFish" index="0"]
+shape = SubResource("CircleShape2D_bqyd7")
+
 [node name="PathVisualizer" parent="RopeFallChallenge/GreenFish/Movement/PlaneMovement/PathDirection" index="0"]
 path = SubResource("Resource_cwkgk")
 
 [node name="GreenFish2" parent="RopeFallChallenge" instance=ExtResource("14_at6lh")]
 position = Vector2(5088, 784)
 
-[node name="AnimationPlayer" parent="RopeFallChallenge/GreenFish2" index="2" node_paths=PackedStringArray("sprite", "direction")]
-sprite = NodePath("../../GreenFish/Sprite2D")
-direction = NodePath("../../GreenFish/Movement/PlaneMovement/PathDirection")
+[node name="CollisionShape2D" parent="RopeFallChallenge/GreenFish2" index="0"]
+shape = SubResource("CircleShape2D_w1pew")
 
-[node name="CharacterMover" parent="RopeFallChallenge/GreenFish2" index="3" node_paths=PackedStringArray("body")]
-body = NodePath("../../GreenFish")
-
-[node name="Movement" parent="RopeFallChallenge/GreenFish2" index="4" node_paths=PackedStringArray("body", "move")]
-body = NodePath("../../GreenFish")
-move = NodePath("../../GreenFish/Movement/PlaneMovement")
-
-[node name="PlaneMovement" parent="RopeFallChallenge/GreenFish2/Movement" index="0" node_paths=PackedStringArray("direction", "body")]
-direction = NodePath("../../../GreenFish/Movement/PlaneMovement/PathDirection")
-body = NodePath("../../../GreenFish")
-
-[node name="PathDirection" parent="RopeFallChallenge/GreenFish2/Movement/PlaneMovement" index="0" node_paths=PackedStringArray("object", "path_visualizer")]
-object = NodePath("../../../../GreenFish")
-path_visualizer = NodePath("../../../../GreenFish/Movement/PlaneMovement/PathDirection/PathVisualizer")
+[node name="AnimationPlayer" parent="RopeFallChallenge/GreenFish2" index="2"]
+root_node = NodePath("../../GreenFish2")
 
 [node name="PathVisualizer" parent="RopeFallChallenge/GreenFish2/Movement/PlaneMovement/PathDirection" index="0"]
-path = SubResource("Resource_21sbj")
+path = SubResource("Resource_7pcfh")
 
 [node name="Jellyfish10" parent="RopeFallChallenge" instance=ExtResource("6_agsyu")]
 position = Vector2(5152, 912)
@@ -366,45 +387,33 @@ position = Vector2(5152, 912)
 [node name="SpikedFish2" parent="RopeFallChallenge" instance=ExtResource("8_v5uk4")]
 position = Vector2(5280, 912)
 
+[node name="CollisionShape2D" parent="RopeFallChallenge/SpikedFish2" index="0"]
+shape = SubResource("CircleShape2D_nkr8e")
+
 [node name="PathVisualizer" parent="RopeFallChallenge/SpikedFish2/CharacterVelocity/PlaneMovement/PathDirection" index="0"]
 path = SubResource("Resource_57qly")
 
 [node name="SpikedFish3" parent="RopeFallChallenge" instance=ExtResource("8_v5uk4")]
 position = Vector2(5424, 832)
 
-[node name="CharacterMover" parent="RopeFallChallenge/SpikedFish3" index="2" node_paths=PackedStringArray("body")]
-body = NodePath("../../SpikedFish2")
-
-[node name="CharacterVelocity" parent="RopeFallChallenge/SpikedFish3" index="3" node_paths=PackedStringArray("body", "move")]
-body = NodePath("../../SpikedFish2")
-move = NodePath("../../SpikedFish2/CharacterVelocity/PlaneMovement")
-
-[node name="PlaneMovement" parent="RopeFallChallenge/SpikedFish3/CharacterVelocity" index="0" node_paths=PackedStringArray("direction", "body")]
-direction = NodePath("../../../SpikedFish2/CharacterVelocity/PlaneMovement/PathDirection")
-body = NodePath("../../../SpikedFish2")
-
-[node name="PathDirection" parent="RopeFallChallenge/SpikedFish3/CharacterVelocity/PlaneMovement" index="0" node_paths=PackedStringArray("object", "path_visualizer")]
-object = NodePath("../../../../SpikedFish2")
-path_visualizer = NodePath("../../../../SpikedFish2/CharacterVelocity/PlaneMovement/PathDirection/PathVisualizer")
+[node name="CollisionShape2D" parent="RopeFallChallenge/SpikedFish3" index="0"]
+shape = SubResource("CircleShape2D_bg11s")
 
 [node name="PathVisualizer" parent="RopeFallChallenge/SpikedFish3/CharacterVelocity/PlaneMovement/PathDirection" index="0"]
-path = SubResource("Resource_l82mg")
-
-[node name="ProjSpawner" parent="RopeFallChallenge/SpikedFish3" index="4" node_paths=PackedStringArray("spawn_at")]
-spawn_at = NodePath("../../SpikedFish2")
+path = SubResource("Resource_oalon")
 
 [connection signal="body_entered" from="TileMap/Collectible" to="TileMap/Collectible/OnCollected" method="enable" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@20920" to="TileMap/@Area2D@20920/OnCollected" method="enable" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@20921" to="TileMap/@Area2D@20921/OnCollected" method="enable" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@20922" to="TileMap/@Area2D@20922/OnCollected" method="enable" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@20923" to="TileMap/@Area2D@20923/OnCollected" method="enable" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@20924" to="TileMap/@Area2D@20924/OnCollected" method="enable" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@20925" to="TileMap/@Area2D@20925/OnCollected" method="enable" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@20926" to="TileMap/@Area2D@20926/OnCollected" method="enable" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@20927" to="TileMap/@Area2D@20927/OnCollected" method="enable" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@20928" to="TileMap/@Area2D@20928/OnCollected" method="enable" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@20929" to="TileMap/@Area2D@20929/OnCollected" method="enable" unbinds=1]
-[connection signal="body_entered" from="TileMap/@Area2D@20930" to="TileMap/@Area2D@20930/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@36693" to="TileMap/@Area2D@36693/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@36694" to="TileMap/@Area2D@36694/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@36695" to="TileMap/@Area2D@36695/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@36696" to="TileMap/@Area2D@36696/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@36697" to="TileMap/@Area2D@36697/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@36698" to="TileMap/@Area2D@36698/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@36699" to="TileMap/@Area2D@36699/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@36700" to="TileMap/@Area2D@36700/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@36701" to="TileMap/@Area2D@36701/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@36702" to="TileMap/@Area2D@36702/OnCollected" method="enable" unbinds=1]
+[connection signal="body_entered" from="TileMap/@Area2D@36703" to="TileMap/@Area2D@36703/OnCollected" method="enable" unbinds=1]
 [connection signal="body_entered" from="BubbleIntro/CameraMoveArea" to="BubbleIntro/CameraMoveArea/SetCameraOffset" method="enable" unbinds=1]
 [connection signal="body_exited" from="BubbleIntro/CameraMoveArea" to="BubbleIntro/CameraMoveArea/SetCameraOffset" method="disable" unbinds=1]
 [connection signal="on_disable" from="BubbleIntro/CameraMoveArea/SetCameraOffset" to="Camera" method="set_offset" binds= [Vector2(0, 0)]]
