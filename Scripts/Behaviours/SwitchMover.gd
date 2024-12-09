@@ -43,4 +43,3 @@ func _process(delta):
 		AXIS.Y_AXIS:
 			obj.position.y = move_toward(obj.position.y, goal.y, speed * delta)
 
-

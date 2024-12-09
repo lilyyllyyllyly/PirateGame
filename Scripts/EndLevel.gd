@@ -99,4 +99,3 @@ func on_gem_count_finished():
 		ui_chests[i].play("open")
 		await get_tree().create_timer(chest_delay).timeout
 
-
